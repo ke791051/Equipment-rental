@@ -6,19 +6,19 @@
 
 //資料庫位置
 
-$db_server = "sql209.erufa.com";
+$db_server = "localhost";
 
 //資料庫名稱
 
-$db_name = "erufa_12355643_IM";
+$db_name = "playground";
 
 //資料庫管理者帳號
 
-$db_user = "erufa_12355643";
+$db_user = "root";
 
 //資料庫管理者密碼
 
-$db_passwd = "24980924";
+$db_passwd = "";
 
  
 
