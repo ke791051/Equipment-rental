@@ -46,9 +46,9 @@ include("mysql_in.php");
    
     $query = sprintf("SELECT * FROM lend WHERE NY = 'N' ORDER BY bd DESC");
 
-	$result = mysql_query($query) or die(mysql_error());
+	$result = mysqli_query($db, $query) or die(mysqli_error());
 
-	$totalRows = mysql_num_rows($result);
+	$totalRows = mysqli_num_rows($result);
 
 ?>
 

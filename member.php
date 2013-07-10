@@ -39,9 +39,9 @@ a:visited {
 
                 $query = sprintf("SELECT * FROM madata WHERE id = '%s'",$id);
 
-                $result = mysql_query($query) or die(mysql_error());
+                $result = mysqli_query($db, $query) or die(mysqli_error());
 
-			    while ($row = mysql_fetch_array($result))
+			    while ($row = mysqli_fetch_array($result))
 
                 {
 
@@ -120,11 +120,11 @@ $_SESSION["model"] = "HPProBook 4430s";
 
 $query = sprintf("SELECT * FROM indata where model = 'HPProBook 4430s' AND NY = '$null'");
 
-$result = mysql_query($query)or die(mysql_error());
+$result = mysqli_query($db, $query)or die(mysqli_error());
 
-$number = mysql_num_rows($result);
+$number = mysqli_num_rows($result);
 
-while ($row = mysql_fetch_assoc($result)) {    
+while ($row = mysqli_fetch_assoc($result)) {    
 
 echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
 
@@ -158,13 +158,13 @@ $_SESSION["model"] = "IBM-T61";
 
 $query = sprintf("SELECT * FROM indata where model = 'IBM-T61' AND NY = '$null'");
 
-$result = mysql_query($query)or die(mysql_error());
+$result = mysqli_query($db, $query)or die(mysqli_error());
 
-$number = mysql_num_rows($result);
+$number = mysqli_num_rows($result);
 
 
 
-while ($row = mysql_fetch_assoc($result)) {    
+while ($row = mysqli_fetch_assoc($result)) {    
 
 echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
 
@@ -196,13 +196,13 @@ $_SESSION["model"] = "FUJITSU-S6410";
 
 $query = sprintf("SELECT * FROM indata where model = 'FUJITSU-S6410' AND NY = '$null' ");
 
-$result = mysql_query($query)or die(mysql_error());
+$result = mysqli_query($db, $query)or die(mysqli_error());
 
-$number = mysql_num_rows($result);
+$number = mysqli_num_rows($result);
 
 
 
-while ($row = mysql_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
+while ($row = mysqli_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
 
 ?>   </select>
 
@@ -236,13 +236,13 @@ $_SESSION["model"] = "ASUS-EeePC";
 
 $query = sprintf("SELECT * FROM indata where model = 'ASUS-EeePC-1015PX-3CELL版' AND NY = '$null' ");
 
-$result = mysql_query($query)or die(mysql_error());
+$result = mysqli_query($db, $query)or die(mysqli_error());
 
-$number = mysql_num_rows($result);
+$number = mysqli_num_rows($result);
 
 
 
-while ($row = mysql_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
+while ($row = mysqli_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
 
 ?>   </select>
 
@@ -272,13 +272,13 @@ $_SESSION["model"] = "ASUS-904HP-8點9吋";
 
 $query = sprintf("SELECT * FROM indata where model = 'ASUS-904HP-8點9吋' AND NY = '$null' ");
 
-$result = mysql_query($query)or die(mysql_error());
+$result = mysqli_query($db, $query)or die(mysqli_error());
 
-$number = mysql_num_rows($result);
+$number = mysqli_num_rows($result);
 
 
 
-while ($row = mysql_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
+while ($row = mysqli_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
 
 ?>   </select>
 
@@ -308,13 +308,13 @@ $_SESSION["model"] = "ASUS-M2C";
 
 $query = sprintf("SELECT * FROM indata where model = 'ASUS-M2C' AND NY = '$null' ");
 
-$result = mysql_query($query)or die(mysql_error());
+$result = mysqli_query($db, $query)or die(mysqli_error());
 
-$number = mysql_num_rows($result);
+$number = mysqli_num_rows($result);
 
 
 
-while ($row = mysql_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
+while ($row = mysqli_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
 
 ?>   </select>
 
@@ -346,13 +346,13 @@ $_SESSION["model"] = "ASUS-TE101-10吋螢幕";
 
 $query = sprintf("SELECT * FROM indata where model = 'ASUS-TE101-10吋螢幕' AND NY = '$null' ");
 
-$result = mysql_query($query)or die(mysql_error());
+$result = mysqli_query($db, $query)or die(mysqli_error());
 
-$number = mysql_num_rows($result);
+$number = mysqli_num_rows($result);
 
 
 
-while ($row = mysql_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
+while ($row = mysqli_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
 
 ?>   </select>
 
@@ -382,13 +382,13 @@ $_SESSION["model"] = "HTC-Touch-Pro";
 
 $query = sprintf("SELECT * FROM indata where model = 'HTC-Touch-Pro' AND NY = '$null' ");
 
-$result = mysql_query($query)or die(mysql_error());
+$result = mysqli_query($db, $query)or die(mysqli_error());
 
-$number = mysql_num_rows($result);
+$number = mysqli_num_rows($result);
 
 
 
-while ($row = mysql_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
+while ($row = mysqli_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
 
 ?>   </select>
 
@@ -420,13 +420,13 @@ $_SESSION["model"] = "HP-Ipaq212";
 
 $query = sprintf("SELECT * FROM indata where model = 'HP-Ipaq212' AND NY = '$null' ");
 
-$result = mysql_query($query)or die(mysql_error());
+$result = mysqli_query($db, $query)or die(mysqli_error());
 
-$number = mysql_num_rows($result);
+$number = mysqli_num_rows($result);
 
 
 
-while ($row = mysql_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
+while ($row = mysqli_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
 
 ?>   </select>
 
@@ -464,13 +464,13 @@ $_SESSION["model"] = "ASUS-1215B-11點6吋螢幕";
 
 $query = sprintf("SELECT * FROM indata where model = 'ASUS-1215B-11點6吋螢幕' AND NY = '$null' ");
 
-$result = mysql_query($query)or die(mysql_error());
+$result = mysqli_query($db, $query)or die(mysqli_error());
 
-$number = mysql_num_rows($result);
+$number = mysqli_num_rows($result);
 
 
 
-while ($row = mysql_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
+while ($row = mysqli_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
 
 ?>   </select>
 
@@ -500,13 +500,13 @@ $_SESSION["model"] = "MacBook-Pro-13吋";
 
 $query = sprintf("SELECT * FROM indata where model = 'MacBook-Pro-13吋' AND NY = '$null' ");
 
-$result = mysql_query($query)or die(mysql_error());
+$result = mysql_queryi($db, $query)or die(mysqli_error());
 
-$number = mysql_num_rows($result);
+$number = mysqli_num_rows($result);
 
 
 
-while ($row = mysql_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
+while ($row = mysqli_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
 
 ?>   </select>
 

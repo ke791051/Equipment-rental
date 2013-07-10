@@ -17,7 +17,7 @@ if($_SESSION['id'] != null && $pw != null && $pw2 != null && $pw == $pw2)
     
         //更新資料庫資料語法
         $sql = "update madata set pw=$pw, phone=$phone, mail=$mail where id='$id'";
-        if(mysql_query($sql))
+        if(mysqli_query($db, $sql))
         {
                 echo '修改成功!';
                 echo '<meta http-equiv=REFRESH CONTENT=2;url=member.php>';

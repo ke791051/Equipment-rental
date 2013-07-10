@@ -18,10 +18,10 @@ else
     $number = $_POST["number"];
 	 
 	$query = sprintf("SELECT * FROM indata where number='".$number."'");
-	$result = mysql_query($query)or die(mysql_error());
+	$result = mysqli_query($db, $query)or die(mysqli_error());
 	//$number = mysql_num_rows($result);
 	
-	while ($row = mysql_fetch_assoc($result)) {  
+	while ($row = mysqli_fetch_assoc($result)) {  
 	$name= $row["name"];
 	$model=$row["model"];
 	}
@@ -31,7 +31,7 @@ else
 	   $date5 = date('Y-m-d', time() + (5 * 24 * 60 * 60));
 	    $sql = "insert into lend (user, name, model, number, NY, bd,5d) values ('$user','$name', '$model', '$number', 'N', '$date', '$date5')";
    	  	  	 
-		if(mysql_query($sql))
+		if(mysqli_query($db, $sql))
 
         {
 			echo "<meta charset = 'UTF-8'>";
@@ -52,7 +52,7 @@ else
         }
 		
 		 $sql = "insert into history ( user, name, model, number, bd) values ('$user','$name', '$model', '$number', '$date')";
-        if(mysql_query($sql))
+        if(mysqli_query($db, $sql))
 		
 		{
                echo '';
@@ -68,7 +68,7 @@ else
         }
 		
 		 $query = sprintf("UPDATE indata SET status = '已借' WHERE number = '".$_POST['number']."'"); 
-		 if(mysql_query($query))
+		 if(mysqli_query($db, $query))
         {
         echo '';
         
@@ -79,7 +79,7 @@ else
         }
 		
  $query = sprintf("UPDATE indata SET NY = 'Y' WHERE number = '".$_POST['number']."'"); 
-		 if(mysql_query($query))
+		 if(mysqli_query($db, $query))
         {
         echo '';
         

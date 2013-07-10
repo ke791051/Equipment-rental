@@ -25,7 +25,7 @@ include("mysql_in.php");
 	$query = sprintf("DELETE FROM indata WHERE number='%s'", $number);
 
 
-	mysql_query($query) or die(mysql_error());
+	mysqli_query($db, $query) or die(mysqli_error());
 
 
 	header("Location:info2.php");

@@ -43,8 +43,8 @@ a:active {
  include("mysql_in.php");
  $number=$_GET['number'];
  $query = sprintf("SELECT * FROM history WHERE number='$number' ORDER BY bd DESC");
- $result = mysql_query($query) or die(mysql_error());
- $totalRows = mysql_num_rows($result);
+ $result = mysqli_query($db, $query) or die(mysqli_error());
+ $totalRows = mysqli_num_rows($result);
  ?>
 
     <div id="wrap">
@@ -74,7 +74,7 @@ a:active {
                
                 <?php
 
- while ($row = mysql_fetch_array($result))
+ while ($row = mysqli_fetch_array($result))
  {
                 	echo "<tr>";
 

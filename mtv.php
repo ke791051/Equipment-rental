@@ -37,9 +37,9 @@ a:visited {
 
                 $query = sprintf("SELECT * FROM madata WHERE id = '%s'",$id);
 
-                $result = mysql_query($query) or die(mysql_error());
+                $result = mysqli_query($db, $query) or die(mysqli_error());
 
-			    while ($row = mysql_fetch_array($result))
+			    while ($row = mysqli_fetch_array($result))
 
                 {
 
@@ -105,10 +105,10 @@ a:visited {
     <option value="">請選擇編號</option> 
      <?php
 $query = sprintf("SELECT * FROM indata where model = 'Aria-3.2' AND NY = '$null'");
-$result = mysql_query($query)or die(mysql_error());
-$number = mysql_num_rows($result);
+$result = mysqli_query($db, $query)or die(mysqli_error());
+$number = mysqli_num_rows($result);
 
-while ($row = mysql_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
+while ($row = mysqli_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
 ?>   </select>
 
    <input type="submit" name="Submit" value=" 申請 " />
@@ -123,10 +123,10 @@ while ($row = mysql_fetch_assoc($result)) {    echo '<option value="' . $row["nu
     <option value="">請選擇編號</option> 
      <?php
 $query = sprintf("SELECT * FROM indata where model = 'Desire-3.7' AND NY = '$null'");
-$result = mysql_query($query)or die(mysql_error());
-$number = mysql_num_rows($result);
+$result = mysqli_query($db, $query)or die(mysqli_error());
+$number = mysqli_num_rows($result);
 
-while ($row = mysql_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
+while ($row = mysqli_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
 ?>   </select>
  <input type="submit" name="Submit" value=" 申請 " />
       </th>
@@ -138,10 +138,10 @@ while ($row = mysql_fetch_assoc($result)) {    echo '<option value="' . $row["nu
     
      <?php
 $query = sprintf("SELECT * FROM indata where model = 'SONY-DCR-SR300' AND NY = '$null' ");
-$result = mysql_query($query)or die(mysql_error());
-$number = mysql_num_rows($result);
+$result = mysqli_query($db, $query)or die(mysqli_error());
+$number = mysqli_num_rows($result);
 
-while ($row = mysql_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
+while ($row = mysqli_fetch_assoc($result)) {    echo '<option value="' . $row["number"] . '">' . $row["number"] . '</option>' . "\n";    }
 ?>   </select>
   </tr>
    <tr>

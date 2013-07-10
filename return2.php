@@ -88,8 +88,8 @@ Released   : 20121013
 	include("mysql_in.php");
     $user = $_SESSION["user"];
 	$query = sprintf("SELECT * FROM lend WHERE user = '%s'",$user);
-	$result = mysql_query($query) or die(mysql_error());
-	$totalRows = mysql_num_rows($result);
+	$result = mysqli_query($db, $query) or die(mysqli_error());
+	$totalRows = mysqli_num_rows($result);
 ?>
    <div id="wrap">
 	<div id="top">
@@ -104,7 +104,7 @@ Released   : 20121013
             <th width="180">編碼</th>
             <th width="180">日期</th>
    <?php
-                 while ($row = mysql_fetch_array($result))
+                 while ($row = mysqli_fetch_array($result))
 
                 {
                     echo "<tr>";

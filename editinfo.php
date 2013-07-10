@@ -42,8 +42,8 @@ a:active {
 include("mysql_in.php");
 $number = $_GET["number"];
 $query = sprintf("SELECT * FROM indata WHERE number = '%s'",$number);
-$result = mysql_query($query) or die(mysql_error());
-                while ($row = mysql_fetch_array($result))
+$result = mysqli_query($db, $query) or die(mysql_error());
+                while ($row = mysqli_fetch_array($result))
                 {
                     ?>
 

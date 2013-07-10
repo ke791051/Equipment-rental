@@ -61,7 +61,7 @@ if($id != null && $pw != null && $pw2 != null && $pw == $pw2)
 
 
 
-        if(mysql_query($sql))
+        if(mysqli_query($db, $sql))
 
 
 

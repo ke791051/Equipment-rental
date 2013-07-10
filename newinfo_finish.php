@@ -24,7 +24,7 @@ include("mysql_in.php");
 				
 		if($number!= null && $name!= null && $model!= null && $local!= null )
 		{
-        if(mysql_query($sql))
+        if(mysqli_query($db, $sql))
         {
 			header("Location:info2.php");
 			exit;

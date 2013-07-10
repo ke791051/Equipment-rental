@@ -50,8 +50,8 @@ a:visited {
  <?php
 	include("mysql_in.php");
 	$query = sprintf("SELECT * FROM indata ORDER BY number");
-	$result = mysql_query($query) or die(mysql_error());
-	$totalRows = mysql_num_rows($result);
+	$result = mysqli_query($db, $query) or die(mysqli_error());
+	$totalRows = mysqli_num_rows($result);
 ?>
 <div class=out1 style='text-align:center; line-height:20px'>
 <a class="new" href="./newinfo.php"  id="a"><strong>新增設備資料</strong></a>
@@ -141,7 +141,7 @@ a:visited {
 
                <?php
 
-               while ($row = mysql_fetch_array($result))
+               while ($row = mysqli_fetch_array($result))
                 {
                     echo "<tr>";
 					echo "<td>".$row["number"]."</td>";

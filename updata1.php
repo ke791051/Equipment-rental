@@ -41,7 +41,7 @@ if($pw != null && $pw2 != null && $pw == $pw2)
 
 	$query = sprintf("UPDATE madata SET id = '%s', name = '%s', pw = '%s', pw2 = '%s', sy = '%s', mail = '%s', phone = '%s'  WHERE id = '%s'", $id , $name, $pw, $pw2, $sy, $mail, $phone, $id);
 
-	mysql_query($query) or die(mysql_error());
+	mysqli_query($db, $query) or die(mysqli_error());
 
 			echo "<meta charset = 'UTF-8'>";
 			echo "<script>";

@@ -41,9 +41,9 @@ include("mysql_in.php");
 
 	$query = sprintf("SELECT * FROM indata ORDER BY number");
 
-	$result = mysql_query($query) or die(mysql_error());
+	$result = mysqli_query($db, $query) or die(mysql_error());
 
-	$totalRows = mysql_num_rows($result);
+	$totalRows = mysqli_num_rows($result);
 ?>      
          
          </div>
@@ -69,7 +69,7 @@ include("mysql_in.php");
           
 		  <?php
 		  
-                while ($row = mysql_fetch_array($result))
+                while ($row = mysqli_fetch_array($result))
                 { 
                     echo "<tr>";
 					echo "<td>".$row["number"]."</td>";

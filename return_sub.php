@@ -14,11 +14,11 @@ include("mysql_in.php");
 	   $datere =date("Y-m-d"); 
 $number = $_GET["number"];
 $query = sprintf("UPDATE lend SET rd = '$datere' WHERE number = '".$_GET['number']."'"); 
-     mysql_query($query) or die(mysql_error());
+     mysqli_query($db, $query) or die(mysqli_error());
 	 header("Location:return.php");
 $query = sprintf("UPDATE history SET rd = '$datere' WHERE number = '".$_GET['number']."'"); 
 		 
-		 if(mysql_query($query))
+		 if(mysqli_query($db, $query))
         {
         echo '';
         echo '<meta http-equiv=REFRESH CONTENT=2;url=return.php>';
@@ -30,13 +30,13 @@ $query = sprintf("UPDATE history SET rd = '$datere' WHERE number = '".$_GET['num
         }		
 $number = $_GET["number"];		
 $query = sprintf("UPDATE indata SET NY = '' WHERE number = '".$_GET['number']."'"); 
-	 mysql_query($query) or die(mysql_error());
+	 mysqli_query($db, $query) or die(mysqli_error());
 	 header("Location:return.php");
 		
 $number = $_GET["number"];			  
 $query = sprintf("UPDATE indata SET status = '' WHERE number = '".$_GET['number']."'"); 
 		 
-	mysql_query($query) or die(mysql_error());
+	mysqli_query($db, $query) or die(mysqli_error());
 	header("Location:return.php");
 		?>
 

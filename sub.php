@@ -11,7 +11,7 @@
 include("mysql_in.php");
 	
 	 $query = sprintf("UPDATE lend SET NY = 'Y' WHERE number = '".$_GET['number']."'"); 
-		 if(mysql_query($query))
+		 if(mysqli_query($db, $query))
         {
 			echo "<meta charset = 'UTF-8'>";
 			echo "<script>";

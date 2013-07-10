@@ -42,15 +42,15 @@ a:active {
 <?php
 include("mysql_connect.inc.php");
 $query = sprintf("SELECT * FROM madata ORDER BY id");
-$result = mysql_query($query) or die(mysql_error());
-$totalRows = mysql_num_rows($result);
+$result = mysqli_query($db, $query) or die(mysqli_error());
+$totalRows = mysqli_num_rows($result);
 ?>
 <?php
 include("mysql_connect.inc.php");
 $id = $_GET["id"];
 $query = sprintf("SELECT * FROM madata WHERE id = '%s'",$id);
-$result = mysql_query($query) or die(mysql_error());
-                while ($row = mysql_fetch_array($result))
+$result = mysqli_query($db, $query) or die(mysqli_error());
+                while ($row = mysqli_fetch_array($result))
                {
                     ?>
  <div class=out1 style='text-align:center; line-height:20px'>           

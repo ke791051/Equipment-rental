@@ -76,9 +76,9 @@ Released   : 20121013
 
 	$query = sprintf("SELECT * FROM indata ORDER BY no");
 
-	$result = mysql_query($query) or die(mysql_error());
+	$result = mysqli_query($db, $query) or die(mysqli_error());
 
-	$totalRows = mysql_num_rows($result);
+	$totalRows = mysqli_num_rows($result);
 
 ?>
            
@@ -124,7 +124,7 @@ Released   : 20121013
           
           <?php
 
-                while ($row = mysql_fetch_array($result))
+                while ($row = mysqli_fetch_array($result))
 
                 {
 

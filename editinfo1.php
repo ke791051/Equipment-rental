@@ -16,7 +16,7 @@ include("mysql_in.php");
 
 	$query = sprintf("UPDATE indata SET number ='%s', name = '%s', model = '%s',  local = '%s' WHERE number = '%s'", $number, $name, $model,  $local, $number);
 
-	mysql_query($query) or die(mysql_error());
+	mysqli_query($db, $query) or die(mysqli_error());
 
 	
 

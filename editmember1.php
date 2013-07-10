@@ -43,7 +43,7 @@ include("mysql_connect.inc.php");
 
 
 
-	mysql_query($query) or die(mysql_error());
+	mysqli_query($db, $query) or die(mysqli_error());
 
 
 
