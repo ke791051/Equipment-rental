@@ -71,7 +71,7 @@ include("mysql_in.php");
             
             <th width="80"></th>
 <?php
-                while ($row = mysql_fetch_array($result))
+                while ($row = mysqli_fetch_array($result))
 
               {
 
