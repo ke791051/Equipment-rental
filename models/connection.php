@@ -25,13 +25,15 @@ class BaseDatabase {
 	public function getDatabaseErrorMessage()
 	{
 		$db = $this->getDb();
-		return $db->errorInfo()[2];
+		$errorInfo = $db->errorInfo();
+		return $errorInfo[2];
 	}
 	
 	public function getStatementErrorMessage()
 	{
 		if (!is_null($this->lastStatement)) {
-			return $this->lastStatement->errorInfo()[2];
+			$errorInfo = $this->lastStatement->errorInfo();
+			return $errorInfo[2];
 		} else {
 			return '';
 		}
