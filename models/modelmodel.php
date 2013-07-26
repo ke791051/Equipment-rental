@@ -192,7 +192,7 @@ SQL;
         if ($getStatement->execute() === False) {
             return False;
         }
-        return $getStatement->fetchAll();
+        return $getStatement->fetch();
     }
 }
 // End of file
