@@ -84,7 +84,78 @@ SQL;
         }
         return $deleteStatement->rowCount() > 0 ? True : False;
     }
+	
+	/**
+	 * 新增圖片至指定的設備型號
+	 * 
+	 * @access public
+	 * @param int $id 指定設備型號的資料庫編號
+	 * @param int $imageId 新增圖片的資料庫編號
+	 * @return boolean
+	 */
+	public function addModelImageById($id, $imageId)
+	{
+		$db = $this->getDb();
+		$addSql = <<<SQL
+			INSERT INTO model_has_file (model_id, file_id)
+			VALUES (:id, :imageId)
+SQL;
+		$addStatement = $db->prepare($addSql);
+		$addStatement->bindValue(':id', $id);
+		$addStatement->bindValue(':imageId', $imageId);
+		$result = $this->executeInsertStatement($addStatement);
+		if ($result !== False and $result > 0) {
+			return True;
+		} else {
+			return False;
+		}
+	}
     
+	/**
+	 * 移除指定設備型號的圖片
+	 * 
+	 * @access public
+	 * @param int $id 指定設備的資料庫編號
+	 * @param int $imageId 要移除的圖片的資料庫編號
+	 * @return boolean
+	 */
+	public function removeModelImageById($id, $imageId)
+	{
+		$db = $this->getDb();
+		$deleteSql = <<<SQL
+			DELETE FROM model_has_file
+			WHERE id = :id AND file_id = :imageId
+SQL;
+		$deleteStatement = $db->prepare($deleteSql);
+		$deleteStatement->bindValue(':id', $id);
+		$deleteStatement->bindValue(':imageId', $imageId);
+		$result = $this->executeDeleteStatement($deleteStatement);
+		if ($result !== False and $result > 0) {
+			return True;
+		} else {
+			return False;
+		}
+	}
+	
+	/**
+	 * 移除指定設備型號的所有圖片
+	 * 
+	 * @access public
+	 * @param int $id 指定設備型號的資料庫編號
+	 * @return boolean
+	 */
+	public function clearModelImagesById($id)
+	{
+		$db = $this->getDb();
+		$deleteSql = <<<SQL
+			DELETE FROM model_has_file
+			WHERE id = :id
+SQL;
+		$deleteStatement = $db->prepare($deleteSql);
+		$deleteStatement->bindValue(':id', $id);
+		return $this->executeDeleteStatement($deleteStatement) !== False ? True : False;
+	}
+	
     /**
      * 取得所有設備型號
      *
@@ -194,5 +265,31 @@ SQL;
         }
         return $getStatement->fetch();
     }
+	
+	/**
+	 * 取得指定設備型號的所有圖片
+	 * 
+	 * 此方法回傳的結果只有圖片的資料庫編號
+	 * 
+	 * @access public
+	 * @param int $id 指定設備型號的資料庫編號
+	 * @param int $limit
+	 * @param int $offset
+	 * @return array|boolean
+	 */
+	public function getModelImagesById($id, $limit=NULL, $offset=NULL)
+	{
+		$db = $this->getDb();
+		$getSql = <<<SQL
+			SELECT file_id FROM model_has_file
+			WHERE model_id = :id
+			LIMIT :limit OFFSET :offset
+SQL;
+		$getStatement = $db->prepare($getSql);
+		$getStatement->bindValue(':id', $id);
+		$getStatement->bindValue(':limit', !is_null($limit) ? $limit : PHP_INT_MAX, PDO::PARAM_INT);
+		$getStatement->bindValue(':offset', !is_null($offset) ? $offset : 0, PDO::PARAM_INT);
+		return $this->executeMultipleResultSelectStatement($getStatement);
+	}
 }
 // End of file
