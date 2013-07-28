@@ -1,5 +1,5 @@
 <?php
-require 'connection/connection.php';
+require_once 'connection/connection.php';
 
 /**
  * Filemanagement
@@ -11,9 +11,9 @@ require 'connection/connection.php';
 class FileManagement extends BaseDatabase {
 
     // 檔案儲存路徑
-    const SAVE_PATH = '/home/guanyuo/playground/olives/media/';
+    const SAVE_PATH = 'D:/xampp/htdocs/htdocs/media/';
     // 檔案網址路徑
-    const URL_PATH = 'http://localhost:4413/olives/media/';
+    const URL_PATH = 'http://localhost:1628/htdocs/media/';
     
     /**
      * 儲存指定檔案
@@ -71,6 +71,7 @@ SQL;
                         DELETE FROM file WHERE id = :id
 SQL;
         $deleteStatement = $db->prepare($deleteSql);
+		$deleteStatement->bindValue(':id', $id);
         // 刪除檔案紀錄
         if ($deleteStatement->execute()) {
             return FALSE;
