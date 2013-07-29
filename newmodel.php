@@ -31,6 +31,7 @@
 	$categoryModel = new CategoryModel();
 	$categories = $categoryModel->get();
 	$image = NULL;
+	$redirectUrl = NULL;
 	
 	// 處理刪除現有圖片情況
 	if (isset($_POST['delete_image_id'])) {

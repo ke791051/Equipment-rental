@@ -9,6 +9,7 @@
  *    - array $errors
  *    - array $infos
  *    - array $categories 符合Model回傳資料規範
+ *	  - string $redirectUrl
  *   
  */
 ?>
@@ -27,6 +28,9 @@
 </ul>
 
 <form action="<?php echo $postUrl ?>" method="post" enctype="multipart/form-data" />
+	<?php if (!is_null($redirectUrl)): ?>
+		<input type="hidden" name="redirecturl" value="<?php echo $redirectUrl ?>" />
+	<?php endif ?>
 	<ol>
 		<li><label>設備型號：<input type="text" name="model" value="<?php echo $modelData['model']?>" /></label></li>
 		<li>
@@ -48,6 +52,9 @@
 <!-- Delete Image Form -->
 <?php if (!is_null($image)): ?>
 <form action="<?php echo $postDeleteImageUrl ?>" method="post" >
+	<?php if (!is_null($redirectUrl)): ?>
+		<input type="hidden" value="<?php echo $redirectUrl ?>" />
+	<?php endif ?>
 	<ol>
 		<li>
 			<img src="<?php echo $image['path'] ?>" alt="<?php echo $image['name'] ?>" />
@@ -56,4 +63,8 @@
 		</li>
 	</ol>
 </form>
+<?php endif ?>
+
+<?php if(!is_null($redirectUrl)): ?>
+	<a href="<?php echo $redirectUrl ?>">返回</a>
 <?php endif ?>
