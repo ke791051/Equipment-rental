@@ -243,5 +243,22 @@ SQL;
         }
         return $getStatement->fetchAll();
     }
+	
+	/**
+	 * 取得所有設備的筆數
+	 * 
+	 * @access public
+	 * @return int|boolean
+	 */
+	public function getCount()
+	{
+		$db = $this->getDb();
+		$countSql = <<<SQL
+			SELECT COUNT(*) FROM Instances
+SQL;
+		$countStatement = $db->prepare($countSql);
+		$result = $this->executeSingleResultSelectStatement($countStatement);
+		return $result === False ? False : $result[0];
+	}
 }
 // End of file

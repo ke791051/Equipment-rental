@@ -182,5 +182,22 @@ SQL;
 		$getStatement->bindValue(':offset', !is_null($offset) ? $offset : 0, PDO::PARAM_INT);
 		return $this->executeMultipleResultSelectStatement($getStatement);
 	}
+	
+	/**
+	 * 取得出借記錄所有筆數
+	 * 
+	 * @access public
+	 * @return int|boolean
+	 */
+	public function getCount()
+	{
+		$db = $this->getDb();
+		$countSql = <<<SQL
+			SELECT COUNT(*) FROM lend
+SQL;
+		$countStatement = $db->prepare($countSql);
+		$result = $this->executeSingleResultSelectStatement($countStatement);
+		return $result === False ? False : $result[0];
+	}
 }
 // End of file

@@ -138,5 +138,22 @@ SQL;
         //$getStatement->debugDumpParams();
         return $this->executeMultipleResultSelectStatement($getStatement);
     }
+	
+	/**
+	 * 取得所有設備申請紀錄的筆數
+	 * 
+	 * @access public
+	 * @return int|boolean
+	 */
+	public function getCount()
+	{
+		$db = $this->getDb();
+		$countSql = <<<SQL
+			SELECT COUNT(*) FROM register
+SQL;
+		$countStatement = $db->prepare($countSql);
+		$result = $this->executeSingleResultSelectStatement($countStatement);
+		return $result === False ? False : $result[0];
+	}
 }
 // End of file

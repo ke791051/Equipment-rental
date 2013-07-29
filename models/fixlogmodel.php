@@ -166,5 +166,22 @@ SQL;
             return False;
         }
         return $getStatement->fetchAll();
-    }    
+    }
+	
+	/**
+	 * 取得所有維修紀錄筆數
+	 * 
+	 * @access public
+	 * @return int|boolean
+	 */
+	public function getCount()
+	{
+		$db = $this->getDb();
+		$countSql = <<<SQL
+			SELECT COUNT(*) FROM fixlog
+SQL;
+		$countStatement = $db->prepare($countSql);
+		$result = $this->executeSingleResultSelectStatement($countStatement);
+		return $result === False ? False : $result[0];
+	}
 }
