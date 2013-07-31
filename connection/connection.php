@@ -85,7 +85,7 @@ class BaseDatabase {
      */
     protected function executeDeleteStatement($deleteStatement)
     {
-        $this-setLastStatement($deleteStatement);
+        $this->setLastStatement($deleteStatement);
         if ($deleteStatement->execute() === False) {
             return False;
         }
