@@ -24,8 +24,8 @@
     $modelData = array('model' => '',
 					   'category_id' => '');
     $submitValue = '新增設備型號';
-	$postUrl = 'newmodel.php';
-	$postDeleteImageUrl = 'newmodel.php';
+	$postUrl = $config['BASE_PATH'] . 'newmodel.php';
+	$postDeleteImageUrl = $config['BASE_PATH'] . 'newmodel.php';
 	$errors = array();
 	$infos = array();
 	$categoryModel = new CategoryModel();
