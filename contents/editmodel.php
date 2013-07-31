@@ -9,7 +9,7 @@
  *    - array $errors
  *    - array $infos
  *    - array $categories 符合Model回傳資料規範
- *	  - string $redirectUrl
+ *	  - string|NULL $redirectUrl
  *   
  */
 ?>
@@ -31,6 +31,7 @@
 	<?php if (!is_null($redirectUrl)): ?>
 		<input type="hidden" name="redirecturl" value="<?php echo $redirectUrl ?>" />
 	<?php endif ?>
+	<input type="hidden" name="id" value="<?php echo $modelData['id'] ?>" />
 	<ol>
 		<li><label>設備型號：<input type="text" name="model" value="<?php echo $modelData['model']?>" /></label></li>
 		<li>
