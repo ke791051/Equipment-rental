@@ -1,10 +1,5 @@
 <?php
     require_once 'config.php';
-	require_once 'auth/loginsystem.php';
-	require_once 'auth/authsystem.php';
-	require_once 'auth/userrank.php';
-	require_once 'models/categorymodel.php';
-	require_once 'validators/categoryvalidator.php';
 	
 	// 驗證使用者權限
 	$authSystem = new AuthSystem();
@@ -32,6 +27,7 @@
 	$postUrl = 'newcategory.php';
 	$errors = array();
 	$infos = array();
+	$redirectUrl = NULL;
 
 	// 處理使用者上傳資料
 	if (isset($_POST['name'])) {
@@ -47,8 +43,8 @@
 			} else {
 				$errors[] = '發生不知名錯誤，請聯絡管理者';
 			}
-			$modelData['name'] = $categoryName;
 		}
+		$modelData['name'] = $categoryName;
 	}
 	
 	// 載入主板
