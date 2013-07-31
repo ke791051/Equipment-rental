@@ -124,7 +124,7 @@ SQL;
 		$db = $this->getDb();
 		$deleteSql = <<<SQL
 			DELETE FROM model_has_file
-			WHERE id = :id AND file_id = :imageId
+			WHERE model_id = :id AND file_id = :imageId
 SQL;
 		$deleteStatement = $db->prepare($deleteSql);
 		$deleteStatement->bindValue(':id', $id);
