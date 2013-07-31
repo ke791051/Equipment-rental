@@ -15,6 +15,16 @@
  * @author Guanyuo <s11977037@gms.nutc.edu.tw>
  */
 class InstanceStatus {
+	/**
+	 * 狀態碼與狀態訊息的對應
+	 * 
+	 * @access private
+	 */
+	private static $statusCodeMessageMapping = array(0 => '正常',
+									   			     1 => '遺失',
+											         2 => '送修',
+											         3 => '購置中',
+											         4 => '報廢');
     private $statusCode;
     
     public function __construct($statusCode)
@@ -22,6 +32,11 @@ class InstanceStatus {
         $this->setStatusCode($statusCode);
     }
     
+	public static function getStatusCodeMessageMapping()
+	{
+		return self::$statusCodeMessageMapping;
+	}
+	
     /**
      * 設定設備狀態
      *
@@ -52,20 +67,10 @@ class InstanceStatus {
      */
     public function getStatusMessage()
     {
-        switch ($this->getStatusCode())
-        {
-            case 0:
-                return '正常';
-            case 1:
-                return '遺失';
-            case 2:
-                return '送修';
-            case 3:
-                return '購置中';
-            case 4:
-                return '報廢';
-            default:
-                return '未知'; // 呵呵
+        if (in_array($this->getStatusCode(), self::$statusCodeMessageMapping)) {
+        	return self::$statusCodeMessage[$this->getStatusCode()];
+        } else {
+        	return '未知狀態';
         }
     }
 }
