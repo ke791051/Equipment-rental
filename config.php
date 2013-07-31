@@ -3,9 +3,11 @@ $config = array();
 
 $config['BASE_PATH'] = 'http://localhost:1628/htdocs/';
 // $config['APP_PATH'] = realpath('.') . '/';
-$config['APP_PATH'] = 'D:\xampp\htdocs\htdocs/';
+$config['APP_PATH'] = 'G:\xampp\htdocs\htdocs/';
 $config['CSS_HREF'] = $config['BASE_PATH'] . 'css/style.css';
 $config['SITE_TITLE'] = '資訊管理系設備出借系統';
+$config['DEFAULT_PERPAGE'] = 7;
+$config['DEFAULT_PAGE'] = 1;
 
 set_include_path(get_include_path() . PATH_SEPARATOR . $config['APP_PATH']);
 
@@ -24,7 +26,8 @@ $config['MODULES_MAPPING'] = array('AuthSystem' => 'auth/authsystem.php',
 								   'ModelValidator' => 'validators/modelvalidator.php',
 								   'FileChecker' => 'files/filechecker.php',
 								   'FileEror' => 'files/fileerror.php',
-								   'FileManagement' => 'files/filemanagement.php');
+								   'FileManagement' => 'files/filemanagement.php',
+								   'InstanceStatus' => 'models/instancestatus.php');
 function __autoload($className) {
 	global $config;
 	if (array_key_exists($className, $config['MODULES_MAPPING'])) {
