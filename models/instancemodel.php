@@ -43,6 +43,43 @@ SQL;
         return $db->lastInsertId();
     }
     
+	/**
+	 * 更新設備
+	 * 
+	 * @access public
+	 * @param int $id
+	 * @param string $identify
+	 * @param string $location
+	 * @param int $status
+	 * @param string $note
+	 * @param DateTime $duedate
+	 * @param int $modelId
+	 * @return boolean
+	 */
+	public function updateInstanceById($id, $identify, $location, $status, $note, $duedate, $modelId)
+	{
+		$db = $this->getDb();
+		$updateSql = <<<SQL
+			UPDATE instances
+			SET identify = :identify, location = :location, status = :status, note = :note, duedate = :duedate, model_id = :modelId
+			WHERE id = :id
+SQL;
+		$updateStatement = $db->prepare($updateSql);
+		$updateStatement->bindValue(':id', $id);
+		$updateStatement->bindValue(':identify', $identify);
+		$updateStatement->bindValue(':location', $location);
+		$updateStatement->bindValue(':status', $status);
+		$updateStatement->bindValue(':duedate', !is_null($duedate) ? $duedate->format(self::DATE_FORMAT) : NULL);
+		$updateStatement->bindValue(':note', $note);
+		$updateStatement->bindValue(':modelId', $modelId);
+		$updateStatement->bindValue(':id', $id);
+		$result = $this->executeUpdateStatement($updateStatement);
+		if ($result === False or $result == 0) {
+			return False;
+		} else {
+			return True;
+		}
+	}
     /**
      * 移除指定資料庫編號的設備
      *
