@@ -9,7 +9,7 @@
 	 */
     class AuthSystem {
     	// 網站的主目錄
-    	const HOME_URL = '/';
+    	const HOME_URL = '/htdocs/';
 		
 		/**
 		 * 當userRank權限小於comparingRank時重導向至主頁
@@ -21,7 +21,7 @@
 		public function redirectHomeWhenBelowRank($userRank, $comparingRank)
 		{
 			if ($userRank->isLesser($comparingRank)) {
-				header("Location: " . self::HOME_URL);
+				$this->redirectHome();
 			}
 		}
 		
@@ -35,8 +35,18 @@
 		public function redirectHomeWhenNotEqualRank($userRank, $comparingRank)
 		{
 			if (!$userRank->isEqual($comparingRank)) {
-				header("Location: " . self::HOME_URL);
+				$this->redirectHome();
 			}
+		}
+		
+		public function redirectHome()
+		{
+			header("Location: " . self::HOME_URL);
+		}
+		
+		public function show404()
+		{
+			header('HTTP/1.0 404 Not Found');
 		}
     }
 ?>
