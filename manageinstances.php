@@ -1,6 +1,15 @@
 <?php
 require_once 'config.php';
 // 驗證使用者是否為管理者
+$authSystem = new AuthSystem();
+$loginSystem = new LoginSystem();
+$loginUserRank = $loginSystem->getLoginUserRank();
+if (is_null($loginUserRank)) {
+	$authSystem->redirectHome();
+	exit();
+}
+$adminUserRank = new UserRank(UserRank::ADMIN);
+$authSystem->redirectHomeWhenBelowRank($loginUserRank, $adminUserRank);
 
 // 設定主版資料
 $title = '設備管理';
@@ -20,13 +29,9 @@ $operators = array('edit' => True, 'delete' => True, 'register' => False, 'verif
 
 // 處理分頁資料
 $getData = filter_input_array(INPUT_GET, array('perpage' => FILTER_VALIDATE_INT, 'page' => FILTER_VALIDATE_INT));
-if (!is_array($getData) or in_array(NULL, $getData, True)) {
-	$page = $config['DEFAULT_PAGE'];
-	$perpage = $config["DEFAULT_PERPAGE"];
-} else {
-	$page = (int) $getData['page'];
-	$perpage = (int) $getData['perpage'];
-}
+$page = (int) $getData['page'];
+$perpage = (int) $getData['perpage'];
+
 $perpage = $perpage > 0 ? $perpage : $config['DEFAULT_PERPAGE'];
 $totalPages = ceil($instanceModel->getCount() / $perpage);
 $page = $page > 0 and $page <= $totalPages ? $page : $config['DEFAULT_PAGE'];
