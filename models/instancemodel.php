@@ -190,21 +190,13 @@ SQL;
     {
         $getSql = <<<SQL
             SELECT * FROM instances
+            LIMIT :limit OFFSET :offset
 SQL;
         $db = $this->getDb();
-        if (!is_null($limit)) {
-            $getSql .= 'LIMIT :limit OFFSET :offset';
-            $getStatement = $db->prepare($getSql);
-            $getStatement->bindValue(':limit', $limit);
-            $getStatement->bindValue(':offset', !is_null($offset) ? $offset : 0);
-        } else {
-            $getStatement = $db->prepare($getSql);
-        }
-        $this->setLastStatement($getStatement); // require by parent class
-        if ($getStatement->execute() === FALSE) {
-            return FALSE;
-        }
-        return $getStatement->fetchAll();
+		$getStatement = $db->prepare($getSql);
+        $getStatement->bindValue(':limit', !is_null($limit) ? $limit : 0, PDO::PARAM_INT);
+        $getStatement->bindValue(':offset', !is_null($offset) ? $offset : 0, PDO::PARAM_INT);
+		return $this->executeMultipleResultSelectStatement($getStatement);
     }
     
     /**
@@ -291,7 +283,7 @@ SQL;
 	{
 		$db = $this->getDb();
 		$countSql = <<<SQL
-			SELECT COUNT(*) FROM Instances
+			SELECT COUNT(*) FROM instances
 SQL;
 		$countStatement = $db->prepare($countSql);
 		$result = $this->executeSingleResultSelectStatement($countStatement);
