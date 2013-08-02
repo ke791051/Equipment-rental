@@ -14,6 +14,12 @@ class BaseDatabase {
 	
 	private $lastStatement;
 	
+	/**
+	 * 取得資料庫連結
+	 * 
+	 * @access public
+	 * @return PDO
+	 */
 	public function getDb()
 	{
 		return new PDO($this->connectionString,
@@ -22,6 +28,12 @@ class BaseDatabase {
 					   array(PDO::ATTR_PERSISTENT => true));
 	}
 	
+	/**
+	 * 取得資料庫的錯誤訊息
+	 * 
+	 * @access public
+	 * @return string
+	 */
 	public function getDatabaseErrorMessage()
 	{
 		$db = $this->getDb();
@@ -29,6 +41,12 @@ class BaseDatabase {
 		return $errorInfo[2];
 	}
 	
+	/**
+	 * 取得SQL語句的執行錯誤
+	 * 
+	 * @access public
+	 * @return string
+	 */
 	public function getStatementErrorMessage()
 	{
 		if (!is_null($this->lastStatement)) {
@@ -39,6 +57,12 @@ class BaseDatabase {
 		}
 	}
 	
+	/**
+	 * 設定最後執行的SQL語句
+	 * 
+	 * @access protected
+	 * @param PDOStatement $statement
+	 */
 	protected function setLastStatement($statement)
 	{
 		$this->lastStatement = $statement;
