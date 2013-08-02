@@ -43,7 +43,7 @@
 				<select required name="status">
 					<option value="">請選擇設備狀態</option>
 					<?php foreach ($statues as $status): ?>
-						<option value="<?php echo $status['code'] ?>" <?php echo $modelData['status'] == $status['code'] ? 'selected' : '' ?>><?php echo $status['message'] ?></option>
+						<option value="<?php echo $status['code'] ?>" <?php echo $modelData['status'] === $status['code'] ? 'selected' : '' ?>><?php echo $status['message'] ?></option>
 					<?php endforeach ?>
 				</select>
 			</label>

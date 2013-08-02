@@ -40,7 +40,7 @@
 				<select name="category_id" required>
 					<option value="">請選擇設備種類</option>
 					<?php foreach($categories as $category): ?>
-						<option value="<?php echo $category['id'] ?>" <?php echo $modelData['category_id'] == $category['id'] ? 'selected' : '' ?>><?php echo $category['name'] ?></option>
+						<option value="<?php echo $category['id'] ?>" <?php echo $modelData['category_id'] === $category['id'] ? 'selected' : '' ?>><?php echo $category['name'] ?></option>
 					<?php endforeach; ?>
 				</select>
 			</label>
