@@ -45,7 +45,12 @@ class InstanceStatus {
      */
     public function setStatusCode($statusCode)
     {
-        $this->statusCode = $statusCode;
+    	$isValidInt = filter_var($statusCode, FILTER_VALIDATE_INT);
+		if ($isValidInt !== False) {
+        	$this->statusCode = (int) $statusCode;
+		} else {
+			$this->statusCode = $statusCode;
+		}
     }
     
     /**
@@ -68,7 +73,7 @@ class InstanceStatus {
     public function getStatusMessage()
     {
         if (in_array($this->getStatusCode(), self::$statusCodeMessageMapping)) {
-        	return self::$statusCodeMessage[$this->getStatusCode()];
+        	return self::$statusCodeMessageMapping[$this->getStatusCode()];
         } else {
         	return '未知狀態';
         }
