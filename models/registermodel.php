@@ -35,22 +35,25 @@ SQL;
      * 審核出借設備申請
      *
      * @access public
+	 * @param int $id 要審核的設備申請紀錄的資料庫編號
+	 * @param int $verifyUserId 審核者的資料庫編號
      * @param boolean $isPass 申請是否通過
      * @param string $note 備註
      * @return boolean 審核完成回傳True，審核失敗回傳False。
      */
-    public function verifyById($id, $isPass, $note)
+    public function verifyById($id, $verifyUserId, $isPass, $note)
     {
         $db = $this->getDb();
         $updateSql = <<<SQL
             UPDATE register
-            SET ispass = :ispass, note = :note, finish_time = NOW()
+            SET ispass = :ispass, note = :note, finish_time = NOW(), verifyuser_id = :verifyUserId
             WHERE id = :id
 SQL;
         $updateStatement = $db->prepare($updateSql);
         $updateStatement->bindValue(':id', $id);
         $updateStatement->bindValue(':ispass', $isPass, PDO::PARAM_BOOL);
         $updateStatement->bindValue(':note', $note);
+		$updateStatement->bindValue(':verifyUserId', $verifyUserId);
         $result = $this->executeUpdateStatement($updateStatement);
         if ($result === False or $result == 0) {
             return False;
@@ -73,16 +76,11 @@ SQL;
         $getSql = <<<SQL
             SELECT *
             FROM register
-            
+            LIMIT :limit OFFSET :offset
 SQL;
-        if (!is_null($limit)) {
-            $getSql .= 'LIMIT :limit OFFSET :offset';
-            $getStatement = $db->prepare($getSql);
-            $getStatement->bindValue(':limit', $limit, PDO::PARAM_INT);
-            $getStatement->bindValue(':offset', !is_null($offset) ? $offset : 0, PDO::PARAM_INT);
-        } else {
-            $getStatement = $db->prepare($getSql);
-        }
+        $getStatement = $db->prepare($getSql);
+        $getStatement->bindValue(':limit', !is_null($limit) ? $limit : PHP_INT_MAX, PDO::PARAM_INT);
+        $getStatement->bindValue(':offset', !is_null($offset) ? $offset : 0, PDO::PARAM_INT);
         return $this->executeMultipleResultSelectStatement($getStatement);
     }
     
