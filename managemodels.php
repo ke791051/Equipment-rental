@@ -20,8 +20,8 @@ $getData = filter_input_array(INPUT_GET, array('perpage' => FILTER_VALIDATE_INT,
 $perpage = (int) $getData['perpage'];
 $page = (int) $getData['page'];
 $perpage = $perpage > 0 ? $perpage : $config['DEFAULT_PERPAGE'];
-$page = $page > 0 ? $page : $config['DEFAULT_PAGE'];
 $totalPages = ceil($modelModel->getCount() / $perpage);
+$page = ($page > 0 and $page <= $totalPages) ? $page : $config['DEFAULT_PAGE'];
 $models = $modelModel->get($perpage, ($page - 1) * $perpage);
 
 require_once 'templates/layout.php';

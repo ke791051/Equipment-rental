@@ -34,8 +34,8 @@ $perpage = (int) $getData['perpage'];
 
 $perpage = $perpage > 0 ? $perpage : $config['DEFAULT_PERPAGE'];
 $totalPages = ceil($instanceModel->getCount() / $perpage);
-$page = $page > 0 and $page <= $totalPages ? $page : $config['DEFAULT_PAGE'];
+$page = ($page > 0 and $page <= $totalPages) ? $page : $config['DEFAULT_PAGE'];
 $instances = $instanceModel->get($perpage, ($page - 1) * $perpage);
-
+//print $instanceModel->getStatementErrorMessage();
 require_once 'templates/layout.php';
 ?>
