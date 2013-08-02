@@ -194,7 +194,7 @@ SQL;
 SQL;
         $db = $this->getDb();
 		$getStatement = $db->prepare($getSql);
-        $getStatement->bindValue(':limit', !is_null($limit) ? $limit : 0, PDO::PARAM_INT);
+        $getStatement->bindValue(':limit', !is_null($limit) ? $limit : PHP_INT_MAX, PDO::PARAM_INT);
         $getStatement->bindValue(':offset', !is_null($offset) ? $offset : 0, PDO::PARAM_INT);
 		return $this->executeMultipleResultSelectStatement($getStatement);
     }
