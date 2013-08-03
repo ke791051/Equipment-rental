@@ -13,12 +13,13 @@
 	$authSystem->redirectHomeWhenBelowRank($loginUserRank, $adminUserRank);
     
     // 設定主版
-    $title = '設備型號管理';
+    $title = '設備分類管理';
 	$navContentPath = 'contents/nav_admin.php';
 	$contentPath = 'contents/categories.php';
 	$addScripts = array();
     
     // 設定頁面內容
+    $caption = $title;
 	$navigateUrl = 'managecategories.php';
 	$postEditUrl = 'editcategory.php';
 	$postDeleteUrl = 'deletecategory.php';

@@ -18,6 +18,7 @@ $contentPath = 'contents/instances.php';
 $addScripts = array();
 
 // 載入頁面資料
+$caption = $title;
 $instanceModel = new InstanceModel();
 
 $navigateUrl = $config['BASE_PATH'] . 'manageinstances.php';

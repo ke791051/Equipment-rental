@@ -9,6 +9,7 @@ $contentPath = 'contents/models.php';
 $addScripts = array();
 
 // 設定頁面內容
+$caption = $title;
 $modelModel = new ModelModel();
 $navigateUrl = $config['BASE_PATH'] . 'managemodels.php';
 $postDeleteUrl = $config['BASE_PATH'] . 'deletemodel.php';
