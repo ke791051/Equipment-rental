@@ -5,7 +5,7 @@ require_once 'config.php';
 $authSystem = new AuthSystem();
 $loginSystem = new LoginSystem();
 $loginUserRank = $loginSystem->getLoginUserRank();
-if ($loginUserRank) {
+if (is_null($loginUserRank)) {
 	$authSystem->redirectHome();
 }
 $authSystem->redirectHomeWhenBelowRank($loginUserRank, new UserRank(UserRank::ADMIN));
@@ -58,7 +58,7 @@ foreach ($registersModelData as $registerModelData) {
 	$registerData['category'] = $categoryData;
 	
 	// TODO: UserModel
-	$registerData['user'] = array('name' => 'UserModel not implemented');
+	$registerData['user'] = array('name' => 'UserModel not implemented', 'sy' => 'UserModel not implemented');
 	
 	$registers[] = $registerData;
 }
