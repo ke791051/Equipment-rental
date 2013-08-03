@@ -9,13 +9,13 @@
  *  - int $perPage 一頁顯示多少筆資料
  *  - int $page 目前的頁數
  *  - int $totalPages 全部頁數
+ *  - string $caption 頁面標題
  *  
  */
 ?>
 
-<h1>設備分類</h1>
-
 <table border="3">
+	<caption><?php echo $caption ?></caption>
 	<thead>
 		<th>設備分類名稱</th>
 		<?php if (in_array(True, $operators)): ?>
