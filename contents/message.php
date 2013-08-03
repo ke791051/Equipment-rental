@@ -1,14 +1,14 @@
 <?php
 /**
  * anticipate:
- *  - string $header
+ *  - string $caption
  *  - array $infos
  *  - array $errors
  *  - string $redirectUrl
  */
 ?>
 
-<h1><?php echo $header ?></h1>
+<h1><?php echo $caption ?></h1>
 
 <ul>
 	<?php foreach($infos as $info): ?>
