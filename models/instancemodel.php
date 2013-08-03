@@ -274,6 +274,54 @@ SQL;
     }
 	
 	/**
+	 * 取得可被申請的設備
+	 * 
+	 * 此方法過濾掉以下資料
+	 *   - 已被申請且尚未審核完成的設備
+	 *   - 已被借出且尚未歸還的設備
+	 *   - 非正常狀態的設備
+	 * 
+	 * @access public
+	 * @param int $limit
+	 * @param int $offset
+	 * @return array|NULL
+	 */
+	public function getInstancesCanBeRegistered($limit=NULL, $offset=NULL)
+	{
+		$db = $this->getDb();
+		$getSql = <<<SQL
+			SELECT * FROM instances
+			WHERE id NOT IN (SELECT instances_id
+							 FROM register
+							 WHERE finish_time IS NULL)
+				  AND
+				  id NOT IN (SELECT instances_id
+				  			 FROM lend
+				  			 WHERE back_date IS NULL)
+				  AND
+				  status = 0
+			LIMIT :limit OFFSET :offset
+SQL;
+		$getStatement = $db->prepare($getSql);
+		$getStatement->bindValue(':limit', !is_null($limit) ? $limit : PHP_INT_MAX, PDO::PARAM_INT);
+		$getStatement->bindValue(':offset', !is_null($offset) ? $offset : 0, PDO::PARAM_INT);
+		return $this->executeMultipleResultSelectStatement($getStatement);
+	}
+	
+	/**
+	 * 取得可出借的設備
+	 * 
+	 * 此方法過濾以下資料：
+	 *   - 已被借出
+	 * @access public
+	 
+	public function getInstancesCanBeBorrowed($limit=NULL, $offset=NULL)
+	{
+		
+	}
+	*/
+	
+	/**
 	 * 取得所有設備的筆數
 	 * 
 	 * @access public
