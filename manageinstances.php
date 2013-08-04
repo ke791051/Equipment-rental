@@ -26,7 +26,7 @@ $postEditUrl = $config['BASE_PATH'] . 'editinstance.php';
 $postDeleteUrl = $config['BASE_PATH'] . 'deleteinstance.php';
 $postRegisterUrl = $config['BASE_PATH'] . 'register.php';
 $postVerifyUrl = $config['BASE_PATH'] . 'verify.php';
-$operators = array('edit' => True, 'delete' => True, 'register' => False, 'verify' => True);
+$operators = array('edit' => True, 'delete' => True, 'register' => False, 'verify' => False);
 
 // 處理分頁資料
 $getData = filter_input_array(INPUT_GET, array('perpage' => FILTER_VALIDATE_INT, 'page' => FILTER_VALIDATE_INT));
