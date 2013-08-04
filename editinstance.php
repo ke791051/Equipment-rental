@@ -6,7 +6,6 @@ $loginSystem = new LoginSystem();
 $loginUserRank = $loginSystem->getLoginUserRank();
 if (is_null($loginUserRank)) {
 	$authSystem->redirectHome();
-	exit();
 }
 $adminUserRank = new UserRank(UserRank::ADMIN);
 $authSystem->redirectHomeWhenBelowRank($loginUserRank, $adminUserRank);
@@ -20,7 +19,6 @@ $addScripts = array();
 // 設定頁面內容
 if (!filter_has_var(INPUT_POST, 'id')) {
 	$authSystem->redirectHome();
-	exit();
 } else {
 	$instanceId = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
 }
@@ -41,7 +39,10 @@ foreach (InstanceStatus::getStatusCodeMessageMapping() as $code => $message) {
 
 $errors = array();
 $infos = array();
-$redirectUrl = filter_input(INPUT_POST, 'postfromurl', FILTER_SANITIZE_URL);
+$redirectUrl = filter_input(INPUT_POST, 'redirecturl', FILTER_VALIDATE_URL);
+if (is_null($redirectUrl)) {
+	$redirectUrl = filter_input(INPUT_POST, 'postfromurl', FILTER_VALIDATE_URL);
+}
 
 // 處理更新資料
 $stringSanitizeOption = array('filter' => FILTER_SANITIZE_STRING,
@@ -53,10 +54,9 @@ $postData = filter_input_array(INPUT_POST, array('id' => $stringSanitizeOption,
 												 'note' => $stringSanitizeOption,
 												 'duedate' => $stringSanitizeOption,
 												 'model_id' => FILTER_VALIDATE_INT));
-if (is_array($postData) and !in_array(NULL, $postData, True)) {
+if (is_array($postData) and !in_array(NULL, $postData, True) and !in_array(False, $postData, True)) {
 	// 驗證資料
 	$validator = new InstanceValidator();
-	print_r($postData);
 	$modelData = $postData;
 	if ($postData['duedate']) {
 		try {
@@ -90,9 +90,6 @@ if (is_array($postData) and !in_array(NULL, $postData, True)) {
 			$infos[] = '設備更新成功';
 		}
 	}
-}
-else if ($postData === False or (is_array($postData) and in_array(NULL, $postData))) {
-	$errors[] = '發生嚴重錯誤，請通知管理員';
 }
 
 require_once 'templates/layout.php';
