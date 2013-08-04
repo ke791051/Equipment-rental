@@ -7,7 +7,6 @@ $loginSystem = new LoginSystem();
 $loginUserRank = $loginSystem->getLoginUserRank();
 if (is_null($loginUserRank)) {
 	$authSystem->redirectHome();
-	exit();
 }
 $adminUserRank = new UserRank(UserRank::ADMIN);
 $authSystem->redirectHomeWhenBelowRank($loginUserRank, $adminUserRank);
@@ -21,7 +20,6 @@ $addScripts = array();
 // 載入頁面資料
 if (!filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT)) {
 	$authSystem->redirectHome();
-	exit();
 } else {
 	$modelId = (int) $_POST['id'];
 }
@@ -45,7 +43,7 @@ $stringSanitizeOption = array('filter' => FILTER_SANITIZE_STRING,
 $postData = filter_input_array(INPUT_POST, array('id' => FILTER_VALIDATE_INT,
 												 'model' => $stringSanitizeOption,
 												 'category_id' => FILTER_VALIDATE_INT));
-if (is_array($postData) and !in_array(NULL, $postData, True)) {
+if (is_array($postData) and !in_array(NULL, $postData, True) and !in_array(False, $postData, True)) {
 	// 驗證資料
 	$validator = new ModelValidator();
 	$errors = array_merge($errors, $validator->validateForUpdateById($postData['id'],
