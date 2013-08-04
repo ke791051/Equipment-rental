@@ -100,16 +100,11 @@ SQL;
 		$getSql = <<<SQL
 			SELECT *
 			FROM lend
-			
+			LIMIT :limit OFFSET :offset
 SQL;
-		if (!is_null($limit)) {
-			$getSql .= 'LIMIT :limit OFFSET :offset';
-			$getStatement = $db->prepare($getSql);
-			$getStatement->bindValue(':limit', $limit, PDO::PARAM_INT);
-			$getStatement->bindValue(':offset', !is_null($limit) ? $limit : 0, PDO::PARAM_INT);
-		} else {
-			$getStatement = $db->prepare($getSql);
-		}
+		$getStatement = $db->prepare($getSql);
+		$getStatement->bindValue(':limit', !is_null($limit) ? $limit : PHP_INT_MAX, PDO::PARAM_INT);
+		$getStatement->bindValue(':offset', !is_null($offset) ? $offset : 0, PDO::PARAM_INT);
 		return $this->executeMultipleResultSelectStatement($getStatement);
 	}
 	
