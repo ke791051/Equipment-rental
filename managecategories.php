@@ -20,9 +20,9 @@
     
     // 設定頁面內容
     $caption = $title;
-	$navigateUrl = 'managecategories.php';
-	$postEditUrl = 'editcategory.php';
-	$postDeleteUrl = 'deletecategory.php';
+	$navigateUrl = $config['BASE_PATH'] . 'managecategories.php';
+	$postEditUrl = $config['BASE_PATH'] . 'editcategory.php';
+	$postDeleteUrl = $config['BASE_PATH'] . 'deletecategory.php';
 	$operators = array('delete' => True,
 					   'edit' => True);
 	if (isset($_GET['perpage'])) {

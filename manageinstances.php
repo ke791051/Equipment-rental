@@ -6,7 +6,6 @@ $loginSystem = new LoginSystem();
 $loginUserRank = $loginSystem->getLoginUserRank();
 if (is_null($loginUserRank)) {
 	$authSystem->redirectHome();
-	exit();
 }
 $adminUserRank = new UserRank(UserRank::ADMIN);
 $authSystem->redirectHomeWhenBelowRank($loginUserRank, $adminUserRank);
