@@ -20,7 +20,8 @@
 	$addScripts = array();
 	
 	// 設定頁面內容
-	$modelData = array('name' => '',
+	$modelData = array('id' => '',
+					   'name' => '',
 					   'category_id' => '');
 	$categoryName = '';
 	$submitValue = '新增分類';

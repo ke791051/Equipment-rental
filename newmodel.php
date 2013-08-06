@@ -21,7 +21,8 @@
 	$addScripts = array();
 	
     // 設定頁面內文
-    $modelData = array('model' => '',
+    $modelData = array('id' => '',
+					   'model' => '',
 					   'category_id' => '');
     $submitValue = '新增設備型號';
 	$postUrl = $config['BASE_PATH'] . 'newmodel.php';
