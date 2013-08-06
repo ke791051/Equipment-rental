@@ -12,19 +12,33 @@
  */
 ?>
 
-<h1>設備型號分類</h1>
-
 <table border="3">
+	<caption><?php echo $caption ?></caption>
 	<thead>
-		<th>設備型號分類名稱</th>
-		<?php if (in_array(True, $operators)): ?>
-			<th>操作</th>
-		<?php endif ?>
+		<tr>
+			<th>設備型號分類名稱</th>
+			<?php if (in_array(True, $operators)): ?>
+				<th>設備型號</th>
+	            <th>設備種類</th>
+			<?php endif ?>
+		</tr>
 	</thead>
 	<tbody>
+    <?php
+	$categoryModel = new CategoryModel();
+	$categories = $categoryModel->get();
+	?>
 		<?php foreach ($models as $model): ?>
 			<tr>
-				<td><?php echo $model['name'] ?></td>
+				<td><?php echo $model['model'] ?></td>
+                <td><?php 
+						foreach ($categories as $category):
+							if ($category['id'] == $model['category_id']):
+								echo $category['name'];
+								break;
+							endif;
+						endforeach;
+					?></td>
 				<?php if (in_array(True, $operators)): ?>
 					<td>
 						<?php if ($operators['edit']): ?>

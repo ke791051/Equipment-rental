@@ -17,10 +17,12 @@
 <table border="3">
 	<caption><?php echo $caption ?></caption>
 	<thead>
-		<th>設備分類名稱</th>
-		<?php if (in_array(True, $operators)): ?>
-			<th>操作</th>
-		<?php endif ?>
+		<tr>
+			<th>設備分類名稱</th>
+			<?php if (in_array(True, $operators)): ?>
+				<th>操作</th>
+			<?php endif ?>
+		</tr>
 	</thead>
 	<tbody>
 		<?php foreach ($categories as $category): ?>
