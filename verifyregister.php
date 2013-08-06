@@ -3,6 +3,11 @@ require_once 'config.php';
 // 驗證使用者是否為管理者
 $authSystem = new AuthSystem();
 $loginSystem = new LoginSystem();
+$loginUserRank = $loginSystem->getLoginUserRank();
+if (is_null($loginUserRank)) {
+	$authSystem->redirectHome();
+}
+$authSystem->redirectHomeWhenBelowRank($loginUserRank, new UserRank(UserRank::ADMIN));
 
 // 設定主版資料
 $title = '審核設備出借申請';
@@ -51,14 +56,14 @@ if (!is_array($postData) or in_array(NULL, $postData, True)) {
 			$lendModel = new LendModel();
 			$lendResult = $lendModel->lend($registerModelData['user_id'], $registerModelData['instances_id'], new DateTime(), new DateTime($postData['expected_back_date']));
 			if ($lendResult) {
-				// TODO: redirect to historys
-				$infos[] = '設備出借成功';
+				header('Location: ' . $config['BASE_PATH'] . 'managelends.php');
+				exit();
 			} else {
 				$errors[] = '設備出借失敗';
 			}
 		}
 		if (!$errors) {
-			header('Location: '. $config['BASE_PATH'] . 'manageregister.php');
+			header('Location: '. $config['BASE_PATH'] . 'manageregisters.php');
 			exit();
 		}
 	} else {
