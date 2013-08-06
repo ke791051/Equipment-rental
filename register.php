@@ -2,7 +2,13 @@
 // 申請出借設備
 require_once 'config.php';
 // 驗證使用者
+$authSystem = new AuthSystem();
 $loginSystem = new LoginSystem();
+$loginUserRank = $loginSystem->getLoginUserRank();
+if (is_null($loginUserRank)) {
+	$authSystem->redirectHome();
+}
+
 // 設定主版資料
 $title = '設備出借申請';
 $navContentPath = 'contents/nav_user.php';
@@ -43,10 +49,8 @@ if (!is_array($postData) or in_array(FALSE, $postData, True)) {
 	// 程式寫錯或有人亂傳資料
 	// can log
 } else if (in_array(NULL, $postData, True)) {
-	$contentPath = 'contents/message.php';
-	$errors = array('發生嚴重錯誤，請通知管理員');
-	$infos = array();
-	$redirectUrl = $navigateUrl;
+	// program has error or someone post marvelous data
+	// can log
 } else {
 	// 重導向至message，避免重POST
 	$contentPath = 'contents/message.php';
@@ -60,10 +64,10 @@ if (!is_array($postData) or in_array(FALSE, $postData, True)) {
 	$registerResult = $registerModel->register($loginSystem->getLoginUserId(), $postData['id']);
 	if ($registerResult) {
 		$infos[] = '設備申請成功';
-		// TODO: redirect to my registers
+		header('Location: ' . $config['BASE_PATH'] . 'myregisters.php');
+		exit();
 	} else {
 		$errors[] = '設備申請失敗';
-		$errors[] = $registerModel->getStatementErrorMessage();
 	}
 }
 
