@@ -6,6 +6,7 @@
  *  - int $perPage
  *  - int $page
  *  - int $totalPages
+ *  - string $caption
  *  - string $postEditUrl
  *  - string $postDeleteUrl
  *  - string $postRegisterUrl
@@ -14,19 +15,37 @@
  */
 ?>
 
-<h1>設備識別碼分類</h1>
-
 <table border="3">
+	<caption><?php echo $caption ?></caption>
 	<thead>
-		<th>設備識別碼分類名稱</th>
-		<?php if (in_array(True, $operators)): ?>
-			<th>操作</th>
-		<?php endif ?>
+		<tr>
+			<th>設備識別碼</th>
+			<?php if (in_array(True, $operators)): ?>
+				<th>設備存放地點</th>           
+	            <th>狀態</th>
+	            <th>備註</th>
+	            <th>報廢日期</th>
+	            <th>操作</th>
+			<?php endif ?>
+		</tr>
 	</thead>
 	<tbody>
+    <?php $instancestatus = InstanceStatus::getStatusCodeMessageMapping(); ?>
 		<?php foreach ($instances as $instance): ?>
 			<tr>
-				<td><?php echo $instance['name'] ?></td>
+				<td><?php echo $instance['identify'] ?></td>
+                <td><?php echo $instance['location'] ?></td>
+                <td>
+                <?php 
+				foreach ($instancestatus as $a=>$b):
+							if ($a == $instance['status']):
+								echo $b;
+								break;
+							endif;
+						endforeach;
+				?></td>
+                <td><?php echo $instance['note'] ?></td>
+                <td><?php echo $instance['duedate'] ?></td>
 				<?php if (in_array(True, $operators)): ?>
 					<td>
 						<?php if ($operators['edit']): ?>
