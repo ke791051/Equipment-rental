@@ -9,26 +9,35 @@
  *   - string $redirectUrl
  */
 ?>
-<h1><?php echo $submitValue ?></h1>
-<ul>
-	<?php foreach ($errors as $error): ?>
-		<li><?php echo $error ?></li>
-	<?php endforeach ?> 
-</ul>
-<ul>
-	<?php foreach ($infos as $info): ?>
-		<li><?php echo $info ?></li>
-	<?php endforeach ?> 
-</ul>
+
+<div>
+	<ul>
+		<?php foreach ($errors as $error): ?>
+			<li><?php echo $error ?></li>
+		<?php endforeach ?> 
+	</ul>
+</div>
+
+<div>
+	<ul>
+		<?php foreach ($infos as $info): ?>
+			<li><?php echo $info ?></li>
+		<?php endforeach ?> 
+	</ul>
+</div>
+
 <form action="<?php echo $postUrl ?>" method="post">
 	<input type="hidden" name="id" value="<?php echo $modelData['id'] ?>" />
 	<?php if (!is_null($redirectUrl)): ?>
 		<input type="hidden" name="redirecturl" value="<?php echo $redirectUrl ?>" />
 	<?php endif ?>
-	<ol>
-		<li><label>分類名稱：<input type="text" name="name" value="<?php echo $modelData['name'] ?>"/></label></li>
-		<li><input type="submit" value="<?php echo $submitValue ?>" /></li>
-	</ol>
+    <table>
+	    <caption><?php echo $submitValue ?></caption>
+		<tr>
+			<td><label>分類名稱：<input type="text" name="name" value="<?php echo $modelData['name'] ?>"/></label></td>
+			<td><input type="submit" value="<?php echo $submitValue ?>" /></td>
+		</tr>
+    </table>
 </form>
 
 <?php if (!is_null($redirectUrl)): ?>
