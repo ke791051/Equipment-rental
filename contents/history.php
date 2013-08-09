@@ -27,6 +27,7 @@
 			<th>出借起始日期</th>
 			<th>預計歸還日期</th>
 			<th>歸還日期</th>
+			<th>備註</th>
 			<?php if (in_array(True, $operators)): ?>
 				<th>操作</th>
 			<?php endif ?>
@@ -43,6 +44,7 @@
 				<td><?php echo $lend['lend']['since_date'] ?></td>
 				<td><?php echo $lend['lend']['expected_back_date'] ?></td>
 				<td><?php echo $lend['lend']['back_date'] ?></td>
+				<td><?php echo $lend['lend']['note'] ?></td>
 				<?php if (in_array(True, $operators)): ?>
 					<td>
 						<?php if ($operators['lendBack'] and !$lend['lend']['back_date'] and $lend['instance']['status'] != 1): ?>

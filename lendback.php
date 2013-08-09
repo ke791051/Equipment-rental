@@ -39,15 +39,20 @@ $postData = filter_input_array(INPUT_POST, array('lendbackdate' => FILTER_SANITI
 if (!in_array(NULL, $postData, True) and !in_array(FALSE, $postData, True)) {
 	$lendBackDate = new DateTime($postData['lendbackdate']);
 	$note = $postData['note'];
-	// TODO: backById lack backDate parameter
-	if ($lendModel->backById($lendId)) {
-		header('Location: ' . $redirectUrl);
-		exit();
-	} else {
-		// show 505 or error message
-		// log
-		// print $lendModel->getStatementErrorMessage();
+	try {
+		$backDate = new DateTime($postData['lendbackdate']);
+		if ($lendModel->backById($lendId, $backDate, $note)) {
+			header('Location: ' . $redirectUrl);
+			exit();
+		} else {
+			// show 505 or error message
+			// log
+			// print $lendModel->getStatementErrorMessage();
+		}
+	} catch (Exception $e) {
+		$errors[] = '輸入的日期格式不正確';
 	}
+	
 }
 // 設定Model資料
 $lend = array();

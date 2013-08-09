@@ -39,18 +39,22 @@ SQL;
 	 * 
 	 * @access public
 	 * @param int $id 出借紀錄的資料庫編號
+	 * @param DateTime $backDate
+	 * @param string $note
 	 * @return boolean
 	 */
-	public function backById($id)
+	public function backById($id, $backDate, $note)
 	{
 		$db = $this->getDb();
 		$updateSql = <<<SQL
 			UPDATE lend
-			SET back_date = NOW()
+			SET back_date = :backDate, note = :note
 			WHERE id = :id
 SQL;
 		$updateStatement = $db->prepare($updateSql);
 		$updateStatement->bindValue(':id', $id);
+		$updateStatement->bindValue(':backDate', $backDate->format(self::DATE_FORMAT));
+		$updateStatement->bindValue(':note', $note);
 		$result = $this->executeUpdateStatement($updateStatement);
 		if ($result === False or $result == 0) {
 			return False;
@@ -64,6 +68,7 @@ SQL;
 	 * 
 	 * @access public
 	 * @param int $id 出借紀錄的資料庫編號
+	 * @param string $note
 	 * @return boolean
 	 */
 	public function missById($id)
