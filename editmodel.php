@@ -32,9 +32,11 @@ $errors = array();
 $infos = array();
 $categoryModel = new CategoryModel();
 $categories = $categoryModel->get();
-$redirectUrl = NULL;
-if (isset($_POST['redirecturl'])) {
-	$redirectUrl = filter_input(INPUT_POST, 'redirecturl', FILTER_SANITIZE_URL);
+
+// 設定重導向資料
+$redirectUrl = filter_input(INPUT_POST, 'postfromurl', FILTER_VALIDATE_URL);
+if (!$redirectUrl) {
+	$redirectUrl = filter_input(INPUT_POST, 'redirecturl', FILTER_VALIDATE_URL);
 }
 
 // 處理新增資料
