@@ -85,7 +85,8 @@ if (is_array($postData) and !in_array(NULL, $postData, True) and !in_array(False
 								    		   $postData['duedate'],
 								    		   $postData['model_id']) === False) 
 		{
-			$errors[] = '發生不知名錯誤，請通知管理員';				    	
+			// Should Log
+			//$errors[] = '發生不知名錯誤，請通知管理員';				    	
 		} else {
 			$infos[] = '設備更新成功';
 		}

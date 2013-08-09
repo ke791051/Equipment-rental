@@ -46,7 +46,7 @@ if (!in_array(NULL, $postData, True) and !in_array(FALSE, $postData, True)) {
 	} else {
 		// show 505 or error message
 		// log
-		print $lendModel->getStatementErrorMessage();
+		// print $lendModel->getStatementErrorMessage();
 	}
 }
 // 設定Model資料
