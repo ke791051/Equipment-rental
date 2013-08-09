@@ -76,6 +76,7 @@ SQL;
         $getSql = <<<SQL
             SELECT *
             FROM register
+            ORDER BY finish_time ASC, register_time DESC
             LIMIT :limit OFFSET :offset
 SQL;
         $getStatement = $db->prepare($getSql);
@@ -136,6 +137,30 @@ SQL;
         //$getStatement->debugDumpParams();
         return $this->executeMultipleResultSelectStatement($getStatement);
     }
+	
+	/**
+	 * 取得指定使用者的設備申請紀錄
+	 * 
+	 * @access public
+	 * @param string $userId
+	 * @param int $limit
+	 * @param int $offset
+	 * @return arrary|NULL
+	 */
+	public function getByUserId($userId, $limit=NULL, $offset=NULL) 
+	{
+		$db = $this->getDb();
+		$selectSql = <<<SQL
+			SELECT * FROM register
+			WHERE user_id = :userId
+			LIMIT :limit OFFSET :offset
+SQL;
+		$selectStatement = $db->prepare($selectSql);
+		$selectStatement->bindValue(':userId', $userId);
+		$selectStatement->bindValue(':limit', !is_null($limit) ? $limit : PHP_INT_MAX, PDO::PARAM_INT);
+		$selectStatement->bindValue(':offset', !is_null($offset) ? $offset : 0, PDO::PARAM_INT);
+		return $this->executeMultipleResultSelectStatement($selectStatement);
+	}
 	
 	/**
 	 * 取得所有設備申請紀錄的筆數
