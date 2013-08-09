@@ -1,6 +1,4 @@
 <?php
-	require_once('connection/connection.php');
-	require_once('userrank.php');
 	
 	/**
 	 * LoginSystem
@@ -9,13 +7,16 @@
 	 * 
 	 * @author Guanyuo <s11977037@gms.nutc.edu.tw>
 	 */
-    class LoginSystem extends BaseDatabase {
+    class LoginSystem {
+    	
+		private $userModel;
     	
 		public function __construct()
 		{
 			if (session_id() == "")	{
 				session_start();
 			}
+			$this->userModel = new UserModel();
 		}
     	/**
 		 * 使用者登入
@@ -27,19 +28,11 @@
 		 */
     	public function login($user, $password) 
     	{
-			$db = $this->getDb();
-			$getSql = <<<SQL
-				SELECT * FROM madata
-				WHERE id = :user AND pw = :password
-SQL;
-			$getStatement = $db->prepare($getSql);
-			$getStatement->bindValue(':user', $user);
-			$getStatement->bindValue(':password', $password);
-			$result = $this->executeSingleResultSelectStatement($getStatement);
-			if ($result) {
-				$_SESSION['user_id'] = $result['id'];
-				$_SESSION['user_rank'] = new UserRank($result['Permission']);
-				$_SESSION['user_data'] = $result;
+			$user = $this->userModel->getByAccount($user, $password);
+			if ($user) {
+				$_SESSION['user_rank'] = new UserRank($user['Permission']);
+				$_SESSION['user_id'] = $user['id'];
+				$_SESSION['user_data'] = $user;
 				return True;
 			} else {
 				return False;
