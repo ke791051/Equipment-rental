@@ -35,7 +35,7 @@ $totalPages = ceil($registerModel->getCount() / $perpage);
 $page = ($page > 0 and $page <= $totalPages) ? $page : $config['DEFAULT_PAGE'];
 // 設定Model資料
 $registers = array();
-foreach ($registerModel->get($perpage, ($page - 1) * $perpage) as $register) {
+foreach ($registerModel->getByUserId($loginUserId, $perpage, ($page - 1) * $perpage) as $register) {
 	$modelData = array();
 	
 	$modelData['register'] = $register;

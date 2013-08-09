@@ -36,7 +36,7 @@ $totalPages = ceil($lendModel->getCount() / $perpage);
 $page = ($page > 0 and $page <= $totalPages) ? $page : $config['DEFAULT_PAGE'];
 
 // 載入Model資料
-$lendsModelData = $lendModel->get($perpage, ($page - 1) * $perpage);
+$lendsModelData = $lendModel->getByUserId($loginUserId, $perpage, ($page - 1) * $perpage);
 $lends = array();
 foreach ($lendsModelData as $lendModelData) {
 	$lend = array();
