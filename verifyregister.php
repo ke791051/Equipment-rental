@@ -16,7 +16,7 @@ $contentPath = 'contents/verifyregister.php';
 $addScripts = array();
 
 // 設定頁面資料
-$submitValue = '審核申請';
+$submitValue = '審核';
 $postUrl = $config['BASE_PATH'] . 'verifyregister.php';
 $errors = array();
 $infos = array();
@@ -92,7 +92,8 @@ $categoryModel = new CategoryModel();
 $category = $categoryModel->getById($model['category_id']);
 $register['category'] = $category;
 
-$register['user'] = array('name' => 'Not Implemented', 'sy' => 'Not Implemented');
+$userModel = new UserModel();
+$register['user'] = $userModel->getByAccountName($register['register']['user_id']);
 
 $expectedBackDate = new DateTime();
 $expectedBackDate->add(new DateInterval('P1W'));

@@ -27,6 +27,7 @@ $registerModel = new RegisterModel();
 $modelModel = new ModelModel();
 $categoryModel = new CategoryModel();
 $instanceModel = new InstanceModel();
+$userModel = new UserModel();
 
 // 處理分頁資料
 $getData = filter_input_array(INPUT_GET, array('perpage' => FILTER_VALIDATE_INT, 'page' => FILTER_VALIDATE_INT));
@@ -57,8 +58,9 @@ foreach ($registersModelData as $registerModelData) {
 	$categoryData = $categoryModel->getById($modelData['category_id']);
 	$registerData['category'] = $categoryData;
 	
-	// TODO: UserModel
-	$registerData['user'] = array('name' => 'UserModel not implemented', 'sy' => 'UserModel not implemented');
+	$registerData['user'] = $userModel->getByAccountName($registerData['register']['user_id']);
+	
+	$registerData['verifyuser'] = $userModel->getByAccountName($registerData['register']['verifyuser_id']);
 	
 	$registers[] = $registerData;
 }

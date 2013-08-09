@@ -14,7 +14,8 @@
  * 									'category' => array('id' => value,
  * 														'name' => value),
  * 									'instance' => array(),
- * 									'user' => array(...Model取出的資料的格式...))
+ * 									'user' => array(...Model取出的資料的格式...),
+ * 									'verifyuser' => array(...Model取出的資料的格式...))
  *   - string $caption
  *   - string $navigateUrl
  *   - int $perPage
@@ -36,6 +37,7 @@
 		<th>地點</th>
 		<th>狀態</th>
 		<th>申請日期</th>
+		<th>審核者</th>
 		<th>審核日期</th>
 		<th>審核是否通過</th>
 		<th>備註</th>
@@ -54,6 +56,7 @@
 				<td><?php echo $register['instance']['location'] ?></td>
 				<td><?php echo (new InstanceStatus($register['instance']['status']))->getStatusMessage() ?></td>
 				<td><?php echo $register['register']['register_time'] ?></td>
+				<td><?php echo $register['verifyuser']['name'] ?></td>
 				<td><?php echo $register['register']['finish_time'] ?></td>
 				<?php if (!is_null($register['register']['ispass'])): ?>
 					<td><?php echo $register['register']['ispass'] ? '通過' : '不通過' ?></td>

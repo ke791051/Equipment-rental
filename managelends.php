@@ -20,6 +20,7 @@ $lendModel = new LendModel();
 $instanceModel = new InstanceModel();
 $modelModel = new ModelModel();
 $categoryModel = new CategoryModel();
+$userModel = new UserModel();
 
 $caption = $title;
 $postLendBackUrl = $config['BASE_PATH'] . 'lendback.php';
@@ -46,7 +47,7 @@ foreach ($lendsModelData as $lendModelData) {
 	
 	$lend['category'] = $categoryModel->getById($lend['model']['category_id']);
 	
-	$lend['user'] = array('name' => 'Not Implemented', 'sy' => 'Not Implemented');
+	$lend['user'] = $userModel->getByAccountName($lend['lend']['user_id']);
 	
 	$lends[] = $lend;
 }

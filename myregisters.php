@@ -24,6 +24,7 @@ $registerModel = new RegisterModel();
 $instanceModel = new InstanceModel();
 $modelModel = new ModelModel();
 $categoryModel = new CategoryModel();
+$userModel = new UserModel();
 
 // 設定分頁資料
 $getData = filter_input_array(INPUT_GET, array('perpage' => FILTER_VALIDATE_INT, 'page' => FILTER_VALIDATE_INT));
@@ -45,7 +46,9 @@ foreach ($registerModel->get($perpage, ($page - 1) * $perpage) as $register) {
 	
 	$modelData['category'] = $categoryModel->getById($modelData['model']['category_id']);
 	
-	$modelData['user'] = array('name' => 'Not Implemented', 'sy' => 'Not Implemented');
+	$modelData['user'] = $userModel->getByAccountName($modelData['register']['user_id']);
+	
+	$modelData['verifyuser'] = $userModel->getByAccountName($modelData['register']['verifyuser_id']); 
 	
 	$registers[] = $modelData;
 }
