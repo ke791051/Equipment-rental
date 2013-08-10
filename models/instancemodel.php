@@ -22,7 +22,7 @@ class InstanceModel extends BaseDatabase{
      * @param int $modelId 設備種類編號
      * @return int|boolean 回傳設備的資料庫編號，新增失敗時回傳FALSE
      */
-    public function addInstance($identify, $location, $status, $note, $duedate, $modelId)
+    public function addInstance($identify, $location, $status, $note, DateTime $duedate = NULL, $modelId)
     {
         $insertSql = <<<SQL
             INSERT INTO instances (identify, location, status, note, duedate, model_id)
@@ -242,6 +242,34 @@ SQL;
         }
         return $getStatement->fetch();
     }
+	
+	/**
+	 * 取得指定分類的設備資料
+	 * 
+	 * @access public
+	 * @param string $categoryName
+	 * @param int $limit
+	 * @param int $offset
+	 * @return array|NULL
+	 */
+	public function getByCategoryName($categoryName, $limit=NULL, $offset=NULL)
+	{
+		$db = $this->getDb();
+		$selectSql = <<<SQL
+			SELECT * FROM instances
+			WHERE model_id IN (SELECT model_id
+							   FROM model
+							   WHERE category_id = (SELECT id
+							  	 				    FROM category
+							  	 				    WHERE name = :categoryName))
+			LIMIT :limit OFFSET :offset
+SQL;
+		$selectStatement = $db->prepare($selectSql);
+		$selectStatement->bindValue(":categoryName", $categoryName);
+		$selectStatement->bindValue(':limit', !is_null($limit) ? $limit : PHP_INT_MAX);
+		$selectStatement->bindValue(':offset', !is_null($offset) ? $offset : 0);
+		return $this->executeMultipleResultSelectStatement($selectStatement);
+	}
     
     /**
      * 取得應報廢的設備資料
