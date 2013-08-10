@@ -58,13 +58,13 @@
 		$location = $_POST['location'];
 		$status = $_POST['status'];
 		$note = $_POST['note'];
-		if($_POST['duedate']!='')
+		if($_POST['duedate'])
 		{
 			$duedate = new DateTime($_POST['duedate']);
 		}
 		else
 		{
-			$duedate = '';
+			$duedate = NULL;
 		}
 		$model_id = $_POST['model_id'];
 		$validator = new InstanceValidator();
