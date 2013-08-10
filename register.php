@@ -28,6 +28,14 @@ $operators = array('edit' => False, 'delete' => False, 'register' => True, 'veri
 $instanceModel = new InstanceModel();
 
 // 取得未被申請或未借出的設備
+$categoryName = filter_input(INPUT_GET, 'category', FILTER_SANITIZE_STRING);
+if ($categoryName) {
+	$instances = $instanceModel->getInstancesCanBeRegisteredByCategoryName($categoryName);
+	$instancesCount = count($instances);
+} else {
+	$instances = $instanceModel->getInstancesCanBeRegistered();
+	$instancesCount = $instanceModel->getCount();
+}
 $getData = filter_input_array(INPUT_GET, array('perpage' => FILTER_VALIDATE_INT, 'page' => FILTER_VALIDATE_INT));
 if (!is_array($getData) or in_array(FALSE, $getData, True) ) {
 	$perpage = $config['DEFAULT_PERPAGE'];
@@ -37,10 +45,10 @@ if (!is_array($getData) or in_array(FALSE, $getData, True) ) {
 	$page = (int) $getData['page'];
 }
 $perpage = $perpage > 0 ? $perpage : $config['DEFAULT_PERPAGE'];
-$totalPages = ceil($instanceModel->getCount() / $perpage);
+$totalPages = ceil($instancesCount / $perpage);
 $totalPages = $totalPages == 0 ? 1 : $totalPages;
 $page = ($page > 0 and $page <= $totalPages) ? $page : $config['DEFAULT_PAGE'];
-$instances = $instanceModel->getInstancesCanBeRegistered($perpage, ($page - 1) * $perpage);
+$instances = array_slice($instances, ($page - 1) * $perpage, $perpage);
 
 // 處理申請資料
 $postData = filter_input_array(INPUT_POST, array('id' => FILTER_VALIDATE_INT,

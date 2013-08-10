@@ -336,6 +336,35 @@ SQL;
 		return $this->executeMultipleResultSelectStatement($getStatement);
 	}
 	
+	public function getInstancesCanBeRegisteredByCategoryName($categoryName, $limit=NULL, $offset=NULL)
+	{
+		$db = $this->getDb();
+		$getSql = <<<SQL
+			SELECT * FROM instances
+			WHERE id NOT IN (SELECT instances_id
+							 FROM register
+							 WHERE finish_time IS NULL)
+				  AND
+				  id NOT IN (SELECT instances_id
+				  			 FROM lend
+				  			 WHERE back_date IS NULL)
+				  AND
+				  status = 0
+				  AND
+				  model_id IN (SELECT id
+				  			   FROM model
+				  			   WHERE category_id = (SELECT id
+				  			   						FROM category
+				  			   						WHERE name = :categoryName))
+			LIMIT :limit OFFSET :offset
+SQL;
+		$getStatement = $db->prepare($getSql);
+		$getStatement->bindValue(':categoryName', $categoryName);
+		$getStatement->bindValue(':limit', !is_null($limit) ? $limit : PHP_INT_MAX, PDO::PARAM_INT);
+		$getStatement->bindValue(':offset', !is_null($offset) ? $offset : 0, PDO::PARAM_INT);
+		return $this->executeMultipleResultSelectStatement($getStatement);
+	}
+	
 	/**
 	 * 取得可出借的設備
 	 * 
