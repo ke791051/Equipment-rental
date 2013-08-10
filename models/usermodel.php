@@ -39,7 +39,6 @@ SQL;
 		$addStatement->bindValue(':permission', $permission);
 		$addStatement->bindValue(':active', $active, PDO::PARAM_BOOL);
 		$result = $this->executeInsertStatement($addStatement);
-		// print $result;
 		if ($result === False) {
 			return False;
 		} else {
@@ -55,7 +54,7 @@ SQL;
 	 * @access public
 	 * @param string $targetAccountName
 	 * @param string $username
-	 * @param string $sy
+	 * @param string $sy 學制
 	 * @param string $email
 	 * @param string $phone
 	 * @param string $email
@@ -65,6 +64,26 @@ SQL;
 	 */
 	public function updateUserByAccountName($targetAccountName, $username, $sy, $email, $phone, $permission, $active)
 	{
+		$db = $this->getDb();
+		$updateSql = <<<SQL
+			UPDATE madata
+			SET name = :username, sy = :sy, mail = :email, phone = :phone, permission = :permission, NY = :active
+			WHERE id = :targetAccountName
+SQL;
+		$updateStatement = $db->prepare($updateSql);
+		$updateStatement->bindValue(':username', $username);
+		$updateStatement->bindValue(':sy', $sy);
+		$updateStatement->bindValue(':email', $email);
+		$updateStatement->bindValue(':phone', $phone);
+		$updateStatement->bindValue(':permission', $permission);
+		$updateStatement->bindValue(':active', $active, PDO::PARAM_BOOL);
+		$updateStatement->bindValue(':targetAccountName', $targetAccountName);
+		$result = $this->executeUpdateStatement($updateStatement);
+		if ($result === False) {
+			return False;
+		} else {
+			return True;
+		}
 	}
 	
 	/**
@@ -72,12 +91,26 @@ SQL;
 	 * 
 	 * @access public
 	 * @param string $targetAccountName
-	 * @param string $password
+	 * @param string $password 新密碼
 	 * @return boolean
 	 */
-	public function updateUserPasswordByAccountName()
+	public function updateUserPasswordByAccountName($targetAccountName, $password)
 	{
-		
+		$db = $this->getDb();
+		$updateSql = <<<SQL
+			UPDATE madata
+			SET pw = PASSWORD(:password), pw2 = PASSWORD(:password)
+			WHERE id = :targetAccountName
+SQL;
+		$updateStatement = $db->prepare($updateSql);
+		$updateStatement->bindValue(':password', $password);
+		$updateStatement->bindValue(':targetAccountName', $targetAccountName);
+		$result = $this->executeUpdateStatement($updateStatement);
+		if ($result === False) {
+			return False;
+		} else {
+			return True;
+		}
 	}
 	
 	/**
@@ -89,11 +122,24 @@ SQL;
 	 */
 	public function activateUserByAccountName($accountName)
 	{
-		
+		$db = $this->getDb();
+		$updateSql = <<<SQL
+			UPDATE madata
+			SET NY = TRUE
+			WHERE id = :accountName
+SQL;
+		$updateStatement = $db->prepare($updateSql);
+		$updateStatement->bindValue(':accountName', $accountName);
+		$result = $this->executeUpdateStatement($updateStatement);
+		if ($result === False) {
+			return False;
+		} else {
+			return True;
+		}
 	}
 	
 	/**
-	 * 暫停使用者帳號
+	 * 停用使用者帳號
 	 * 
 	 * @access public
 	 * @param string $accountName
@@ -101,7 +147,20 @@ SQL;
 	 */
 	public function unactivateUserByAccountName($accountName)
 	{
-		
+		$db = $this->getDb();
+		$updateSql = <<<SQL
+			UPDATE madata
+			SET NY = FALSE
+			WHERE id = :accountName
+SQL;
+		$updateStatement = $db->prepare($updateSql);
+		$updateStatement->bindValue(':accountName', $accountName);
+		$result = $this->executeUpdateStatement($updateStatement);
+		if ($result === False) {
+			return False;
+		} else {
+			return True;
+		}
 	}
 	
 	/**
@@ -174,6 +233,18 @@ SQL;
 	 */
 	public function removeByAccountName($accountName)
 	{
-		
+		$db = $this->getDb();
+		$deleteSql = <<<SQL
+			DELETE FROM madata
+			WHERE id = :accountName
+SQL;
+		$deleteStatement = $db->prepare($deleteSql);
+		$deleteStatement->bindValue(':accountName', $accountName);
+		$result = $this->executeDeleteStatement($deleteStatement);
+		if ($result === False) {
+			return False;
+		} else {
+			return True;
+		}
 	}
 }
