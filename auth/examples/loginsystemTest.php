@@ -1,12 +1,13 @@
 <?php
+	require('../../config.php');
 	header('Content-Type: text/html; charset=utf-8');
     require_once '../loginsystem.php';
 	print '<pre>';
 	$loginSystem = new LoginSystem();
 	
 	// 登入
-	/*
-	if ($loginSystem->login('123', '123')) {
+	//*
+	if ($loginSystem->login('Monshin', 'ILove4413!')) {
 		print "登入成功\n";
 	} else {
 		print "登入失敗\n";
