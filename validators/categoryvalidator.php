@@ -1,49 +1,53 @@
 <?php
-
-	/**
-	 * CategoryValidator
-	 * 
-	 * 分類資料驗證
-	 * 
-	 */
-	class CategoryValidator {
+	require_once 'models/categorymodel.php';
+    class CategoryValidator {
+		public $wrongmessage = array('名稱重複','更新失敗','刪除失敗','名稱不可為空白');
+		public $categorymodel;
 		
-		/**
-		 * 驗證新增分類資料
-		 * 
-		 * @access public
-		 * @param $name
-		 * @return array 回傳包含錯誤訊息的陣列
-		 */
-		public function validateForAdd($name) 
+		public function __construct()
+		 {
+			 $categorymodel=new CategoryModel();
+			 $this->categorymodel=$categorymodel;
+		 }
+		 
+    	public function validateForAdd($name)
 		{
-			return array();
+			$name = trim($name);
+			if($name != "")
+			{				
+				$get = $this->categorymodel->getByName($name);
+				if($get === false)
+				{
+					return array();
+				}
+				return array($this->wrongmessage[0]);
+			}		
+			return array($this->wrongmessage[3]);	
 		}
 		
-		/**
-		 * 驗證更新分類資料
-		 * 
-		 * @access public
-		 * @param $id 要更新分類的資料庫編號
-		 * @param $name
-		 * @return array 回傳包含錯誤訊息的陣列
-		 */
 		public function validateForUpdateById($id, $name)
 		{
-			return array();
+			$name = trim($name);
+			if($name != "")
+			{
+				$get = $this->categorymodel->getById($id);
+				if($get === false)
+				{
+					return array($this->wrongmessage[1]);
+				}
+				return array();
+			}
+			return array($this->wrongmessage[3]);
 		}
 		
-		/**
-		 * 驗證刪除分類資料
-		 * 
-		 * @access public
-		 * @param $id 要刪除分類的資料庫編號
-		 * @return array 回傳包含錯誤訊息的陣列
-		 */
 		public function validateForDeleteById($id)
 		{
+			$get = $this->categorymodel->getById($id);
+			if($get === false)
+			{
+				return array($this->wrongmessage[2]);
+			}
 			return array();
 		}
-	}
-
-// End of file
+    }
+?>

@@ -1,5 +1,5 @@
 <?php
-
+	require_once 'models/instancemodel.php'; 
 	/**
 	 * InstanceValidator
 	 * 
@@ -7,7 +7,13 @@
 	 * 
 	 */
     class InstanceValidator {
-    	
+    	public $wrongmessage = array('識別碼重複','更新失敗','刪除失敗','識別碼不可為空白');
+		public $instancemodel;
+		public function __construct()
+		{
+			$instancemodel=new InstanceModel();
+			$this->instancemodel=$instancemodel;
+		}
 		/**
 		 * 驗證新增設備的資料
 		 * 
@@ -22,7 +28,17 @@
 		 */
     	public function validateForAdd($identify, $location, $status, $note, $duedate, $modelId)
 		{
-			return array();
+			$identify = trim($identify);
+			if($identify != "")
+			{
+				$get = $this->instancemodel->getByIdentify($identify);
+				if($get === false)
+				{
+					return array();
+				}
+				return array($this->wrongmessage[0]);
+			}
+			return array($this->wrongmessage[3]);
 		}
 		
 		/**
@@ -40,7 +56,36 @@
 		 */
 		public function validateForUpdateById($id, $identify, $location, $status, $note, $duedate, $modelId)
 		{
-			return array();
+			if($identify != "")
+			{
+				$get = $this->instancemodel->getById($id);
+				if($get === false)
+				{
+					return array($this->wrongmessage[1]);
+				}
+				if($get[1] == $identify && $get[0]==$id)
+				{
+					return array();
+				}
+				elseif($get[1] != $identify && $get[0]==$id)
+				{
+					$getidentify =$this->instancemodel->getByIdentify($identify);
+					if($getidentify === false)
+					{
+						return array();
+					}
+					else
+					{
+						return array($this->wrongmessage[1]);
+					}
+				}
+				else
+				{
+					return array($this->wrongmessage[1]);
+				}
+				return array();
+			}
+			return array($this->wrongmessage[3]);
 		}
 		
 		/**
@@ -58,7 +103,25 @@
 		 */
 		public function validateForUpdateByIdentify($identify, $newIdentify, $location, $status, $note, $duedate, $modelId)
 		{
-			return array();
+			if($newIdentify != "")
+			{
+				$getold = $this->instancemodel->getByIdentify($identify);
+				if($getold === false)
+				{
+					return array($this->wrongmessage[1]);
+				}
+				if($identify==$newIdentify)
+				{
+					return array();
+				}
+				$getnew = $this->instancemodel->getByIdentify($newIdentify);
+				if($getnew === false)
+				{
+					return array();
+				}
+				return array($this->wrongmessage[0]);
+				}
+			return array($this->wrongmessage[3]);
 		}
 		
 		/**
@@ -70,6 +133,11 @@
 		 */
 		public function validateForDeleteById($id)
 		{
+			$get = $this->instancemodel->getById($id);
+			if($get === false)
+			{
+				return array($this->wrongmessage[2]);
+			}
 			return array();
 		}
 		
@@ -81,7 +149,12 @@
 		 * @return array 包含錯誤訊息的陣列
 		 */
 		public function validateForDeleteByIdentify($identify)
-		{
+		{			
+			$get = $this->instancemodel->getByIdentify($identify);
+			if($get === false)
+			{
+				return array($this->wrongmessage[2]);
+			}
 			return array();
 		}
     }
