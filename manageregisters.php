@@ -31,7 +31,7 @@ $userModel = new UserModel();
 
 // 處理分頁資料
 $getData = filter_input_array(INPUT_GET, array('perpage' => FILTER_VALIDATE_INT, 'page' => FILTER_VALIDATE_INT));
-if (!$getData or !in_array(FALSE, $getData, True)) {
+if (!$getData or in_array(FALSE, $getData, True)) {
 	$perpage = $config['DEFAULT_PERPAGE'];
 	$page = $config['DEFAULT_PAGE'];
 } else {
@@ -40,8 +40,7 @@ if (!$getData or !in_array(FALSE, $getData, True)) {
 }
 $perpage = $perpage > 0 ? $perpage : $config['DEFAULT_PERPAGE'];
 $totalPages = ceil($registerModel->getCount() / $perpage);
-$totalPages = $totalPages == 0 ? 1 : $totalPages;
-$page = $page > 0 and $page <= $totalPages ? $page : $config['DEFAULT_PAGE'];
+$page = ($page > 0 and $page <= $totalPages) ? $page : $config['DEFAULT_PAGE'];
 $registersModelData = $registerModel->get($perpage, ($page - 1) * $perpage);
 // 建立registers資料
 $registers = array();
