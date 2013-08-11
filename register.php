@@ -12,20 +12,20 @@ if (is_null($loginUserRank)) {
 // 設定主版資料
 $title = '設備出借申請';
 $navContentPath = 'contents/nav_user.php';
-$contentPath = 'contents/instances.php';
+$contentPath = 'contents/picturedinstances.php';
 $addScripts = array();
 
 // 設定頁面資料
 $caption = $title;
 $navigateUrl = $config['BASE_PATH'] . 'register.php';
-$postEditUrl = NULL;
-$postDeleteUrl = NULL;
 $postRegisterUrl = $config['BASE_PATH'] . 'register.php';
-$postVerifyUrl = NULL;
-$operators = array('edit' => False, 'delete' => False, 'register' => True, 'verify' => False);
+$operators = array('register' => True);
 
 // 載入Models
 $instanceModel = new InstanceModel();
+$modelModel = new ModelModel();
+$categoryModel = new CategoryModel();
+$filemanagement = new FileManagement();
 
 // 取得未被申請或未借出的設備
 $categoryName = filter_input(INPUT_GET, 'category', FILTER_SANITIZE_STRING);
@@ -49,6 +49,30 @@ $totalPages = ceil($instancesCount / $perpage);
 $totalPages = $totalPages == 0 ? 1 : $totalPages;
 $page = ($page > 0 and $page <= $totalPages) ? $page : $config['DEFAULT_PAGE'];
 $instances = array_slice($instances, ($page - 1) * $perpage, $perpage);
+
+// 設定ModelData
+$modelData = array();
+foreach ($instances as $instance) {
+	$modelId = $instance['model_id'];
+	
+	if (!isset($modelData[$modelId])) {
+		$modelData[$modelId]['model'] = $modelModel->getById($modelId);
+		$modelData[$modelId]['category'] = $categoryModel->getById($modelData[$modelId]['model']['category_id']);
+		$modelImageIds = $modelModel->getModelImagesById($modelId);
+		if ($modelImageIds) {
+			$modelImageId = $modelImageIds[0][0];
+			$modelImageData = $filemanagement->get_file($modelImageId);
+			$modelData[$modelId]['model_image'] = array('name' => $modelImageData[0], 'path' => $modelImageData[1]);
+		} else {
+			$modelData[$modelId]['model_image'] = array('name' => 'No Image', 'path' => '');
+		} 
+		$modelData[$modelId]['instances'] = array();
+	}
+	
+	$modelData[$modelId]['instances'][] = $instance;
+}
+$categories = $categoryModel->get();
+
 
 // 處理申請資料
 $postData = filter_input_array(INPUT_POST, array('id' => FILTER_VALIDATE_INT,
