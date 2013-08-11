@@ -76,7 +76,7 @@ SQL;
         $getSql = <<<SQL
             SELECT *
             FROM register
-            ORDER BY finish_time ASC, register_time DESC
+            ORDER BY finish_time IS NULL DESC, register_time DESC
             LIMIT :limit OFFSET :offset
 SQL;
         $getStatement = $db->prepare($getSql);
@@ -153,6 +153,7 @@ SQL;
 		$selectSql = <<<SQL
 			SELECT * FROM register
 			WHERE user_id = :userId
+			ORDER BY finish_time IS NULL DESC, register_time DESC 
 			LIMIT :limit OFFSET :offset
 SQL;
 		$selectStatement = $db->prepare($selectSql);
