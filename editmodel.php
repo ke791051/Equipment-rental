@@ -68,8 +68,12 @@ if (is_array($postData) and !in_array(NULL, $postData, True) and !in_array(False
 				if ($newImageId === False) {
 					$errors[] = '圖片上傳失敗';
 				} else {
-					$modelModel->addModelImageById($modelId, $newImageId);
-					$infos[] = '圖片上傳成功';
+					if ($modelModel->addModelImageById($modelId, $newImageId)) {
+						$infos[] = '圖片上傳成功';
+					} else {
+						$errors[] = '請先刪除舊有設備型號圖片';
+						$filemanagement->delete_file($newImageId);
+					}
 				}
 			}
 		}
