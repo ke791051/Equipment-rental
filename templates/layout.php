@@ -12,8 +12,10 @@
     <head>
     	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title><?php echo $title ?></title>
+        <script src="jquery/jquery-1.10.2.js" type="text/javascript"></script>
         <link rel="stylesheet" href="css/reset.css" type="text/css" charset="utf-8" />
     	<link rel="stylesheet" href="css/layout.css" type="text/css" charset="utf-8" />
+        <script src="jquery/layout.js" type="text/javascript"></script>
         <?php
             foreach ($addScripts as $addScript):
                 echo $addScript;
@@ -21,6 +23,10 @@
         ?>
     </head>
     <body>
+        <div id="login">
+            <div id="login_form" ></div>
+            <input type="button" id="login_Add" value="Login">
+        </div>
     	<div id="page">
 	        <div id="header">
 	        		<span id="infos">
@@ -29,7 +35,7 @@
 	
 					</span>
 	
-					<a href="index.html" id="logo"></a> <!-- /#logo -->
+					<a href="index.php" id="logo"></a> <!-- /#logo -->
 	
 	                <center>
 	

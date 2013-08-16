@@ -20,8 +20,11 @@
  *   - array $operators array('register' => boolean)
  */
 ?>
+<head>
+	<link rel="stylesheet" href="css/picturedinstances.css" type="text/css" charset="utf-8" />
+</head>
 
-<div>
+<div class="item_class">
 	<ul>
 		<?php foreach ($categories as $category): ?>
 			<li><a href="<?php echo $navigateUrl . '?' . http_build_query(array('category' => $category['name'])) ?>"><?php echo $category['name'] ?></a></li>
@@ -29,7 +32,7 @@
 	</ul>
 </div>
 
-<div>
+<div class="item_list">
 	<h1><?php echo $caption ?></h1>
 	<?php foreach($modelData as $model): ?>
 		<div>

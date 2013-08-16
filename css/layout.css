@@ -1,16 +1,24 @@
 @charset "utf-8";
 /* CSS Document */
-body{width:100%; height:100%; padding:20px 0 20px 0; background-color:#FEFFAF}
+body{width:100%; height:100%; padding:0 0 20px 0; background-color:#FEFFAF}
+#login{width:1024px;margin:auto;height:20px;}
+
 #background{width:100%; height:100%;}
-#page{width:1024px; margin:auto; background-color:#2ca99b;border-radius:10px; border:solid #FFF 2px; padding:10px;}
+#page{width:1024px;height:1040px; margin:auto;margin-bottom:20px; background-color:#2ca99b;border-radius:10px; border:solid #FFF 2px; padding:10px;}
 
 #header{width:100%; height:340px;}
 
 #contents{width:100%; height:100%;}
 
 #footer{height:110px;}
+/*----------------------------------#login區塊----------------------------------*/
+#login_form{display:none;float:right;width:300px;background:#efefef;border-radius:0 0 10px 10px;border:solid #CCC 2px;border-top:none; z-index:999;}
+#login_main table{margin:auto;}
+#login_Add{float:right; background:url(../images/Login.png);border:none; height:20px;width:67px;color:#666;margin:-2px; }
+/*#login_form #close{display:none;position:absolute;border:none; height:30px;width:30px; margin: -30px 0 0 269px;}----圖片版----*/
+#login_form #close{display:none;position:absolute;border:none; height:30px;width:30px; margin: -29px 0 0 271px;background:#FF7573; border-radius:10px 0 10px 0;font-weight:bolder; font-size:18px;color:#FFF}
 /*----------------------------------#header區塊----------------------------------*/
-#header span#infos{display:block;float:right;margin:16px;margin-right:50px;padding:1px; line-height:20px;}
+#header span#infos{display:block;float:left;margin:16px;margin-left:50px;padding:1px; line-height:20px;}
 #header #infos a{ text-decoration:none; vertical-align:inherit;font-size:13pt;font-weight:bolder;}
 #header #infos a:link{ color:#FFF;}
 #header #infos a:visited{ color:#FFF;}
@@ -21,11 +29,11 @@ body{width:100%; height:100%; padding:20px 0 20px 0; background-color:#FEFFAF}
 #header li{float:left; width:256px; text-align:center;}
 #header li a{text-decoration:none;font-size:15pt; font-weight:bolder; color:#FF0;}
 
-/*----------------------------------#main區塊----------------------------------*/
-#main table{width:300px;margin:30px auto; border:#FFF solid 3px;}
-#main table tr{line-height:35px;}
-#main table td{text-align:center; vertical-align:bottom;padding:5px;}
-#main input["text"],#main input["password"]{width:150px; height:22px;margin:0;padding:0px !important;}
+/*----------------------------------#login_main區塊----------------------------------*/
+/*#main table{width:300px;margin:30px auto; border:#FFF solid 3px;}*/
+#login_main table tr{line-height:35px;}
+#login_main table td{text-align:center; vertical-align:bottom;padding:5px;}
+#login_main input["text"],#main input["password"]{width:150px; height:22px;margin:0;padding:0px !important;}
 
 /*----------------------------------#footer----------------------------------*/
 /*----------------------------------#description----------------------------------*/
@@ -39,7 +47,7 @@ body{width:100%; height:100%; padding:20px 0 20px 0; background-color:#FEFFAF}
 #description #summary p{ line-height:20px; margin:5px 25px;}
 
 /*----------------------------------.navigation----------------------------------*/
-.navigation{height:35px;}
+.navigation {/*height:35px;*/}
 .navigation ul{margin:auto;width:410px}
-.navigation li{float:left;width:100px; line-height:15px;text-align:center; border-right:solid 1px #FFF;border-left:solid 1px #FFF;}
+.navigation li{float:left;width:100px; line-height:15px;text-align:center; border-right:solid 1px #FFF;border-left:solid 1px #FFF; }
 .navigation li a{text-decoration:none;font-size:10pt; color:#FF0;}
