@@ -241,10 +241,18 @@ SQL;
 		$deleteStatement = $db->prepare($deleteSql);
 		$deleteStatement->bindValue(':accountName', $accountName);
 		$result = $this->executeDeleteStatement($deleteStatement);
-		if ($result === False) {
+		if ($result === False or $result == 0) {
 			return False;
 		} else {
 			return True;
 		}
+	}
+	
+	public function getCount()
+	{
+		$db = $this->getDb();
+		$selectSql = 'SELECT COUNT(*) FROM madata';
+		$result = $db->query($selectSql)->fetch();
+		return $result[0];
 	}
 }

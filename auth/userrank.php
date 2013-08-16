@@ -20,6 +20,18 @@
 		}
 		
 		/**
+		 * 取得可用的使用者權限
+		 * 
+		 * @access public
+		 * @return array
+		 */
+		public static function getPermissions()
+		{
+			return array('管理者' => self::ADMIN,
+						 '使用者' => self::STUDENT);	
+		}
+		
+		/**
 		 * 設定權限
 		 * 
 		 * @access public
@@ -84,6 +96,12 @@
 			$thisRank = array_search($this->getRank(), $ranks);
 			$otherRank = array_search($otherUserRank->getRank(), $ranks);
 			return $thisRank < $otherRank;
+		}
+		
+		public function __toString()
+		{
+			$mapping = array_flip(self::getPermissions());
+			return $mapping[$this->rank];
 		}
     }
 ?>
