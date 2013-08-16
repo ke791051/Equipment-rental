@@ -26,16 +26,21 @@ $modelModel = new ModelModel();
 $categoryModel = new CategoryModel();
 $userModel = new UserModel();
 
+// 計算使用者申請紀錄總個數
+$modelsData = $registerModel->getByUserId($loginUserId);
+$totalRows = count($modelsData);
+
 // 設定分頁資料
 $getData = filter_input_array(INPUT_GET, array('perpage' => FILTER_VALIDATE_INT, 'page' => FILTER_VALIDATE_INT));
 $page = (int) $getData['page'];
 $perpage = (int) $getData['perpage'];
 $perpage = $perpage > 0 ? $perpage : $config['DEFAULT_PERPAGE'];
-$totalPages = ceil($registerModel->getCount() / $perpage);
+$totalPages = ceil($totalRows / $perpage);
 $page = ($page > 0 and $page <= $totalPages) ? $page : $config['DEFAULT_PAGE'];
 // 設定Model資料
+$modelsData = array_slice($modelsData, ($page - 1) * $perpage, $perpage);
 $registers = array();
-foreach ($registerModel->getByUserId($loginUserId, $perpage, ($page - 1) * $perpage) as $register) {
+foreach ($modelsData as $register) {
 	$modelData = array();
 	
 	$modelData['register'] = $register;
