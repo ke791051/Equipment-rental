@@ -22,4 +22,6 @@
 	<?php endforeach ?>
 </ul>
 
-<a href="<?php echo $redirectUrl ?>">返回</a>
+<?php if ($redirectUrl): ?>
+	<a href="<?php echo $redirectUrl ?>">返回</a>
+<?php endif ?>
