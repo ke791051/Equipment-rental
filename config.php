@@ -8,6 +8,8 @@ $config['CSS_HREF'] = $config['BASE_PATH'] . 'css/style.css';
 $config['SITE_TITLE'] = '資訊管理系設備出借系統';
 $config['DEFAULT_PERPAGE'] = 7;
 $config['DEFAULT_PAGE'] = 1;
+$config['DEFAULT_ADMIN_HOME'] = 'manageregisters.php';
+$config['DEFAULT_USER_HOME'] = 'register.php';
 
 set_include_path(get_include_path() . PATH_SEPARATOR . $config['APP_PATH']);
 
