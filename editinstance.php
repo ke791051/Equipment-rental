@@ -52,6 +52,10 @@ $postData = filter_input_array(INPUT_POST, array('id' => $stringSanitizeOption,
 												 'location' => $stringSanitizeOption,
 												 'status' => FILTER_VALIDATE_INT,
 												 'note' => $stringSanitizeOption,
+												 'cost' => FILTER_SANITIZE_NUMBER_INT,
+												 'value' => FILTER_SANITIZE_NUMBER_INT,
+												 'keeper' => $stringSanitizeOption,
+												 'user' => $stringSanitizeOption,
 												 'duedate' => $stringSanitizeOption,
 												 'model_id' => FILTER_VALIDATE_INT));
 if (is_array($postData) and !in_array(NULL, $postData, True) and !in_array(False, $postData, True)) {
@@ -67,6 +71,7 @@ if (is_array($postData) and !in_array(NULL, $postData, True) and !in_array(False
 	} else {
 		$postData['duedate'] = NULL;
 	}
+	// TODO update validator for changed model
 	$errors = array_merge($errors, $validator->validateForUpdateById($postData['id'],
 																	 $postData['identify'],
 	 														 		 $postData['location'],
@@ -77,12 +82,18 @@ if (is_array($postData) and !in_array(NULL, $postData, True) and !in_array(False
 	// 新增資料至資料庫
 	if (!$errors) {
 		$instanceModel = new InstanceModel();
+		$cost = $postData['cost'] ? (int) $postData['cost'] : NULL;
+		$value = $postData['value'] ? (int) $postData['value'] : NULL;
 		if ($instanceModel->updateInstanceById($postData['id'],
 											   $postData['identify'],
 								 	      	   $postData['location'],
 								        	   $postData['status'],
 							   	     		   $postData['note'],
 								    		   $postData['duedate'],
+								    		   $cost,
+								    		   $value,
+								    		   $postData['keeper'],
+								    		   $postData['user'],
 								    		   $postData['model_id']) === False) 
 		{
 			// Should Log

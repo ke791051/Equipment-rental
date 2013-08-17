@@ -19,14 +19,18 @@ class InstanceModel extends BaseDatabase{
      * @param int $status 設備狀態碼
      * @param string $note 備註
      * @param Date $duedate 使用到期年限
+	 * @param int $cost 成本
+	 * @param int $value 現值
+	 * @param string $keeper 保管人
+	 * @param string $user 使用人
      * @param int $modelId 設備種類編號
      * @return int|boolean 回傳設備的資料庫編號，新增失敗時回傳FALSE
      */
-    public function addInstance($identify, $location, $status, $note, DateTime $duedate = NULL, $modelId)
+    public function addInstance($identify, $location, $status, $note, DateTime $duedate = NULL, $cost, $value, $keeper, $user, $modelId)
     {
         $insertSql = <<<SQL
-            INSERT INTO instances (identify, location, status, note, duedate, model_id)
-            VALUES (:identify, :location, :status, :note, :duedate, :model_id);
+            INSERT INTO instances (identify, location, status, note, duedate, cost, value, keeper, user, model_id)
+            VALUES (:identify, :location, :status, :note, :duedate, :cost, :value, :keeper, :user, :model_id);
 SQL;
         $db = $this->getDb();
         $insertStatement = $db->prepare($insertSql);
@@ -36,6 +40,10 @@ SQL;
         $insertStatement->bindValue(':status', $status);
         $insertStatement->bindValue(':note', $note);
         $insertStatement->bindValue(':duedate', !is_null($duedate) ? $duedate->format(self::DATE_FORMAT): NULL);
+		$insertStatement->bindValue(':cost', $cost);
+		$insertStatement->bindValue(':value', $value);
+		$insertStatement->bindValue(':keeper', $keeper);
+		$insertStatement->bindValue(':user', $user);
         $insertStatement->bindValue(':model_id', $modelId);
         if ($insertStatement->execute() === FALSE) {
             return FALSE;
@@ -53,15 +61,28 @@ SQL;
 	 * @param int $status
 	 * @param string $note
 	 * @param DateTime $duedate
+	 * @param int $cost
+	 * @param int $value
+	 * @param string $keeper
+	 * @param string $user
 	 * @param int $modelId
 	 * @return boolean
 	 */
-	public function updateInstanceById($id, $identify, $location, $status, $note, $duedate, $modelId)
+	public function updateInstanceById($id, $identify, $location, $status, $note, DateTime $duedate = NULL, $cost, $value, $keeper, $user, $modelId)
 	{
 		$db = $this->getDb();
 		$updateSql = <<<SQL
 			UPDATE instances
-			SET identify = :identify, location = :location, status = :status, note = :note, duedate = :duedate, model_id = :modelId
+			SET identify = :identify,
+			 	location = :location,
+			 	status = :status,
+			 	note = :note,
+			 	duedate = :duedate, 
+			 	cost = :cost,
+			 	value = :value,
+			 	keeper = :keeper,
+			 	user = :user,
+			 	model_id = :modelId
 			WHERE id = :id
 SQL;
 		$updateStatement = $db->prepare($updateSql);
@@ -70,11 +91,15 @@ SQL;
 		$updateStatement->bindValue(':location', $location);
 		$updateStatement->bindValue(':status', $status);
 		$updateStatement->bindValue(':duedate', !is_null($duedate) ? $duedate->format(self::DATE_FORMAT) : NULL);
+		$updateStatement->bindValue(':cost', $cost);
+		$updateStatement->bindValue(':value', $value);
+		$updateStatement->bindValue(':keeper', $keeper);
+		$updateStatement->bindValue(':user', $user);
 		$updateStatement->bindValue(':note', $note);
 		$updateStatement->bindValue(':modelId', $modelId);
 		$updateStatement->bindValue(':id', $id);
 		$result = $this->executeUpdateStatement($updateStatement);
-		if ($result === False or $result == 0) {
+		if ($result === False) {
 			return False;
 		} else {
 			return True;

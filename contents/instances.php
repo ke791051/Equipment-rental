@@ -25,6 +25,10 @@
 	            <th>狀態</th>
 	            <th>備註</th>
 	            <th>報廢日期</th>
+	            <th>成本</th>
+	            <th>現值</th>
+	            <th>保管人</th>
+	            <th>使用人</th>
 	            <th>操作</th>
 			<?php endif ?>
 		</tr>
@@ -46,6 +50,10 @@
 				?></td>
                 <td><?php echo $instance['note'] ?></td>
                 <td><?php echo $instance['duedate'] ?></td>
+                <td><?php echo $instance['cost'] ?></td>
+                <td><?php echo $instance['value'] ?></td>
+                <td><?php echo $instance['keeper'] ?></td>
+                <td><?php echo $instance['user'] ?></td>
 				<?php if (in_array(True, $operators)): ?>
 					<td>
 						<?php if ($operators['edit']): ?>

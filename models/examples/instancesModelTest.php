@@ -1,11 +1,12 @@
 <pre>
 <?php
-require '../instancemodel.php';
+header('Content-Type: text/html; charset=utf-8');
+require '../../config.php';
 $instancemodel = new InstanceModel();
 
 // 新增設備
 /*
-if (($id = $instancemodel->addInstance('test001', '2106', 0, '', NULL, 1)) !== FALSE) {
+if (($id = $instancemodel->addInstance('Penny-Dell', '2106', 0, '', NULL, 30000, 300000, 'Penny', 'Penny', 19)) !== FALSE) {
     print "新增成功 {$id}\n";
 } else {
     print "新增失敗\n";
@@ -37,5 +38,9 @@ print_r($instancemodel->getByIdentify('test001'));
 /*
 print_r($instancemodel->get());
 //*/
+
+// 取得可被申請的設備
+print_r($instancemodel->getInstancesCanBeRegistered());
+print $instancemodel->getStatementErrorMessage();
 ?>
 </pre>

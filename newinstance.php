@@ -21,13 +21,17 @@
 	$addScripts = array();
 	
     // 設定頁面內文
-    $modelData = array('id'=>'',
-					   'identify' => '',
-					   'location' => '',
-					   'status' => '',
-					   'note' => '',
-					   'duedate' => '',
-					   'model_id' => '');
+    $modelData = array('id'=> NULL,
+					   'identify' => NULL,
+					   'location' => NULL,
+					   'status' => NULL,
+					   'note' => NULL,
+					   'duedate' => NULL,
+					   'cost' => NULL,
+					   'value' => NULL,
+					   'keeper' => NULL,
+					   'user' => NULL,
+					   'model_id' => NULL);
 					   
 	$identify = '';
 	$location = '';
@@ -58,6 +62,12 @@
 		$location = $_POST['location'];
 		$status = $_POST['status'];
 		$note = $_POST['note'];
+		$cost = filter_input(INPUT_POST, FILTER_VALIDATE_INT);
+		$cost = $cost ? $cost : NULL;
+		$value = filter_input(INPUT_POST, FILTER_VALIDATE_INT);
+		$value = $value ? $value : NULL;
+		$keeper = $_POST['keeper'] ? $_POST['keeper'] : NULL;
+		$user = $_POST['user'] ? $_POST['user'] : NULL;
 		if($_POST['duedate'])
 		{
 			$duedate = new DateTime($_POST['duedate']);
@@ -68,17 +78,17 @@
 		}
 		$model_id = $_POST['model_id'];
 		$validator = new InstanceValidator();
+		// TODO update validator for changed model
 		$errors = $validator->validateForAdd($identify, $location, $status, $note, $duedate, $model_id); 
 		$identify = trim($_POST['identify']);
 		// 資料驗證無錯誤，嘗試新增資料
 		if (!$errors) {
 			$instanceModel = new InstanceModel();
-			if ($instanceModel->addInstance($identify, $location, $status, $note, $duedate, $model_id)) {
+			if ($instanceModel->addInstance($identify, $location, $status, $note, $duedate, $cost, $value, $keeper, $user, $model_id)) {
 				$infos[] = '設備新增成功';
 			} else {
-				print $model_id;
 				$errors[] = '發生不知名錯誤，請通知管理員';
-				$errors[] = $instanceModel->getStatementErrorMessage();
+				// $errors[] = $instanceModel->getStatementErrorMessage();
 			}
 			
 		}
@@ -88,6 +98,10 @@
 			$modelData['location'] = $location;
 			$modelData['status'] = $status;
 			$modelData['note'] = $note;
+			$modelData['cost'] = $cost;
+			$modelData['value'] = $value;
+			$modelData['keeper'] = $keeper;
+			$modelData['user'] = $user;
 			if($duedate!='')
 			{
 				$modelData['duedate'] = $duedate->format('Y-m-d');
