@@ -3,7 +3,7 @@ $config = array();
 
 $config['BASE_PATH'] = 'http://localhost:1628/htdocs/';
 // $config['APP_PATH'] = realpath('.') . '/';
-$config['APP_PATH'] = 'I:\xampp\htdocs\htdocs/';
+$config['APP_PATH'] = 'D:\xampp\htdocs\htdocs/';
 $config['CSS_HREF'] = $config['BASE_PATH'] . 'css/style.css';
 $config['SITE_TITLE'] = '資訊管理系設備出借系統';
 $config['DEFAULT_PERPAGE'] = 7;
@@ -30,7 +30,8 @@ $config['MODULES_MAPPING'] = array('AuthSystem' => 'auth/authsystem.php',
 								   'FileChecker' => 'files/filechecker.php',
 								   'FileEror' => 'files/fileerror.php',
 								   'FileManagement' => 'files/filemanagement.php',
-								   'InstanceStatus' => 'models/instancestatus.php');
+								   'InstanceStatus' => 'models/instancestatus.php',
+								   'InstancesImporter' => 'bridge/instancesimporter.php');
 function __autoload($className) {
 	global $config;
 	if (array_key_exists($className, $config['MODULES_MAPPING'])) {
@@ -39,4 +40,6 @@ function __autoload($className) {
 }
 
 // spl_autoload_register('myautoload');
+
+require_once 'phpexcel/Classes/PHPExcel.php';
 // End of file
