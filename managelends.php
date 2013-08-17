@@ -49,6 +49,8 @@ foreach ($lendsModelData as $lendModelData) {
 	
 	$lend['user'] = $userModel->getByAccountName($lend['lend']['user_id']);
 	
+	$lend['lendbackuser'] = $userModel->getByAccountName($lend['lend']['lendbackuser_id']);
+	
 	$lends[] = $lend;
 }
 

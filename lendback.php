@@ -3,6 +3,7 @@ require_once 'config.php';
 // 驗證使用者是否為管理者
 $authSystem = new AuthSystem();
 $loginSystem = new LoginSystem();
+$loginUserId = $loginSystem->getLoginUserId();
 $loginUserRank = $loginSystem->getLoginUserRank();
 if (is_null($loginUserRank)) {
 	$authSystem->redirectHome();
@@ -41,7 +42,7 @@ if (!in_array(NULL, $postData, True) and !in_array(FALSE, $postData, True)) {
 	$note = $postData['note'];
 	try {
 		$backDate = new DateTime($postData['lendbackdate']);
-		if ($lendModel->backById($lendId, $backDate, $note)) {
+		if ($lendModel->backById($lendId, $loginUserId, $backDate, $note)) {
 			header('Location: ' . $redirectUrl);
 			exit();
 		} else {

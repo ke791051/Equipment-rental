@@ -5,7 +5,8 @@
  * 							   'instance' => ...instance Model Data...,
  * 							   'model' => ...model Model Data...
  * 							   'category' => ...category Model Data...,
- * 							   'user' => ...user Model Data...))
+ * 							   'user' => ...user Model Data...,
+ * 							   'lendbackuser' => ...user Model Data...))
  *  - string $postLendBackUrl
  *  - array $operators array('lendBack' => boolean)	
  *  - string $navigateUrl
@@ -27,6 +28,7 @@
 			<th>出借起始日期</th>
 			<th>預計歸還日期</th>
 			<th>歸還日期</th>
+			<th>歸還設備審核者</th>
 			<th>備註</th>
 			<?php if (in_array(True, $operators)): ?>
 				<th>操作</th>
@@ -44,6 +46,7 @@
 				<td><?php echo $lend['lend']['since_date'] ?></td>
 				<td><?php echo $lend['lend']['expected_back_date'] ?></td>
 				<td><?php echo $lend['lend']['back_date'] ?></td>
+				<td><?php echo $lend['lendbackuser']['name'] ?></td>
 				<td><?php echo $lend['lend']['note'] ?></td>
 				<?php if (in_array(True, $operators)): ?>
 					<td>
