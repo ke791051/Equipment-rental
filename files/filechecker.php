@@ -1,5 +1,4 @@
 <?php
-require_once APPPATH . 'libraries/files/fileerror.php';
 
 /**
  * FileChecker
