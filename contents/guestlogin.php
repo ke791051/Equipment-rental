@@ -27,10 +27,16 @@
 	<table>
 		<tbody>
 			<tr>
-				<td><label>學制：<input type="text" name="sy" value="<?php echo $modelData['sy'] ?>" required /></label></td>
+				<td><label>班級：<input type="text" name="sy" value="<?php echo $modelData['sy'] ?>" required /></label></td>
+			</tr>
+			<tr>
+				<td><label>學號：<input type="text" name="identify" value="<?php echo $modelData['identify'] ?>" required /></label></td>
 			</tr>
 			<tr>
 				<td><label>姓名：<input type="text" name="name" value="<?php echo $modelData['name'] ?>" required /></label></td>
+			</tr>
+			<tr>
+				<td><label>電話：<input type="tel" name="phone" value="<?php echo $modelData['phone'] ?>" required /></label></td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="<?php echo $caption ?>" /></td>

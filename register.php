@@ -36,17 +36,23 @@ $errors = array();
 $infos = array();
 $user = NULL;
 $postUserData = filter_input_array(INPUT_POST, array('name' => FILTER_SANITIZE_STRING,
-													 'sy' => FILTER_SANITIZE_STRING));
+													 'identify' => FILTER_SANITIZE_STRING,
+													 'sy' => FILTER_SANITIZE_STRING,
+													 'phone' => FILTER_SANITIZE_STRING));									 
 if ($postUserData and !in_array(NULL, $postUserData, True)) {
-	$accountName = hash('sha256', $postUserData['sy'] . $postUserData['name']);
+	if (in_array('', array_map(function($value) { return trim($value); } ,$postUserData))) {
+		$errors[] = '請填入必填欄位';	
+	}
+	$accountName = hash('sha256', $postUserData['sy'] . $postUserData['identify'] . $postUserData['name'] . $postUserData['phone']);
 	$user = $userModel->getByAccountName($accountName);
-	if (!$user) {
+	if (!$user and !$errors) {
 		$addResult = $userModel->addUser($accountName,
 								 		 $accountName,
 										 $postUserData['name'],
+										 $postUserData['identify'],
 										 $postUserData['sy'],
 										 NULL,
-										 NULL,
+										 $postUserData['phone'],
 										 UserRank::STUDENT,
 										 True);
 		if (!$addResult) {
@@ -56,7 +62,10 @@ if ($postUserData and !in_array(NULL, $postUserData, True)) {
 			$user = $userModel->getByAccountName($accountName);
 		}
 	}
-	if ($user) {
+	if ($errors) {
+		// 有錯誤，不做事
+	}
+	else if ($user and $user['NY'] != False) {
 		$registerResult = $registerModel->register($user['id'], $instanceId);	
 		if ($registerResult) {
 			$loginSystem = new LoginSystem();

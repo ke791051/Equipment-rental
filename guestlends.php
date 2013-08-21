@@ -24,20 +24,26 @@ $errors = array();
 $infos = array();
 // TODO fill full user model data key
 $modelData = array('sy' => NULL,
-				   'name' => NULL);
+				   'identify' => NULL,
+				   'name' => NULL,
+				   'phone' => NULL);
 
 // 接收使用者資料並登入
 $postData = filter_input_array(INPUT_POST, array('sy' => FILTER_SANITIZE_STRING,
+												 'identify' => FILTER_SANITIZE_STRING,
+												 'phone' => FILTER_SANITIZE_STRING,
 												 'name' => FILTER_SANITIZE_STRING));
 if ($postData and !in_array(NULL, $postData, True)) {
-	$token = hash('sha256', $postData['sy'] . $postData['name']);
+	$token = hash('sha256', $postData['sy'] . $postData['identify'] . $postData['name'] . $postData['phone']);
 	if ($loginSystem->login($token, $token)) {
 		header('Location: ' . $config['BASE_PATH'] . 'myhistory.php');
 		exit();
 	} else {
 		$infos[] = '查無申請紀錄';
 		$modelData['sy'] = $postData['sy'];
-		$modelData['name'] = $postData['name'];
+		$modelData['identify'] = $postData['identify'];
+		$ModelData['name'] = $postData['name'];
+		$modelData['phone'] = $postData['phone'];
 	}
 }
 
