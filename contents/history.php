@@ -16,6 +16,8 @@
  * 
  */
 ?>
+
+<?php if ($lends): ?>
 <table border="3">
 	<caption><?php echo $caption ?></caption>
 	<thead>
@@ -77,3 +79,6 @@
 		</p>
 	</tfoot>
 </table>
+<?php else: ?>
+	<p>目前無任何資料可以顯示</p>
+<?php endif ?>
