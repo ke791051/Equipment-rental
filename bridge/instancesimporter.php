@@ -215,6 +215,7 @@ class InstancesImporter {
 		$instance[self::INSTANCE_VERIFY] = $cells->current()->getValue();
 		
 		$cells->next();
+		$cells->setIterateOnlyExistingCells(True);
 		if ($cells->valid()) {
 			throw new Exception('欄位數量不符合格式');
 		}
