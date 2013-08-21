@@ -14,7 +14,7 @@ $authSystem->redirectHomeWhenBelowRank($loginUserRank, new UserRank(UserRank::AD
 $title = '審核管理';
 $navContentPath = 'contents/nav_admin.php';
 $contentPath = 'contents/registers.php';
-$addScripts = array();
+$addScripts = array('<link rel="stylesheet" href="css/registers.css" type="text/css" charset="utf-8" />');
 
 // 設定頁面資料
 $caption = $title;
