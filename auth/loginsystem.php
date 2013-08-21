@@ -29,7 +29,7 @@
     	public function login($user, $password) 
     	{
 			$user = $this->userModel->getByAccount($user, $password);
-			if ($user) {
+			if ($user and $user['NY']) {
 				$_SESSION['user_rank'] = new UserRank($user['Permission']);
 				$_SESSION['user_id'] = $user['id'];
 				$_SESSION['user_data'] = $user;
