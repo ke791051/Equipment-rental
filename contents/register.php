@@ -45,7 +45,13 @@
 				<td><label>申請者班級：<input type="text" name="sy" value="<?php echo $modelData['user']['sy'] ?>" required /></label></td>
 			</tr>
 			<tr>
+				<td><label>申請者學號：<input type="text" name="identify" value="<?php echo $modelData['user']['identify'] ?>" required /></label></td>
+			</tr>
+			<tr>
 				<td><label>申請者姓名：<input type="text" name="name"	 value="<?php echo $modelData['user']['name'] ?>" required /></label></td>
+			</tr>
+			<tr>
+				<td><label>申請者電話：<input type="tel" name="phone" value="<?php echo $modelData['user']['phone'] ?>" required /></label></td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="<?php echo $caption ?>" /></td>

@@ -29,7 +29,8 @@
 		<tr>
 			<th>帳號</th>
 			<th>姓名</th>
-			<th>學制</th>
+			<th>班級</th>
+			<th>學號</th>
 			<th>電子郵件</th>
 			<th>電話</th>
 			<th>權限</th>
@@ -45,6 +46,7 @@
 				<td><?php echo $modelData['id'] ?></td>
 				<td><?php echo $modelData['name'] ?></td>
 				<td><?php echo $modelData['sy'] ?></td>
+				<td><?php echo $modelData['identify'] ?></td>
 				<td><?php echo $modelData['mail'] ?></td>
 				<td><?php echo $modelData['phone'] ?></td>
 				<td><?php echo new UserRank($modelData['Permission']) ?></td>

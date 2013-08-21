@@ -33,7 +33,8 @@
 	<caption><?php echo $caption ?></caption>
 	<thead>
 		<tr>
-			<th>學制</th>
+			<th>班級</th>
+			<th>學號</th>
 			<th>姓名</th>
 			<th>出借設備分類</th>
 			<th>出借設備型號</th>
@@ -52,6 +53,7 @@
 		<?php foreach($lends as $lend): ?>
 			<tr>
 				<td><?php echo $lend['user']['sy'] ?></td>
+				<td><?php echo $lend['user']['identify'] ?></td>
 				<td><?php echo $lend['user']['name'] ?></td>
 				<td><?php echo $lend['category']['name'] ?></td>
 				<td><?php echo $lend['model']['model'] ?></td>

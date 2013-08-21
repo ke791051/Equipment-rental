@@ -14,25 +14,27 @@ class UserModel extends BaseDatabase {
 	 * @access public
 	 * @param string $accountName
 	 * @param string $password
-	 * @param string $username
-	 * @param string $sy 學制
+	 * @param string $username 姓名
+	 * @param string $identify 學號
+	 * @param string $sy 班級
 	 * @param string $email
 	 * @param string $phone
 	 * @param string $permission 權限，參考傳入UserRank中定義的常數
 	 * @param boolean $active 帳號是否被開通
 	 * @return string|boolean 新增的使用者在資料庫上的識別碼
 	 */
-	public function addUser($accountName, $password, $username, $sy, $email, $phone, $permission, $active)
+	public function addUser($accountName, $password, $username, $identify, $sy, $email, $phone, $permission, $active)
 	{
 		$db = $this->getDb();
 		$addSql = <<<SQL
-			INSERT INTO madata (id, name, pw, pw2, sy, mail, phone, Permission, NY)
-			VALUES (:accountName, :username, PASSWORD(:password), PASSWORD(:password), :sy, :email, :phone, :permission, :active)
+			INSERT INTO madata (id, name, pw, pw2, identify, sy, mail, phone, Permission, NY)
+			VALUES (:accountName, :username, PASSWORD(:password), PASSWORD(:password), :identify, :sy, :email, :phone, :permission, :active)
 SQL;
 		$addStatement = $db->prepare($addSql);
 		$addStatement->bindValue(':accountName', $accountName);
 		$addStatement->bindValue(':username', $username);
 		$addStatement->bindValue(':password', $password);
+		$addStatement->bindValue(':identify', $identify);
 		$addStatement->bindValue(':sy', $sy);
 		$addStatement->bindValue(':email', $email);
 		$addStatement->bindValue(':phone', $phone);
@@ -54,7 +56,8 @@ SQL;
 	 * @access public
 	 * @param string $targetAccountName
 	 * @param string $username
-	 * @param string $sy 學制
+	 * @param string $identify 學號
+	 * @param string $sy 班級
 	 * @param string $email
 	 * @param string $phone
 	 * @param string $email
@@ -62,16 +65,17 @@ SQL;
 	 * @param boolean $active
 	 * @return boolean
 	 */
-	public function updateUserByAccountName($targetAccountName, $username, $sy, $email, $phone, $permission, $active)
+	public function updateUserByAccountName($targetAccountName, $username, $identify, $sy, $email, $phone, $permission, $active)
 	{
 		$db = $this->getDb();
 		$updateSql = <<<SQL
 			UPDATE madata
-			SET name = :username, sy = :sy, mail = :email, phone = :phone, permission = :permission, NY = :active
+			SET name = :username, identify = :identify, sy = :sy, mail = :email, phone = :phone, permission = :permission, NY = :active
 			WHERE id = :targetAccountName
 SQL;
 		$updateStatement = $db->prepare($updateSql);
 		$updateStatement->bindValue(':username', $username);
+		$updateStatement->bindValue(':identify', $identify);
 		$updateStatement->bindValue(':sy', $sy);
 		$updateStatement->bindValue(':email', $email);
 		$updateStatement->bindValue(':phone', $phone);
@@ -222,6 +226,32 @@ SQL;
 		$selectStatement->bindValue(':accountName', $accountName);
 		$selectStatement->bindValue(':password', $password);
 		return $this->executeSingleResultSelectStatement($selectStatement);
+	}
+	
+	/**
+	 * 取得指定學號的學生
+	 * 
+	 * 目前由於採訪客自由填入資料申請設備的狀態，所以學號可能重複
+	 * 
+	 * @access public
+	 * @param string $identify
+	 * @param int $limit
+	 * @param int $offet
+	 * @return array|boolean
+	 */
+	public function getByIdentify($identify, $limit=NULL, $offset=NULL)
+	{
+		$db = $this->getDb();
+		$getSql = <<<SQL
+			SELECT * FROM madata
+			WHERE identify = :identify
+			LIMIT :limit OFFSET :offset
+SQL;
+		$getStatement = $db->prepare($getSql);
+		$getStatement->bindValue(':identify', $identify);
+		$getStatement->bindValue(':limit', !is_null($limit) ? $limit : PHP_INT_MAX, PDO::PARAM_INT);
+		$getStatement->bindValue(':offset', !is_null($offset) ? $offset : 0, PDO::PARAM_INT);
+		return $this->executeMultipleResultSelectStatement($getStatement);
 	}
 	
 	/**

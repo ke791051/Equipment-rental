@@ -41,6 +41,7 @@ $postUrl = $config['BASE_PATH'] . 'edituser.php';
 
 // 處理編輯操作
 $postData = filter_input_array(INPUT_POST, array('name' => FILTER_SANITIZE_STRING,
+												 'identify' => FILTER_SANITIZE_STRING,
 												 'sy' => FILTER_SANITIZE_STRING,
 												 'mail' => FILTER_SANITIZE_STRING,
 												 'phone' => FILTER_SANITIZE_STRING,
@@ -54,6 +55,7 @@ if ($postData and !in_array(NULL, $postData, True)) {
 	if (!$errors) {
 		if ($userModel->updateUserByAccountName($userId,
 		 										$postData['name'],
+		 										$postData['identify'],
 		 										$postData['sy'],
 		 										$postData['mail'],
 		 										$postData['phone'],
@@ -66,6 +68,7 @@ if ($postData and !in_array(NULL, $postData, True)) {
 		}
 	}
 	$modelData['name'] = $postData['name'];
+	$modelData['identify'] = $postData['identify'];
 	$modelData['sy'] = $postData['sy'];
 	$modelData['mail'] = $postData['mail'];
 	$modelData['phone'] = $postData['phone'];

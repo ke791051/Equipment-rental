@@ -49,8 +49,9 @@
 		<input type="hidden" name="redirecturl" value="<?php echo $redirectUrl ?>" />
 	<?php endif ?>
 	<ol>
-		<li><label>申請者學制：<input type="text" value="<?php echo $register['user']['sy']?>" disabled /></label></li>
-		<li><label>申請者：<input type="text" value="<?php echo $register['user']['name']?>" disabled /></label></li>
+		<li><label>申請者班級：<input type="text" value="<?php echo $register['user']['sy'] ?>" disabled /></label></li>
+		<li><label>申請者學號：<input type="text" value="<?php echo $register['user']['identify'] ?>" disabled /></label></li>
+		<li><label>申請者：<input type="text" value="<?php echo $register['user']['name'] ?>" disabled /></label></li>
 		<li><label>申請時間：<input type="datetime" value="<?php echo $register['register']['register_time'] ?>" disabled/></label></li>
 		<li><label>申請設備分類：<input type="text" value="<?php echo $register['category']['name'] ?>" disabled /></label></li>
 		<li><label>申請設備型號：<input type="text" value="<?php echo $register['model']['model'] ?>" disabled/></label></li>

@@ -36,22 +36,21 @@
 		<caption><?php echo $submitValue ?></caption>
 		<tbody>
 			<tr>
-				<td><label for="id">帳號</label></td>
-				<td><input type="text" name="id" value="<?php echo $modelData['id'] ?>" <?php echo $isIdEditable ? '' : 'readonly' ?> /></td>
+				<td><label for="id">帳號：<input type="text" name="id" value="<?php echo $modelData['id'] ?>" <?php echo $isIdEditable ? '' : 'readonly' ?> /></label></td>
 			</tr>
 			<tr>
-				<td><label for="name">姓名</label></td>
-				<td><input type="text" name="name" value="<?php echo $modelData['name'] ?>" /></td>
+				<td><label for="name">姓名：<input type="text" name="name" value="<?php echo $modelData['name'] ?>" /></label></td>
 			</tr>
 			<?php if ($isPasswordEditable): ?>
 				<tr>
-					<td><label for="pw">密碼</label></td>
-					<td><input type="password" name="pw" /></td>
+					<td><label for="pw">密碼：<input type="password" name="pw" /></label></td>
 				</tr>
 			<?php endif ?>
 			<tr>
-				<td><label for="sy">學制</label></td>
-				<td><input type="text" name="sy" value="<?php echo $modelData['sy'] ?>" /></td>
+				<td><label for="sy">班級：<input type="text" name="sy" value="<?php echo $modelData['sy'] ?>" /></label></td>
+			</tr>
+			<tr>
+				<td><label>學號：<input type="text" name="identify" value="<?php echo $modelData['identify'] ?>" /></label></td>
 			</tr>
 			<tr>
 				<td><label for="mail">電子郵件</label></td>

@@ -41,8 +41,9 @@
 <table border="3">
 	<caption><?php echo $caption ?></caption>
 	<thead>
+		<th>申請者班級</th>
+		<th>申請者學號</th>
 		<th>申請者</th>
-		<th>申請者學制</th>
 		<th>設備分類</th>
 		<th>設備型號</th>
 		<th>設備識別碼</th>
@@ -60,8 +61,9 @@
 	<tbody>
 		<?php foreach ($registers as $register): ?>
 			<tr>
-				<td><?php echo $register['user']['name'] ?></td>
 				<td><?php echo $register['user']['sy'] ?></td>
+				<td><?php echo $register['user']['identify'] ?></td>
+				<td><?php echo $register['user']['name'] ?></td>
 				<td><?php echo $register['category']['name'] ?></td>
 				<td><?php echo $register['model']['model'] ?></td>
 				<td><?php echo $register['instance']['identify'] ?></td>
