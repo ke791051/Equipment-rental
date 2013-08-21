@@ -1,107 +1,90 @@
 <?php
-// 申請出借設備
 require_once 'config.php';
-// 驗證使用者
+
 $authSystem = new AuthSystem();
-$loginSystem = new LoginSystem();
-$loginUserRank = $loginSystem->getLoginUserRank();
-if (is_null($loginUserRank)) {
+// 接收要申請的設備編號
+$instanceId = NULL;
+$postIdData = filter_input_array(INPUT_POST, array('id' => FILTER_SANITIZE_STRING,
+												   'instance_id' => FILTER_SANITIZE_STRING));
+foreach ($postIdData as $postId) {
+	if ($postId) {
+		$instanceId = $postId;
+	}
+}
+if (!$instanceId) {
 	$authSystem->redirectHome();
 }
 
+// 載入Model
+$instanceModel = new InstanceModel();
+$userModel = new UserModel();
+$registerModel = new RegisterModel();
+
+// 設定重導向位置
+$redirectUrl = NULL;
+$postUrlData = filter_input_array(INPUT_POST, array('postfromurl' => FILTER_VALIDATE_URL,
+													'redirecturl' => FILTER_VALIDATE_URL));
+foreach ($postUrlData as $postUrl) {
+	if ($postUrl) {
+		$redirectUrl = $postUrl;
+	}
+}
+$redirectUrl = $postUrl ? $postUrl : $config['BASE_PATH'] . 'registers.php';
+
+// 接收申請者資料
+$errors = array();
+$infos = array();
+$user = NULL;
+$postUserData = filter_input_array(INPUT_POST, array('name' => FILTER_SANITIZE_STRING,
+													 'sy' => FILTER_SANITIZE_STRING));
+if ($postUserData and !in_array(NULL, $postUserData, True)) {
+	$accountName = hash('sha256', $postUserData['sy'] . $postUserData['name']);
+	$user = $userModel->getByAccountName($accountName);
+	if (!$user) {
+		$addResult = $userModel->addUser($accountName,
+								 		 $accountName,
+										 $postUserData['name'],
+										 $postUserData['sy'],
+										 NULL,
+										 NULL,
+										 UserRank::STUDENT,
+										 True);
+		if (!$addResult) {
+			$errors[] = '目前無法申請設備，請稍候重試';
+			$errors[] = $userModel->getStatementErrorMessage();
+		} else {
+			$user = $userModel->getByAccountName($accountName);
+		}
+	}
+	if ($user) {
+		$registerResult = $registerModel->register($user['id'], $instanceId);	
+		if ($registerResult) {
+			$loginSystem = new LoginSystem();
+			$loginSystem->login($accountName, $accountName);
+			header('Location: ' . $config['BASE_PATH'] . 'guestregisters.php');
+			exit();
+		} else {
+			$errors[] = '申請失敗，此設備可能被搶先申請了';
+		}
+	} else {
+		$errors[] = '資料庫罷工中，請稍候重試';
+	}
+}
+
 // 設定主版資料
-$title = '設備出借申請';
-$navContentPath = 'contents/nav_user.php';
-$contentPath = 'contents/picturedinstances.php';
+$title = '申請設備';
+$navContentPath = 'contents/nav_guest.php';
+$contentPath = 'contents/register.php';
 $addScripts = array();
 
 // 設定頁面資料
 $caption = $title;
-$navigateUrl = $config['BASE_PATH'] . 'register.php';
-$postRegisterUrl = $config['BASE_PATH'] . 'register.php';
-$operators = array('register' => True);
-
-// 載入Models
-$instanceModel = new InstanceModel();
-$modelModel = new ModelModel();
-$categoryModel = new CategoryModel();
-$filemanagement = new FileManagement();
-
-// 取得未被申請或未借出的設備
-$categoryName = filter_input(INPUT_GET, 'category', FILTER_SANITIZE_STRING);
-if ($categoryName) {
-	$instances = $instanceModel->getInstancesCanBeRegisteredByCategoryName($categoryName);
-	$instancesCount = count($instances);
-} else {
-	$instances = $instanceModel->getInstancesCanBeRegistered();
-	$instancesCount = $instanceModel->getCount();
-}
-$getData = filter_input_array(INPUT_GET, array('perpage' => FILTER_VALIDATE_INT, 'page' => FILTER_VALIDATE_INT));
-if (!is_array($getData) or in_array(FALSE, $getData, True) ) {
-	$perpage = $config['DEFAULT_PERPAGE'];
-	$page = $config['DEFAULT_PAGE'];
-} else {
-	$perpage = (int) $getData['perpage'];
-	$page = (int) $getData['page'];
-}
-$perpage = $perpage > 0 ? $perpage : $config['DEFAULT_PERPAGE'];
-$totalPages = ceil($instancesCount / $perpage);
-$totalPages = $totalPages == 0 ? 1 : $totalPages;
-$page = ($page > 0 and $page <= $totalPages) ? $page : $config['DEFAULT_PAGE'];
-$instances = array_slice($instances, ($page - 1) * $perpage, $perpage);
-
-// 設定ModelData
+$postUrl = $config['BASE_PATH'] . 'register.php';
+$redirectUrl = $redirectUrl;
 $modelData = array();
-foreach ($instances as $instance) {
-	$modelId = $instance['model_id'];
-	
-	if (!isset($modelData[$modelId])) {
-		$modelData[$modelId]['model'] = $modelModel->getById($modelId);
-		$modelData[$modelId]['category'] = $categoryModel->getById($modelData[$modelId]['model']['category_id']);
-		$modelImageIds = $modelModel->getModelImagesById($modelId);
-		if ($modelImageIds) {
-			$modelImageId = $modelImageIds[0][0];
-			$modelImageData = $filemanagement->get_file($modelImageId);
-			$modelData[$modelId]['model_image'] = array('name' => $modelImageData[0], 'path' => $modelImageData[1]);
-		} else {
-			$modelData[$modelId]['model_image'] = array('name' => 'No Image', 'path' => '');
-		} 
-		$modelData[$modelId]['instances'] = array();
-	}
-	
-	$modelData[$modelId]['instances'][] = $instance;
-}
-$categories = $categoryModel->get();
 
-
-// 處理申請資料
-$postData = filter_input_array(INPUT_POST, array('id' => FILTER_VALIDATE_INT,
-												 'postfromurl' => FILTER_SANITIZE_URL));
-if (!is_array($postData) or in_array(FALSE, $postData, True)) {
-	// 程式寫錯或有人亂傳資料
-	// can log
-} else if (in_array(NULL, $postData, True)) {
-	// program has error or someone post marvelous data
-	// can log
-} else {
-	// 重導向至message，避免重POST
-	$contentPath = 'contents/message.php';
-	$redirectUrl = $postData['postfromurl'];
-	$infos = array();
-	$errors = array();
-	// TODO 驗證
-	// 驗證要申請的設備是否可被申請
-	// 重POST或惡意資料會造成以上問題
-	$registerModel = new RegisterModel();
-	$registerResult = $registerModel->register($loginSystem->getLoginUserId(), $postData['id']);
-	if ($registerResult) {
-		$infos[] = '設備申請成功';
-		header('Location: ' . $config['BASE_PATH'] . 'myregisters.php');
-		exit();
-	} else {
-		$errors[] = '設備申請失敗';
-	}
-}
+$modelData['instance'] = $instanceModel->getById($instanceId);
+$modelData['user'] = $user;
 
 require_once 'templates/layout.php';
 // End of file
