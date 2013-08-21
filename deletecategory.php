@@ -44,7 +44,7 @@ if ($result) {
 	header('Location: ' . $redirectUrl);
 	exit();
 } else {
-	$errors[] = '發生嚴重錯誤，請通知管理員';
+	$errors[] = '發生嚴重錯誤，請確認分類已無包含任何設備型號';
 }
 
 require_once 'templates/layout.php';
