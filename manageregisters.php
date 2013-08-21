@@ -20,6 +20,7 @@ $addScripts = array();
 $caption = $title;
 $navigateUrl = $config['BASE_PATH'] . 'manageregisters.php';
 $postVerifyUrl = $config['BASE_PATH'] . 'verifyregister.php';
+$getSearchUrl = $config['BASE_PATH'] . 'manageregisters.php';
 $operators = array('verify' => True);
 
 // 載入模組
@@ -38,10 +39,23 @@ if (!$getData or in_array(FALSE, $getData, True)) {
 	$perpage = (int) $getData['perpage'];
 	$page = (int) $getData['page'];
 }
+// 處理篩選資料
+$searchIdentifyData = filter_input(INPUT_GET, 'search_identify', FILTER_SANITIZE_STRING);
+if ($searchIdentifyData) {
+	$registersModelData = $registerModel->getByInstanceIdentify($searchIdentifyData);
+	$totalRows = count($registersModelData);
+} else {
+	$totalRows = $registerModel->getCount();
+}
 $perpage = $perpage > 0 ? $perpage : $config['DEFAULT_PERPAGE'];
-$totalPages = ceil($registerModel->getCount() / $perpage);
+$totalPages = ceil($totalRows / $perpage);
 $page = ($page > 0 and $page <= $totalPages) ? $page : $config['DEFAULT_PAGE'];
-$registersModelData = $registerModel->get($perpage, ($page - 1) * $perpage);
+if ($searchIdentifyData) {
+	$registersModelData = array_slice($registersModelData, ($page - 1) * $perpage, $perpage);
+} else {
+	$registersModelData = $registerModel->get($perpage, ($page - 1) * $perpage);
+}
+
 // 建立registers資料
 $registers = array();
 foreach ($registersModelData as $registerModelData) {

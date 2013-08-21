@@ -24,18 +24,31 @@ $userModel = new UserModel();
 
 $caption = $title;
 $postLendBackUrl = $config['BASE_PATH'] . 'lendback.php';
+$getSearchUrl = $config['BASE_PATH'] . 'managelends.php';
 $operators = array('lendBack' => True);
 $navigateUrl = $config['BASE_PATH'] . 'managelends.php';
 // 設定出借資料和分頁資料
 $getData = filter_input_array(INPUT_GET, array('perpage' => FILTER_VALIDATE_INT,
 											   'page' => FILTER_VALIDATE_INT));
+$searchIdentifyData = filter_input(INPUT_GET, 'search_identify', FILTER_SANITIZE_STRING);
+if ($searchIdentifyData) {
+	$lendsModelData = $lendModel->getByInstanceIdentify($searchIdentifyData);
+	print $lendModel->getStatementErrorMessage();
+	$totalRows = count($lendsModelData);
+} else {
+	$totalRows = $lendModel->getCount();
+}								 
 $perpage = (int) $getData['perpage'];
 $page = (int) $getData['page'];
 $perpage = ($perpage > 0) ? $perpage : $config['DEFAULT_PERPAGE'];
-$totalPages = ceil($lendModel->getCount() / $perpage);
+$totalPages = ceil($totalRows / $perpage);
 $page = ($page > 0 and $page <= $totalPages) ? $page : $config['DEFAULT_PAGE'];
 
-$lendsModelData = $lendModel->get($perpage, ($page - 1) * $perpage);
+if (!$searchIdentifyData) {
+	$lendsModelData = $lendModel->get($perpage, ($page - 1) * $perpage);
+} else {
+	$lendsModelData = $lendsModelData;
+}
 $lends = array();
 foreach ($lendsModelData as $lendModelData) {
 	$lend = array();

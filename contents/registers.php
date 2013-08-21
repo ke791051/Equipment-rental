@@ -22,9 +22,21 @@
  *   - int $page
  *   - int $totalPages
  *   - string $postVerifyUrl
+ *   - string $getSearchUrl
  *   - array $operators array('verify' => boolean)
  */
 ?>
+
+<?php if (isset($getSearchUrl)): ?>
+<form action="<?php echo $getSearchUrl ?>" method="get"> 
+	<label>
+		設備識別碼搜尋
+		<input type="text" name="search_identify" value=""/>
+	</label>
+    <input type="submit" value="搜尋"/>
+</form>
+<?php endif ?>
+
 <?php if ($registers): ?>
 <table border="3">
 	<caption><?php echo $caption ?></caption>

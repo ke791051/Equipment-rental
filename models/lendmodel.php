@@ -187,6 +187,31 @@ SQL;
 	}
 	
 	/**
+	 * 取得指定設備的出借資料
+	 * 
+	 * @access public
+	 * @param string $instanceIdentify
+	 * @param int $limit
+	 * @param int $offset
+	 * @return array|boolean
+	 */
+	public function getByInstanceIdentify($instanceIdentify, $limit=NULL, $offset=NULL)
+	{
+		$db = $this->getDb();
+		$getSql = <<<SQL
+			SELECT * FROM lend
+			WHERE instances_id = (SELECT id FROM instances
+								  WHERE identify = :identify)
+			LIMIT :limit OFFSET :offset
+SQL;
+		$getStatement = $db->prepare($getSql);					
+		$getStatement->bindValue(':identify', $instanceIdentify);
+		$getStatement->bindValue(':limit', !is_null($limit) ? $limit : PHP_INT_MAX, PDO::PARAM_INT);
+		$getStatement->bindValue(':offset', !is_null($offset) ? $offset : 0, PDO::PARAM_INT);
+		return $this->executeMultipleResultSelectStatement($getStatement);
+	}
+	
+	/**
 	 * 取得出借記錄所有筆數
 	 * 
 	 * @access public

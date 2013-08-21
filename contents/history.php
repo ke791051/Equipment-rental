@@ -8,6 +8,7 @@
  * 							   'user' => ...user Model Data...,
  * 							   'lendbackuser' => ...user Model Data...))
  *  - string $postLendBackUrl
+ *  - string $getSearchUrl
  *  - array $operators array('lendBack' => boolean)	
  *  - string $navigateUrl
  *  - int $perpage
@@ -16,6 +17,16 @@
  * 
  */
 ?>
+
+<?php if (isset($getSearchUrl)): ?>
+<form action="<?php echo $getSearchUrl ?>" method="get"> 
+	<label>
+		設備識別碼搜尋
+		<input type="text" name="search_identify" value=""/>
+	</label>
+    <input type="submit" value="搜尋"/>
+</form>
+<?php endif ?>
 
 <?php if ($lends): ?>
 <table border="3">

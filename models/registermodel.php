@@ -145,7 +145,7 @@ SQL;
 	 * @param string $userId
 	 * @param int $limit
 	 * @param int $offset
-	 * @return arrary|NULL
+	 * @return arrary|boolean
 	 */
 	public function getByUserId($userId, $limit=NULL, $offset=NULL) 
 	{
@@ -161,6 +161,29 @@ SQL;
 		$selectStatement->bindValue(':limit', !is_null($limit) ? $limit : PHP_INT_MAX, PDO::PARAM_INT);
 		$selectStatement->bindValue(':offset', !is_null($offset) ? $offset : 0, PDO::PARAM_INT);
 		return $this->executeMultipleResultSelectStatement($selectStatement);
+	}
+	
+	/**
+	 * 取得指定設備的申請資料
+	 * 
+	 * @access public
+	 * @param string $instanceIdentify
+	 * @return array|boolean
+	 */
+	public function getByInstanceIdentify($instanceIdentify, $limit=NULL, $offset=NULL)
+	{
+		$db = $this->getDb();
+		$getSql = <<<SQL
+			SELECT * FROM register
+			WHERE instances_id = (SELECT id FROM instances
+								  WHERE identify = :identify)
+			LIMIT :limit OFFSET :offset
+SQL;
+		$getStatement = $db->prepare($getSql);
+		$getStatement->bindValue(':identify', $instanceIdentify);
+		$getStatement->bindValue(':limit', !is_null($limit) ? $limit : PHP_INT_MAX, PDO::PARAM_INT);
+		$getStatement->bindValue(':offset', !is_null($offset) ? $offset : 0, PDO::PARAM_INT);
+		return $this->executeMultipleResultSelectStatement($getStatement);
 	}
 	
 	/**
