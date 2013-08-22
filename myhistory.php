@@ -53,6 +53,13 @@ foreach ($lendsModelData as $lendModelData) {
 	
 	$lend['lendbackuser'] = $userModel->getByAccountName($lend['lend']['lendbackuser_id']);
 	
+	$expectedBackDate = new DateTime($lend['lend']['expected_back_date']);
+	$diffDateInterval = (new DateTime())->diff($expectedBackDate);
+	$warningDateInterval = new DateInterval('P2D');
+	$diffInterval = (int) $diffDateInterval->format('%R%a');
+	$warningInterval = (int) $warningDateInterval->format('%R%d');
+	$lend['warning'] = ($warningInterval >= $diffInterval and !$lend['lend']['back_date']) ? True : False;
+	
 	$lends[] = $lend;
 }
 

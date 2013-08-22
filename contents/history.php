@@ -6,7 +6,8 @@
  * 							   'model' => ...model Model Data...
  * 							   'category' => ...category Model Data...,
  * 							   'user' => ...user Model Data...,
- * 							   'lendbackuser' => ...user Model Data...))
+ * 							   'lendbackuser' => ...user Model Data...,
+ * 							   'warning' => boolean))
  *  - string $postLendBackUrl
  *  - string $getSearchUrl
  *  - string|NULL $searchUserIdentifyUrl
@@ -53,7 +54,7 @@
 	</thead>
 	<tbody>
 		<?php foreach($lends as $lend): ?>
-			<tr>
+			<tr <?php echo $lend['warning'] ? 'class="warning"' : '' ?>>
 				<td><?php echo $lend['user']['sy'] ?></td>
 				<td><?php if ($searchUserIdentifyUrl): ?>
 						<a href="<?php echo $searchUserIdentifyUrl . '?' . http_build_query(array('search_identify' => $lend['user']['identify'])) ?>"><?php echo $lend['user']['identify'] ?></a>
