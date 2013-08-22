@@ -67,6 +67,13 @@
 				<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => 1, 'perpage' => $perpage)) ?>">第一頁</a>
 				<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => $page - 1, 'perpage' => $perpage))?>">上一頁</a>
 			<?php endif ?>
+			<?php foreach (range(1, $totalPages) as $apage): ?>
+						<?php if ($page != $apage):?>
+							<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => $apage, 'perpage' => $perpage)) ?>"><?php echo $apage ?></a>
+						<?php else: ?>
+							<span><?php echo $apage ?></span>
+						<?php endif ?>
+					<?php endforeach ?>
 			<?php if ($page != $totalPages): ?>
 				<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => $page + 1, 'perpage' => $perpage))?>">下一頁</a>
 				<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => $totalPages, 'perpage' => $perpage))?>">最末頁</a>
