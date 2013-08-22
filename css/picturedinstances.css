@@ -1,7 +1,7 @@
 @charset "utf-8";
 #main{width:100%;height:610px;}
-.item_class{width:174px;height:550px;float:left;background:rgba(255,255,255,0.7);border-radius:10px 0 0 10px; margin:10px 0;padding:10px;box-shadow:6px 6px 5px rgba(20%,20%,40%,0.5);}
-.item_list{width:804px;height:550px; float:left;background:rgba(255,255,255,0.7);border-radius:0 10px 10px 0;margin:10px 0;padding:10px;box-shadow:6px 6px 5px rgba(20%,20%,40%,0.5);}
+.item_class{width: 20%; height: 100%; float:left;background:rgba(255,255,255,0.7);border-radius:10px 0 0 10px; margin:10px 0;padding:10px;box-shadow:6px 6px 5px rgba(20%,20%,40%,0.5);}
+.item_list{width: 75%; height: 100%; float:left;background:rgba(255,255,255,0.7);border-radius:0 10px 10px 0;margin:10px 0;padding:10px;box-shadow:6px 6px 5px rgba(20%,20%,40%,0.5);}
 
 /*----------------------------------.item_class區塊----------------------------------*/
 
@@ -11,4 +11,16 @@
 .item_class li a:hover{color:#666;}
 
 /*----------------------------------.item_list區塊----------------------------------*/
-.item_list h1{font-size:15pt;color:#FFF;line-height:47px;border-bottom:rgba(255,255,255,0.6) dashed 1px;text-shadow:0 0 5px rgb(0,0,0)}
+.item_list h1{
+	margin-left: 1%;
+	font-size:15pt;
+	color:#FFF;
+	line-height:47px;
+	border-bottom:rgba(255,255,255,0.6) dashed 1px;
+	text-shadow:0 0 5px rgb(0,0,0)
+}
+.item_list > div {
+	display: inline-block;
+	margin-left: 1%;
+	margin-right: auto;
+}

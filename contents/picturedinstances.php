@@ -37,7 +37,7 @@
 	<?php foreach($modelData as $model): ?>
 		<div>
 			<h2><?php echo $model['model']['model'] ?></h2>
-			<img src="<?php echo $model['model_image']['path'] ?>" alt="<?php echo $model['model_image']['name'] ?>" />
+			<img width="240" height="210" src="<?php echo $model['model_image']['path'] ?>" alt="<?php echo $model['model_image']['name'] ?>" />
 			<?php if ($operators['register']): ?>
 				<form action="<?php echo $postRegisterUrl ?>" method="post">
 					<input type="hidden" name="postfromurl" value="<?php echo $navigateUrl . '?' . http_build_query(array('perpage' => $perpage, 'page' => $page)) ?>" />

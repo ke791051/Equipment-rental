@@ -57,7 +57,7 @@ $categories = $categoryModel->get();
 // 設定分頁資料
 $getData = filter_input_array(INPUT_GET, array('perpage' => FILTER_VALIDATE_INT, 'page' => FILTER_VALIDATE_INT));
 if (!is_array($getData) or in_array(FALSE, $getData, True) ) {
-	$perpage = $config['DEFAULT_PERPAGE'];
+	$perpage = 6; // 預設每頁顯示筆數
 	$page = $config['DEFAULT_PAGE'];
 } else {
 	$perpage = (int) $getData['perpage'];
