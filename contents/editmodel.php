@@ -38,6 +38,8 @@
     	<caption><?php echo $submitValue ?></caption>
 		<tr>
 			<td><label>設備型號：<input type="text" name="model" value="<?php echo $modelData['model']?>" /></label></td>
+		</tr>
+		<tr>
 			<td>
 				<label>
 					設備種類：
@@ -49,7 +51,11 @@
 					</select>
 				</label>
 			</td>
+		</tr>
+		<tr>
 			<td>設備圖片:<input type="file" name="image" /></td>
+		</tr>
+		<tr>
 			<td><input type="submit" value="<?php echo $submitValue?>"></td>
 		</tr>
 	</table>
