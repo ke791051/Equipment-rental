@@ -9,6 +9,7 @@
  * 							   'lendbackuser' => ...user Model Data...))
  *  - string $postLendBackUrl
  *  - string $getSearchUrl
+ *  - string|NULL $searchUserIdentifyUrl
  *  - array $operators array('lendBack' => boolean)	
  *  - string $navigateUrl
  *  - int $perpage
@@ -36,6 +37,7 @@
 			<th>班級</th>
 			<th>學號</th>
 			<th>姓名</th>
+			<th>電話</th>
 			<th>出借設備分類</th>
 			<th>出借設備型號</th>
 			<th>出借設備識別碼</th>
@@ -53,8 +55,14 @@
 		<?php foreach($lends as $lend): ?>
 			<tr>
 				<td><?php echo $lend['user']['sy'] ?></td>
-				<td><?php echo $lend['user']['identify'] ?></td>
+				<td><?php if ($searchUserIdentifyUrl): ?>
+						<a href="<?php echo $searchUserIdentifyUrl . '?' . http_build_query(array('search_identify' => $lend['user']['identify'])) ?>"><?php echo $lend['user']['identify'] ?></a>
+					<?php else: ?>	
+						<?php echo $lend['user']['identify'] ?>
+					<?php endif ?>
+				</td>
 				<td><?php echo $lend['user']['name'] ?></td>
+				<td><?php echo $lend['user']['phone'] ?></td>
 				<td><?php echo $lend['category']['name'] ?></td>
 				<td><?php echo $lend['model']['model'] ?></td>
 				<td><?php echo $lend['instance']['identify'] ?></td>

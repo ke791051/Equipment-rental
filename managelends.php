@@ -25,6 +25,7 @@ $userModel = new UserModel();
 $caption = $title;
 $postLendBackUrl = $config['BASE_PATH'] . 'lendback.php';
 $getSearchUrl = $config['BASE_PATH'] . 'managelends.php';
+$searchUserIdentifyUrl = $config['BASE_PATH'] . 'manageusers.php';
 $operators = array('lendBack' => True);
 $navigateUrl = $config['BASE_PATH'] . 'managelends.php';
 // 設定出借資料和分頁資料

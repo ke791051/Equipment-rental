@@ -24,6 +24,7 @@ $userModel = new UserModel();
 
 $caption = $title;
 $postLendBackUrl = '';
+$searchUserIdentifyUrl = NULL;
 $operators = array('lendBack' => False);
 $navigateUrl = $config['BASE_PATH'] . 'myhistory.php';
 

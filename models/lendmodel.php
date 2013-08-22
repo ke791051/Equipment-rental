@@ -107,7 +107,7 @@ SQL;
 		$getSql = <<<SQL
 			SELECT *
 			FROM lend
-			ORDER BY expected_back_date DESC
+			ORDER BY back_date IS NULL DESC, expected_back_date DESC
 			LIMIT :limit OFFSET :offset
 SQL;
 		$getStatement = $db->prepare($getSql);

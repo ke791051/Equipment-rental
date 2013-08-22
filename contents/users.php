@@ -15,13 +15,20 @@
  *  - string $postEditUrl
  *  - string $postDeleteUrl
  *  - string $postEditPasswordUrl
+ *  - string $getSearchUrl
  *  - array $operators array('edit' => boolean, 'delete' => boolean, 'editpassword' => boolean)
  */
 ?>
+<form action="<?php echo $getSearchUrl ?>" method="get"> 
+	<label>
+		學號搜尋
+		<input type="text" name="search_identify" value=""/>
+	</label>
+    <input type="submit" value="搜尋"/>
+</form>
 <!-- @formatter:off -->
 <?php if (!$modelsData): ?>
 	<p>無會員資料可以顯示</p>
-
 <?php else: ?>
 <table>
 	<caption><?php echo $caption ?></caption>

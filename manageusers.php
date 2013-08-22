@@ -24,15 +24,35 @@ $caption = $title;
 $navigateUrl = $config['BASE_PATH'] . 'manageusers.php';
 $postEditUrl = $config['BASE_PATH'] . 'edituser.php';
 $postDeleteUrl = $config['BASE_PATH'] . 'deleteuser.php';
+$getSearchUrl = $config['BASE_PATH'] . 'manageusers.php';
 $operators = array('edit' => True, 'delete' => True);
+
 // 設定分頁資料
 $getData = filter_input_array(INPUT_GET, array('perpage' => FILTER_VALIDATE_INT, 'page' => FILTER_VALIDATE_INT));
-$perpage = $getData['perpage'];
-$page = $getData['page'];
+if (!$getData or in_array(FALSE, $getData, True)) {
+	$perpage = $config['DEFAULT_PERPAGE'];
+	$page = $config['DEFAULT_PAGE'];
+} else {
+	$perpage = (int) $getData['perpage'];
+	$page = (int) $getData['page'];
+}
+
+// 處理篩選資料
+$searchUserData = filter_input(INPUT_GET, 'search_identify', FILTER_SANITIZE_STRING);
+if ($searchUserData) {
+	$modelsData = $userModel->getByIdentify($searchUserData);
+	$totalRows = count($searchUserData);
+} else {
+	$totalRows = $userModel->getCount();
+}
 $perpage = $perpage > 0 ? $perpage : $config['DEFAULT_PERPAGE'];
-$totalPages = ceil($userModel->getCount() / $perpage);
+$totalPages = ceil($totalRows / $perpage);
 $page = ($page > 0 and $page <= $totalPages) ? $page : $config['DEFAULT_PAGE'];
-$modelsData = $userModel->get($perpage, ($page - 1) * $perpage);
+if ($searchUserData) {
+	$modelsData = array_slice($modelsData, ($page - 1) * $perpage, $perpage);
+} else {
+	$modelsData = $userModel->get($perpage, ($page - 1) * $perpage);
+}
 
 require_once 'templates/layout.php';
 // End of file
