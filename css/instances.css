@@ -6,3 +6,5 @@
 h1{width:100%;text-align:left;font-size:15pt;color:#FFF;line-height:47px;border-bottom:rgba(255,255,255,0.6) dashed 1px;text-shadow:0 0 5px rgb(0,0,0);position:relative;z-index:1;}
 /*--------------------------table-----------------------------*/
 #re_list{width:1005px;}
+table#re_list tr td{white-space: nowrap;}
+table#re_list form{width:45px; float:left; vertical-align: bottom;}

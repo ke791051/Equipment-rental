@@ -26,14 +26,13 @@
  *   - array $operators array('verify' => boolean)
  */
 ?>
-
 <?php if (isset($getSearchUrl)): ?>
 <div id="search_div">
     <form action="<?php echo $getSearchUrl ?>" method="get"> 
-            <label>
-                    設備識別碼搜尋
-                    <input type="text" name="search_identify" value=""/>
-            </label>
+        <label>
+            設備識別碼搜尋
+            <input type="text" name="search_identify" value=""/>
+        </label>
         <input type="submit" value="搜尋"/>
     </form>
 </div>
@@ -45,19 +44,19 @@
 		<h1><?php echo $caption ?></h1>
 		<thead>
 			<tr>
-				<th>申請者班級</th>
-				<th>申請者學號</th>
-				<th>申請者</th>
-				<th>申請者電話</th>
+				<th>學生班級</th>
+				<th>學生學號</th>
+				<th>學生姓名</th>
+				<th>學生電話</th>
 				<th>設備分類</th>
-				<th>設備型號</th>
-				<th>設備識別碼</th>
+				<th>型號</th>
+				<th>識別碼</th>
 				<th>地點</th>
 				<th>狀態</th>
 				<th>申請日期</th>
 				<th>審核者</th>
 				<th>審核日期</th>
-				<th>審核是否通過</th>
+				<th>審核狀態</th>
 				<th>備註</th>
 				<?php if (in_array(True, $operators)): ?>
 					<th>操作</th>
@@ -114,11 +113,11 @@
 						<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => $page - 1, 'perpage' => $perpage))?>">上一頁</a>
 					<?php endif ?>
 					<?php foreach (range(1, $totalPages) as $apage): ?>
-						<?php if ($page != $apage):?>
-							<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => $apage, 'perpage' => $perpage)) ?>"><?php echo $apage ?></a>
-						<?php else: ?>
-							<span><?php echo $apage ?></span>
-						<?php endif ?>
+							<?php if ($page != $apage):?>
+								<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => $apage, 'perpage' => $perpage)) ?>"><?php echo $apage ?></a>
+							<?php else: ?>
+								<span><?php echo $apage ?></span>
+							<?php endif ?>
 					<?php endforeach ?>
 					<?php if ($page != $totalPages): ?>
 						<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => $page + 1, 'perpage' => $perpage))?>">下一頁</a>

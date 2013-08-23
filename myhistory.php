@@ -13,8 +13,10 @@ if (is_null($loginUserId)) {
 $title = '我借的設備';
 $navContentPath = $loginUserRank->isEqual(new UserRank(UserRank::ADMIN)) ? 'contents/nav_admin.php' : 'contents/nav_user.php';
 $contentPath = 'contents/history.php';
-$addScripts = array();
-
+$addScripts = array('<link rel="stylesheet" href="css/history.css" type="text/css" charset="utf-8" />',
+					'<script src="jquery/table.js" type="text/javascript"></script>',
+					'<link rel="stylesheet" href="css/table.css" type="text/css" charset="utf-8" />');
+					
 // 設定頁面資料
 $lendModel = new LendModel();
 $instanceModel = new InstanceModel();

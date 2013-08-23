@@ -15,7 +15,8 @@ $title = '審核管理';
 $navContentPath = 'contents/nav_admin.php';
 $contentPath = 'contents/registers.php';
 $addScripts = array('<link rel="stylesheet" href="css/registers.css" type="text/css" charset="utf-8" />',
-					'<script src="jquery/table.js" type="text/javascript"></script>');
+					'<script src="jquery/table.js" type="text/javascript"></script>',
+					'<link rel="stylesheet" href="css/table.css" type="text/css" charset="utf-8" />');
 
 // 設定頁面資料
 $caption = $title;
