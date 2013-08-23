@@ -28,13 +28,15 @@
 ?>
 
 <?php if (isset($getSearchUrl)): ?>
-<form action="<?php echo $getSearchUrl ?>" method="get"> 
-	<label>
-		設備識別碼搜尋
-		<input type="text" name="search_identify" value=""/>
-	</label>
-    <input type="submit" value="搜尋"/>
-</form>
+<div id="search_div">
+    <form action="<?php echo $getSearchUrl ?>" method="get"> 
+            <label>
+                    設備識別碼搜尋
+                    <input type="text" name="search_identify" value=""/>
+            </label>
+        <input type="submit" value="搜尋"/>
+    </form>
+</div>
 <?php endif ?>
 
 <?php if ($registers): ?>
