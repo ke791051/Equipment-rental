@@ -25,6 +25,7 @@ $filemanagement = new FileManagement();
 
 // 取得未被申請或未借出的設備
 $categoryName = filter_input(INPUT_GET, 'category', FILTER_SANITIZE_STRING);
+$queryCategoryName = $categoryName;
 if ($categoryName) {
 	$instances = $instanceModel->getInstancesCanBeRegisteredByCategoryName($categoryName);
 } else {
