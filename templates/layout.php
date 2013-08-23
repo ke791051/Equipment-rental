@@ -23,15 +23,31 @@
         ?>
     </head>
     <body>
-        <div id="login">
-            <div id="login_form" ></div>
-            <input type="button" id="login_Add" value="Login">
+    	<div id="login">
+			<?php 
+                if(!isset($_SESSION['user_id']))
+                    {
+                    ?>	
+                        <div id="login_form" ></div>
+                        <input type="button" id="login_Add" value="Login">     
+                    <?php
+                    }
+            ?>
         </div>
     	<div id="page">
 	        <div id="header">
 	        		<span id="infos">
 	
-	                <img src="images/User Anonymous Yellow Regular_256.png" height="24.3px" width="18.6px"><a href="index.php">系統管理員及會員登入</a>
+	                <img src="images/User Anonymous Yellow Regular_256.png" height="24.3px" width="18.6px"><a href="logout.php"><?php 
+                	if(!isset($_SESSION['user_id']))
+                    {
+                    ?>使用者尚未登入
+            <?php
+                    }
+					else {
+						echo '使用者 '. $_SESSION['user_id'] . ' 按此登出';
+					}
+            ?></a>
 	
 					</span>
 	
@@ -59,7 +75,7 @@
 						<span>&copy; Copyright &copy; 2013. <a href="index.html">Company name</a>All rights reserved</span>
 					</div>
 					<div id="summary">
-                        <p>透過本系統，不僅可以縮短查詢資料的時間，使用者與管理者對於設備出借狀況一目了然，再透過電腦key in借用資料，省去人工對於傳統出借單不知如何寫起與漏寫的種種問題；再者，一本又一本的出借單究竟是要留著還是丟掉?實在是令人頭疼，因此開發此系統，已達到數位化管理。
+                        <p>透過本系統，不僅可以縮短查詢資料的時間，使用者與管理者對於設備出借狀況一目了然，再透過電腦key in借用資料，省去人工對於傳統出借單不知如何寫起與漏寫的種種問題；再者，一本又一本的出借單究竟是要留著還是丟掉?實在是令人頭疼，因此開發此系統，以達到數位化管理。
     
                   歡迎使用本系統!! </p>
               		</div>
