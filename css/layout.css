@@ -4,7 +4,7 @@ body{width:100%; height:100%; padding:0 0 20px 0; background-color:#FEFFAF}
 #login{width:1024px;margin:auto;height:20px;}
 
 #background{width:100%; height:100%;}
-#page{width:1024px;height:1040px; margin:auto;margin-bottom:20px; background-color:#2ca99b;border-radius:10px; border:solid #FFF 2px; padding:10px;}
+#page{width:1024px;/*height:1040px; */margin:auto;margin-bottom:20px; background-color:#2ca99b;border-radius:10px; border:solid #FFF 2px; padding:10px;}
 
 #header{width:100%; height:340px;}
 
