@@ -13,7 +13,8 @@ $title = '我的申請紀錄';
 $loginUserRank = $loginSystem->getLoginUserRank();
 $navContentPath = $loginUserRank->isEqual(new UserRank(UserRank::ADMIN)) ? 'contents/nav_admin.php' : 'contents/nav_user.php';
 $contentPath = 'contents/registers.php';
-$addScripts = array('<link rel="stylesheet" href="css/registers.css" type="text/css" charset="utf-8" />');
+$addScripts = array('<link rel="stylesheet" href="css/registers.css" type="text/css" charset="utf-8" />',
+					'<script src="jquery/table.js" type="text/javascript"></script>');
 
 // 設定頁面資料
 $caption = $title;
