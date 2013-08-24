@@ -9,7 +9,7 @@
  */
 class InstancesImporter {
 	
-	const NUM_TITLE_ROWS = 1;
+	const NUM_TITLE_ROWS = 3;
 	
 	const ON_DUPLICATE_REPLACE = 1;
 	const ON_DUPLICATE_IGNORE = 2;
@@ -25,8 +25,6 @@ class InstancesImporter {
 	const INSTANCE_CATEGORY = 'category';
 	// 廠牌型別
 	const INSTANCE_MODEL = 'model';
-	// 數量
-	const INSTANCE_NUM = 'num';
 	// 成本
 	const INSTANCE_COST = 'cost';
 	// 現值
@@ -41,8 +39,6 @@ class InstancesImporter {
 	const INSTANCE_USER = 'user';
 	// 地點
 	const INSTANCE_LOCATION = 'location';
-	// 簽核
-	const INSTANCE_VERIFY = 'verify';
 	
 	private $instanceModel;
 	private $modelModel;
@@ -112,7 +108,7 @@ class InstancesImporter {
 			$dataArray = $this->readRowToArray($row);
 			// 計算預計報廢日期
 			if ($dataArray[self::INSTANCE_EXPECTEDLIFE]) {
-				$baseDate = $dataArray[self::INSTANCE_RECORDDATE] ? $dataArray[self::INSTANCE_RECORDDATE] : new DateTime();
+				$baseDate = $dataArray[self::INSTANCE_RECORDDATE] ? clone $dataArray[self::INSTANCE_RECORDDATE] : new DateTime();
 				$duedate = $baseDate->add(new DateInterval('P' . $dataArray[self::INSTANCE_EXPECTEDLIFE] . 'Y'));
 			} else {
 				$duedate = NULL;
@@ -143,6 +139,7 @@ class InstancesImporter {
 															  $duedate,
 															  $dataArray[self::INSTANCE_COST],
 															  $dataArray[self::INSTANCE_VALUE],
+															  $dataArray[self::INSTANCE_RECORDDATE],
 															  $dataArray[self::INSTANCE_KEEPER],
 															  $dataArray[self::INSTANCE_USER],
 															  $modelId);
@@ -155,6 +152,7 @@ class InstancesImporter {
 											  	 		$duedate,
 											  	 		$dataArray[self::INSTANCE_COST],
 											  	 		$dataArray[self::INSTANCE_VALUE],
+											  	 		$dataArray[self::INSTANCE_RECORDDATE],
 											  	 		$dataArray[self::INSTANCE_KEEPER],
 											  	 		$dataArray[self::INSTANCE_USER],
 											  	 		$modelId);
@@ -186,9 +184,6 @@ class InstancesImporter {
 		// 廠牌型別
 		$instance[self::INSTANCE_MODEL] = $cells->current()->getValue();
 		$cells->next();
-		// 數量
-		$instance[self::INSTANCE_NUM] = $cells->current()->getValue();
-		$cells->next();
 		// 成本
 		$instance[self::INSTANCE_COST] = $cells->current()->getValue();
 		$cells->next();
@@ -197,7 +192,8 @@ class InstancesImporter {
 		$cells->next();
 		// 入帳日
 		$recordDate = $cells->current()->getValue();
-		$instance[self::INSTANCE_RECORDDATE] = $recordDate ? PHPExcel_Shared_Date::ExcelToPHPObject($recordDate) : $recordDate; 
+		$recordDateArray = explode('.', $recordDate, 3);
+		$instance[self::INSTANCE_RECORDDATE] = $recordDate ? new DateTime(sprintf("%s-%s-%s", (int) $recordDateArray[0] + 1911, $recordDateArray[1], $recordDateArray[2])) : $recordDate; 
 		$cells->next();
 		// 年限
 		$instance[self::INSTANCE_EXPECTEDLIFE] = $cells->current()->getValue();
@@ -210,9 +206,6 @@ class InstancesImporter {
 		$cells->next();
 		// 地點
 		$instance[self::INSTANCE_LOCATION] = $cells->current()->getValue();
-		$cells->next();
-		// 簽核
-		$instance[self::INSTANCE_VERIFY] = $cells->current()->getValue();
 		
 		$cells->next();
 		$cells->setIterateOnlyExistingCells(True);
