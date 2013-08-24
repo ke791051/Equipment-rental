@@ -77,6 +77,11 @@
 		</tr>
 		<tr>
 			<td>
+				<label>取得日期：<input type="date" name="recorddate" value="<?php echo $modelData['recorddate'] ?>" /></label>
+			</td>
+		</tr>
+		<tr>
+			<td>
 				<label>預計報廢時間：<input type="date" name="duedate" value="<?php echo $modelData['duedate'] ?>" /></label>
 			</td>
 		</tr>

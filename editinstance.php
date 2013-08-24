@@ -56,6 +56,7 @@ $postData = filter_input_array(INPUT_POST, array('id' => $stringSanitizeOption,
 												 'value' => FILTER_SANITIZE_NUMBER_INT,
 												 'keeper' => $stringSanitizeOption,
 												 'user' => $stringSanitizeOption,
+												 'recorddate' => $stringSanitizeOption,
 												 'duedate' => $stringSanitizeOption,
 												 'model_id' => FILTER_VALIDATE_INT));
 if (is_array($postData) and !in_array(NULL, $postData, True) and !in_array(False, $postData, True)) {
@@ -66,10 +67,19 @@ if (is_array($postData) and !in_array(NULL, $postData, True) and !in_array(False
 		try {
 			$postData['duedate'] = new DateTime($postData['duedate']);
 		} catch (Exception $e) {
-			$errors[] = '輸入的日期有誤';
+			$errors[] = '輸入的預計報廢日期有誤';
 		}
 	} else {
 		$postData['duedate'] = NULL;
+	}
+	if ($postData['recorddate']) {
+		try {
+			$postData['recorddate'] = new DateTime($postData['recorddate']);
+		} catch (Exception $e) {
+			$errors[] = '輸入的取得日期有誤';
+		}
+	} else {
+		$postData['recorddate'] = NULL;
 	}
 	// TODO update validator for changed model
 	$errors = array_merge($errors, $validator->validateForUpdateById($postData['id'],
@@ -92,6 +102,7 @@ if (is_array($postData) and !in_array(NULL, $postData, True) and !in_array(False
 								    		   $postData['duedate'],
 								    		   $cost,
 								    		   $value,
+								    		   $postData['recorddate'],
 								    		   $postData['keeper'],
 								    		   $postData['user'],
 								    		   $postData['model_id']) === False) 

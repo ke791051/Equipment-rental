@@ -5,10 +5,9 @@
 	$loginSystem = new LoginSystem();
 	
 	$loginUserRank = $loginSystem->getLoginUserRank();
-    // 未登入使用者，Show404
+    // 未登入使用者
     if (is_null($loginUserRank)) {
-    	$authSystem->show404();
-		exit();
+    	$authSystem->redirectHome();
     }
     // 管理者可參訪的頁面
     $adminUserRank = new UserRank(UserRank::ADMIN);
@@ -29,6 +28,7 @@
 					   'duedate' => NULL,
 					   'cost' => NULL,
 					   'value' => NULL,
+					   'recorddate' => NULL,
 					   'keeper' => NULL,
 					   'user' => NULL,
 					   'model_id' => NULL);
@@ -76,6 +76,14 @@
 		{
 			$duedate = NULL;
 		}
+		$recorddate = NULL;
+		if ($_POST['recorddate']) {
+			try {
+				$recorddate = new DateTime($_POST['recorddate']);
+			} catch (Exception $e) {
+				$errors[] = '取得日期格式錯誤';
+			}
+		}
 		$model_id = $_POST['model_id'];
 		$validator = new InstanceValidator();
 		// TODO update validator for changed model
@@ -84,7 +92,7 @@
 		// 資料驗證無錯誤，嘗試新增資料
 		if (!$errors) {
 			$instanceModel = new InstanceModel();
-			if ($instanceModel->addInstance($identify, $location, $status, $note, $duedate, $cost, $value, $keeper, $user, $model_id)) {
+			if ($instanceModel->addInstance($identify, $location, $status, $note, $duedate, $cost, $value, $recorddate, $keeper, $user, $model_id)) {
 				$infos[] = '設備新增成功';
 			} else {
 				$errors[] = '發生不知名錯誤，請通知管理員';
@@ -100,6 +108,7 @@
 			$modelData['note'] = $note;
 			$modelData['cost'] = $cost;
 			$modelData['value'] = $value;
+			$modelData['recorddate'] = $recorddate;
 			$modelData['keeper'] = $keeper;
 			$modelData['user'] = $user;
 			if($duedate!='')

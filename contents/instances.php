@@ -38,7 +38,8 @@
 					<th width="100">設備存放地點</th>           
 		            <th width="70">狀態</th>
 		            <th width="70">備註</th>
-		            <th width="130">報廢日期</th>
+		            <th width="65">取得日期</th>
+		            <th width="65">報廢日期</th>
 		            <th width="100">成本</th>
 		            <th width="100">現值</th>
 		            <th width="100">保管人</th>
@@ -63,6 +64,7 @@
 							endforeach;
 					?></td>
 	                <td><?php echo $instance['note'] ?></td>
+	                <td><?php echo $instance['recorddate'] ?></td>
 	                <td><?php echo $instance['duedate'] ?></td>
 	                <td><?php echo $instance['cost'] ?></td>
 	                <td><?php echo $instance['value'] ?></td>
