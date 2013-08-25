@@ -22,12 +22,14 @@ $addScripts = array('<link rel="stylesheet" href="css/instances.css" type="text/
 $caption = $title;
 $instanceModel = new InstanceModel();
 
-$navigateUrl = $config['BASE_PATH'] . 'manageinstances.php';
 $postEditUrl = $config['BASE_PATH'] . 'editinstance.php';
 $postDeleteUrl = $config['BASE_PATH'] . 'deleteinstance.php';
 $postRegisterUrl = $config['BASE_PATH'] . 'register.php';
 $postVerifyUrl = $config['BASE_PATH'] . 'verify.php';
 $getSearchUrl = $config['BASE_PATH'] . 'manageinstances.php';
+$pagination = new Pagination();
+$pagination->setNavigateUrl($config['BASE_PATH'] . 'manageinstances.php');
+$pagination->setPageRangeNum(7);
 $operators = array('edit' => True, 'delete' => True, 'register' => False, 'verify' => False);
 
 // 處理分頁資料
@@ -48,6 +50,9 @@ if ($searchIdentifyData) {
 $perpage = $perpage > 0 ? $perpage : $config['DEFAULT_PERPAGE'];
 $totalPages = ceil($totalRows / $perpage);
 $page = ($page > 0 and $page <= $totalPages) ? $page : $config['DEFAULT_PAGE'];
+$pagination->setTotalPages($totalPages);
+$pagination->setPerpage($perpage);
+$pagination->setCurrentPage($page);
 if ($searchIdentifyData) {
 	$instances = $instances;
 } else {

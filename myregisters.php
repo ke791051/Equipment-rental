@@ -20,6 +20,9 @@ $addScripts = array('<link rel="stylesheet" href="css/registers.css" type="text/
 // 設定頁面資料
 $caption = $title;
 $navigateUrl = $config['BASE_PATH'] . 'myregisters.php';
+$pagination = new Pagination();
+$pagination->setNavigateUrl($navigateUrl);
+$pagination->setPageRangeNum(10);
 $operators = array('verify' => False);
 // 載入Model
 $registerModel = new RegisterModel();
@@ -39,6 +42,10 @@ $perpage = (int) $getData['perpage'];
 $perpage = $perpage > 0 ? $perpage : $config['DEFAULT_PERPAGE'];
 $totalPages = ceil($totalRows / $perpage);
 $page = ($page > 0 and $page <= $totalPages) ? $page : $config['DEFAULT_PAGE'];
+$pagination->setCurrentPage($page);
+$pagination->setPerpage($perpage);
+$pagination->setTotalPages($totalPages);
+
 // 設定Model資料
 $modelsData = array_slice($modelsData, ($page - 1) * $perpage, $perpage);
 $registers = array();

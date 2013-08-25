@@ -15,6 +15,9 @@ $addScripts = array();
 $caption = $title;
 $navigateUrl = $config['BASE_PATH'] . 'registers.php';
 $postRegisterUrl = $config['BASE_PATH'] . 'register.php';
+$instancesPagination = new Pagination();
+$instancesPagination->setNavigateUrl($navigateUrl);
+$instancesPagination->setPageRangeNum(10);
 $operators = array('register' => True);
 
 // 載入Models
@@ -28,6 +31,7 @@ $categoryName = filter_input(INPUT_GET, 'category', FILTER_SANITIZE_STRING);
 $queryCategoryName = $categoryName;
 if ($categoryName) {
 	$instances = $instanceModel->getInstancesCanBeRegisteredByCategoryName($categoryName);
+	$instancesPagination->setQueryString('category', $categoryName);
 } else {
 	$instances = $instanceModel->getInstancesCanBeRegistered();
 }
@@ -57,17 +61,16 @@ $categories = $categoryModel->get();
 
 // 設定分頁資料
 $getData = filter_input_array(INPUT_GET, array('perpage' => FILTER_VALIDATE_INT, 'page' => FILTER_VALIDATE_INT));
-if (!is_array($getData) or in_array(FALSE, $getData, True) ) {
-	$perpage = 6; // 預設每頁顯示筆數
-	$page = $config['DEFAULT_PAGE'];
-} else {
-	$perpage = (int) $getData['perpage'];
-	$page = (int) $getData['page'];
-}
-$perpage = $perpage > 0 ? $perpage : $config['DEFAULT_PERPAGE'];
+$perpage = (int) $getData['perpage'];
+$page = (int) $getData['page'];
+	
+$perpage = $perpage > 0 ? $perpage : 6; // Default 6 items
 $totalPages = ceil(count($modelData) / $perpage);
 $totalPages = $totalPages == 0 ? 1 : $totalPages;
 $page = ($page > 0 and $page <= $totalPages) ? $page : $config['DEFAULT_PAGE'];
+$instancesPagination->setCurrentPage($page);
+$instancesPagination->setPerpage($perpage);
+$instancesPagination->setTotalPages($totalPages);
 $modelData = array_slice($modelData, ($page - 1) * $perpage, $perpage);
 
 require_once 'templates/layout.php';

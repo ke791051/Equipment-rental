@@ -7,10 +7,7 @@
  * Anticipate:
  *  - array $modelsData array(array(...UserModelData...),
  * 							  array...)
- *  - string $navigateUrl
- *  - int $perPage
- *  - int $page
- *  - int $totalPages
+ *  - Pagination $pagination
  *  - string $caption
  *  - string $postEditUrl
  *  - string $postDeleteUrl
@@ -30,8 +27,9 @@
 <?php if (!$modelsData): ?>
 	<p>無會員資料可以顯示</p>
 <?php else: ?>
+	<h1><?php echo $caption ?></h1>
+	<?php echo $pagination->createLinks() ?>
 <table>
-	<caption><?php echo $caption ?></caption>
 	<thead>
 		<tr>
 			<th>帳號</th>
@@ -62,7 +60,7 @@
 				<td>
 					<?php if ($operators['edit']): ?>
 						<form action="<?php echo $postEditUrl ?>" method="post">
-							<input type="hidden" name="postfromurl" value="<?php echo $navigateUrl . '?' . http_build_query(array('perpage' => $perpage, 'page' => $page)) ?>" />
+							<input type="hidden" name="postfromurl" value="<?php echo $pagination->getCurrentLink() ?>" />
 							<input type="hidden" name="id" value="<?php echo $modelData['id']?> " />
 							<input type="submit" value="編輯" />
 						</form>
@@ -70,7 +68,7 @@
 					
 					<?php if ($operators['delete']): ?>
 						<form action="<?php echo $postDeleteUrl ?>" method="post">
-							<input type="hidden" name="postfromurl" value="<?php echo $navigateUrl . '?' . http_build_query(array('perpage' => $perpage, 'page' => $page)) ?>" />
+							<input type="hidden" name="postfromurl" value="<?php echo $pagination->getCurrentLink() ?>" />
 							<input type="hidden" name="id" value="<?php echo $modelData['id']?> " />
 							<input type="submit" value="刪除" />
 						</form>
@@ -80,26 +78,5 @@
 			</tr>
 		<?php endforeach ?>
 	</tbody>
-	<tfoot>
-		<p>
-			<?php if ($totalPages != 1): ?>
-				<?php if ($page != 1): ?>
-					<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => 1, 'perpage' => $perpage)) ?>">第一頁</a>
-					<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => $page - 1, 'perpage' => $perpage))?>">上一頁</a>
-				<?php endif ?>
-				<?php foreach (range(1, $totalPages) as $apage): ?>
-						<?php if ($page != $apage):?>
-							<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => $apage, 'perpage' => $perpage)) ?>"><?php echo $apage ?></a>
-						<?php else: ?>
-							<span><?php echo $apage ?></span>
-						<?php endif ?>
-				<?php endforeach ?>
-				<?php if ($page != $totalPages): ?>
-					<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => $page + 1, 'perpage' => $perpage))?>">下一頁</a>
-					<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => $totalPages, 'perpage' => $perpage))?>">最末頁</a>
-				<?php endif ?>
-			<?php endif ?>
-		</p>
-	</tfoot>
 </table>
 <?php endif ?>

@@ -25,6 +25,9 @@ $navigateUrl = $config['BASE_PATH'] . 'manageusers.php';
 $postEditUrl = $config['BASE_PATH'] . 'edituser.php';
 $postDeleteUrl = $config['BASE_PATH'] . 'deleteuser.php';
 $getSearchUrl = $config['BASE_PATH'] . 'manageusers.php';
+$pagination = new Pagination();
+$pagination->setNavigateUrl($navigateUrl);
+$pagination->setPageRangeNum(7);
 $operators = array('edit' => True, 'delete' => True);
 
 // 設定分頁資料
@@ -42,6 +45,7 @@ $searchUserData = filter_input(INPUT_GET, 'search_identify', FILTER_SANITIZE_STR
 if ($searchUserData) {
 	$modelsData = $userModel->getByIdentify($searchUserData);
 	$totalRows = count($searchUserData);
+	$pagination->setQueryString('search_identify', $searchUserData);
 } else {
 	$totalRows = $userModel->getCount();
 }
@@ -53,6 +57,9 @@ if ($searchUserData) {
 } else {
 	$modelsData = $userModel->get($perpage, ($page - 1) * $perpage);
 }
+$pagination->setCurrentPage($page);
+$pagination->setPerpage($perpage);
+$pagination->setTotalPages($totalPages);
 
 require_once 'templates/layout.php';
 // End of file

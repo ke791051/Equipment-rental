@@ -23,6 +23,9 @@ $caption = $title;
 $navigateUrl = $config['BASE_PATH'] . 'manageregisters.php';
 $postVerifyUrl = $config['BASE_PATH'] . 'verifyregister.php';
 $getSearchUrl = $config['BASE_PATH'] . 'manageregisters.php';
+$pagination = new Pagination();
+$pagination->setNavigateUrl($navigateUrl);
+$pagination->setPageRangeNum(7);
 $operators = array('verify' => True);
 
 // 載入模組
@@ -46,10 +49,11 @@ $searchIdentifyData = filter_input(INPUT_GET, 'search_identify', FILTER_SANITIZE
 if ($searchIdentifyData) {
 	$registersModelData = $registerModel->getByInstanceIdentify($searchIdentifyData);
 	$totalRows = count($registersModelData);
+	$pagination->setQueryString('search_identify', $searchIdentifyData);
 } else {
 	$totalRows = $registerModel->getCount();
 }
-$perpage = $perpage > 0 ? $perpage : $config['DEFAULT_PERPAGE'];
+$perpage = $perpage > 0 ? $perpage : $config['DEFAULT_PERPAGE'];	
 $totalPages = ceil($totalRows / $perpage);
 $page = ($page > 0 and $page <= $totalPages) ? $page : $config['DEFAULT_PAGE'];
 if ($searchIdentifyData) {
@@ -57,6 +61,9 @@ if ($searchIdentifyData) {
 } else {
 	$registersModelData = $registerModel->get($perpage, ($page - 1) * $perpage);
 }
+$pagination->setCurrentPage($page);
+$pagination->setPerpage($perpage);
+$pagination->setTotalPages($totalPages);
 
 // 建立registers資料
 $registers = array();

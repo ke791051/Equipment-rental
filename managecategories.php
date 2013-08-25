@@ -7,7 +7,6 @@
 	$loginUserRank = $loginSystem->getLoginUserRank();
 	if (is_null($loginUserRank)) {
 		$authSystem->redirectHome();
-		exit();
 	}
 	$adminUserRank = new UserRank(UserRank::ADMIN);
 	$authSystem->redirectHomeWhenBelowRank($loginUserRank, $adminUserRank);
@@ -23,6 +22,8 @@
 	$navigateUrl = $config['BASE_PATH'] . 'managecategories.php';
 	$postEditUrl = $config['BASE_PATH'] . 'editcategory.php';
 	$postDeleteUrl = $config['BASE_PATH'] . 'deletecategory.php';
+	$pagination = new Pagination();
+	$pagination->setNavigateUrl($navigateUrl);
 	$operators = array('delete' => True,
 					   'edit' => True);
 	if (isset($_GET['perpage'])) {
@@ -41,6 +42,9 @@
 	$categories = $categoryModel->get($perpage, ($page - 1) * $perpage); // page is 1-based
     $totalItems = $categoryModel->getCount();
 	$totalPages = ceil($totalItems / $perpage);
+	$pagination->setCurrentPage($page);
+	$pagination->setPerpage($perpage);
+	$pagination->setTotalPages($totalPages);
 	
     require_once 'templates/layout.php'; // May use two-nav layout
 ?>

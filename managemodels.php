@@ -14,6 +14,9 @@ $modelModel = new ModelModel();
 $navigateUrl = $config['BASE_PATH'] . 'managemodels.php';
 $postDeleteUrl = $config['BASE_PATH'] . 'deletemodel.php';
 $postEditUrl = $config['BASE_PATH'] . 'editmodel.php';
+$pagination = new Pagination();
+$pagination->setNavigateUrl($navigateUrl);
+$pagination->setPageRangeNum(7);
 $operators = array('edit' => True, 'delete' => True);
 
 // 處理分頁資料
@@ -24,6 +27,9 @@ $perpage = $perpage > 0 ? $perpage : $config['DEFAULT_PERPAGE'];
 $totalPages = ceil($modelModel->getCount() / $perpage);
 $page = ($page > 0 and $page <= $totalPages) ? $page : $config['DEFAULT_PAGE'];
 $models = $modelModel->get($perpage, ($page - 1) * $perpage);
+$pagination->setCurrentPage($page);
+$pagination->setPerpage($perpage);
+$pagination->setTotalPages($totalPages);
 
 require_once 'templates/layout.php';
 // End of file

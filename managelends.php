@@ -30,14 +30,18 @@ $getSearchUrl = $config['BASE_PATH'] . 'managelends.php';
 $searchUserIdentifyUrl = $config['BASE_PATH'] . 'manageusers.php';
 $operators = array('lendBack' => True);
 $navigateUrl = $config['BASE_PATH'] . 'managelends.php';
+$pagination = new Pagination();
+$pagination->setNavigateUrl($navigateUrl);
+$pagination->setPageRangeNum(7);
+
 // 設定出借資料和分頁資料
 $getData = filter_input_array(INPUT_GET, array('perpage' => FILTER_VALIDATE_INT,
 											   'page' => FILTER_VALIDATE_INT));
 $searchIdentifyData = filter_input(INPUT_GET, 'search_identify', FILTER_SANITIZE_STRING);
 if ($searchIdentifyData) {
 	$lendsModelData = $lendModel->getByInstanceIdentify($searchIdentifyData);
-	print $lendModel->getStatementErrorMessage();
 	$totalRows = count($lendsModelData);
+	$pagination->setQueryString('search_identify', $searchIdentifyData);
 } else {
 	$totalRows = $lendModel->getCount();
 }								 
@@ -46,6 +50,9 @@ $page = (int) $getData['page'];
 $perpage = ($perpage > 0) ? $perpage : $config['DEFAULT_PERPAGE'];
 $totalPages = ceil($totalRows / $perpage);
 $page = ($page > 0 and $page <= $totalPages) ? $page : $config['DEFAULT_PAGE'];
+$pagination->setCurrentPage($page);
+$pagination->setPerpage($perpage);
+$pagination->setTotalPages($totalPages);
 
 if (!$searchIdentifyData) {
 	$lendsModelData = $lendModel->get($perpage, ($page - 1) * $perpage);

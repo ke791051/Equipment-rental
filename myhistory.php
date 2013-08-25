@@ -29,6 +29,9 @@ $postLendBackUrl = '';
 $searchUserIdentifyUrl = NULL;
 $operators = array('lendBack' => False);
 $navigateUrl = $config['BASE_PATH'] . 'myhistory.php';
+$pagination = new Pagination();
+$pagination->setNavigateUrl($navigateUrl);
+$pagination->setPageRangeNum(10);
 
 // 設定分頁資料
 $getData = filter_input_array(INPUT_GET, array('perpage' => FILTER_VALIDATE_INT, 'page' => FILTER_VALIDATE_INT));
@@ -37,6 +40,9 @@ $page = (int) $getData['page'];
 $perpage = $perpage > 0 ? $perpage : $config['DEFAULT_PERPAGE'];
 $totalPages = ceil($lendModel->getCount() / $perpage);
 $page = ($page > 0 and $page <= $totalPages) ? $page : $config['DEFAULT_PAGE'];
+$pagination->setCurrentPage($page);
+$pagination->setPerpage($perpage);
+$pagination->setTotalPages($totalPages);
 
 // 載入Model資料
 $lendsModelData = $lendModel->getByUserId($loginUserId, $perpage, ($page - 1) * $perpage);

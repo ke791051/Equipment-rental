@@ -14,10 +14,7 @@
  * 	 - string $queryCategory
  *   - string $caption
  *   - string $postRegisterUrl
- *   - string $perpage
- *   - string $page
- *   - string $totalPages
- *   - string $navigateUrl
+ *   - Pagination $instancesPagination
  *   - array $operators array('register' => boolean)
  */
 ?>
@@ -41,7 +38,7 @@
 			<img width="240" height="210" src="<?php echo $model['model_image']['path'] ?>" alt="<?php echo $model['model_image']['name'] ?>" />
 			<?php if ($operators['register']): ?>
 				<form action="<?php echo $postRegisterUrl ?>" method="post">
-					<input type="hidden" name="postfromurl" value="<?php echo $navigateUrl . '?' . http_build_query(array('perpage' => $perpage, 'page' => $page)) ?>" />
+					<input type="hidden" name="postfromurl" value="<?php echo $instancesPagination->getCurrentLink() ?>" />
 					<table>
 						<tr>
 							<td>
@@ -62,23 +59,5 @@
 		</div>
 	<?php endforeach ?>
 	
-	<p>
-		<?php if ($totalPages != 1): ?>
-			<?php if ($page != 1): ?>
-				<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => 1, 'perpage' => $perpage, 'category' => $queryCategoryName)) ?>">第一頁</a>
-				<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => $page - 1, 'perpage' => $perpage, 'category' => $queryCategoryName))?>">上一頁</a>
-			<?php endif ?>
-			<?php foreach (range(1, $totalPages) as $apage): ?>
-				<?php if ($page != $apage):?>
-					<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => $apage, 'perpage' => $perpage, 'category' => $queryCategoryName)) ?>"><?php echo $apage ?></a>
-				<?php else: ?>
-					<span><?php echo $apage ?></span>
-				<?php endif ?>
-			<?php endforeach ?>
-			<?php if ($page != $totalPages): ?>
-				<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => $page + 1, 'perpage' => $perpage, 'category' => $queryCategoryName))?>">下一頁</a>
-				<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => $totalPages, 'perpage' => $perpage, 'category' => $queryCategoryName))?>">最末頁</a>
-			<?php endif ?>
-		<?php endif ?>
-	</p>
+	<?php echo $instancesPagination->createLinks() ?>
 </div>

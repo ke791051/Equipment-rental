@@ -17,10 +17,7 @@
  * 									'user' => array(...Model取出的資料的格式...),
  * 									'verifyuser' => array(...Model取出的資料的格式...))
  *   - string $caption
- *   - string $navigateUrl
- *   - int $perPage
- *   - int $page
- *   - int $totalPages
+ *   - Pagination $pagination
  *   - string $postVerifyUrl
  *   - string $getSearchUrl
  *   - array $operators array('verify' => boolean)
@@ -40,8 +37,9 @@
 
 <?php if ($registers): ?>
 <div class="item_list">
+	<h1><?php echo $caption ?></h1>
+	<?php echo $pagination->createLinks() ?>
 	<table border="3" id="re_list">
-		<h1><?php echo $caption ?></h1>
 		<thead>
 			<tr>
 				<th>學生班級</th>
@@ -88,7 +86,7 @@
 						<td>
 							<?php if ($operators['verify'] and is_null($register['register']['ispass'])): ?>
 								<form action="<?php echo $postVerifyUrl ?>" method="post">
-									<input type="hidden" name="postfromurl" value="<?php echo $navigateUrl . '?' . http_build_query(array('perpage' => $perpage, 'page' => $page)) ?>" />
+									<input type="hidden" name="postfromurl" value="<?php echo $pagination->getCurrentLink() ?>" />
 									<input type="hidden" name="id" value="<?php echo $register['register']['id'] ?>" />
 									<input type="submit" value="審核" />
 								</form>
@@ -105,27 +103,6 @@
 				</tr>
 			<?php endforeach ?>
 		</tbody>
-		<tfoot>
-			<p>
-				<?php if ($totalPages != 1): ?>
-					<?php if ($page != 1): ?>
-						<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => 1, 'perpage' => $perpage)) ?>">第一頁</a>
-						<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => $page - 1, 'perpage' => $perpage))?>">上一頁</a>
-					<?php endif ?>
-					<?php foreach (range(1, $totalPages) as $apage): ?>
-							<?php if ($page != $apage):?>
-								<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => $apage, 'perpage' => $perpage)) ?>"><?php echo $apage ?></a>
-							<?php else: ?>
-								<span><?php echo $apage ?></span>
-							<?php endif ?>
-					<?php endforeach ?>
-					<?php if ($page != $totalPages): ?>
-						<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => $page + 1, 'perpage' => $perpage))?>">下一頁</a>
-						<a href="<?php echo $navigateUrl . '?' . http_build_query(array('page' => $totalPages, 'perpage' => $perpage))?>">最末頁</a>
-					<?php endif ?>
-				<?php endif ?>
-			</p>
-		</tfoot>
 	</table>
 <?php else: ?>
 	<p>目前無任何資料可以顯示</p>
