@@ -31,7 +31,8 @@ $config['MODULES_MAPPING'] = array('AuthSystem' => 'auth/authsystem.php',
 								   'FileEror' => 'files/fileerror.php',
 								   'FileManagement' => 'files/filemanagement.php',
 								   'InstanceStatus' => 'models/instancestatus.php',
-								   'InstancesImporter' => 'bridge/instancesimporter.php');
+								   'InstancesImporter' => 'bridge/instancesimporter.php',
+								   'Pagination' => 'pagination/pagination.php');
 function __autoload($className) {
 	global $config;
 	if (array_key_exists($className, $config['MODULES_MAPPING'])) {
