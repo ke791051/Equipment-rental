@@ -26,29 +26,15 @@
     	<div id="mask">
     	</div>
     	<div id="login">
-			<?php 
-                if(!isset($_SESSION['user_id']))
-                    {
-                    ?>	
-                        <div id="login_form" ></div>
-                        <input type="button" id="login_Add" value="Login">     
-                    <?php
-                    }
-            ?>
+            <div id="login_form" ></div>
+            <input type="button" id="login_Add" value="Login">     
         </div>
     	<div id="page">
 	        <div id="header">
 	        		<span id="infos">
 	
-	                <img src="images/User Anonymous Yellow Regular_256.png" height="24.3px" width="18.6px"><a href="index.php"><?php 
-                	if(!isset($_SESSION['user_id']))
-                    {
-                    ?>使用者尚未登入
-            <?php
-                    }
-					else
-					echo '使用者 ',$_SESSION['user_id'];
-            ?></a>
+	                <img src="images/User Anonymous Yellow Regular_256.png" height="24.3px" width="18.6px">
+	                <a id="logininfo" href="index.php">未啟用JavaScript</a>
 	
 					</span>
 	
@@ -91,9 +77,6 @@
                         </li>
                         <li>
                         	<a href="http://im.nutc.edu.tw">資訊管理系</a>
-                        </li>
-                        <li>
-                        	<a href="register.php">註冊會員</a>
                         </li>
                     </ul>
                 </div>
