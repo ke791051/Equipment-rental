@@ -14,7 +14,7 @@ $sy = '二技';
 $email = 'tuc4413@gmail.com';
 $permission = "SuperAdmin";
 $active = True;
-/*
+//*
 if ($userModel->addUser($accountName, $password, $username, $sy, $email, $phone, $permission, $active)) {
 	print "使用者新增成功\n";	
 } else {

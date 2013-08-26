@@ -23,6 +23,8 @@
         ?>
     </head>
     <body>
+    	<div id="mask">
+    	</div>
     	<div id="login">
 			<?php 
                 if(!isset($_SESSION['user_id']))
@@ -38,15 +40,14 @@
 	        <div id="header">
 	        		<span id="infos">
 	
-	                <img src="images/User Anonymous Yellow Regular_256.png" height="24.3px" width="18.6px"><a href="logout.php"><?php 
+	                <img src="images/User Anonymous Yellow Regular_256.png" height="24.3px" width="18.6px"><a href="index.php"><?php 
                 	if(!isset($_SESSION['user_id']))
                     {
                     ?>使用者尚未登入
             <?php
                     }
-					else {
-						echo '使用者 '. $_SESSION['user_id'] . ' 按此登出';
-					}
+					else
+					echo '使用者 ',$_SESSION['user_id'];
             ?></a>
 	
 					</span>

@@ -24,3 +24,10 @@ function LoginRemove(){
 	})
 	$('#login_main').remove();
 }
+/*-----------------------------頁面遮罩------------------------------*/
+function page_disable(){
+	$('#mask').addClass('mask_unfold');
+}
+function page_able(){
+	$('.mask_unfold').removeClass('mask_unfold');
+}
