@@ -33,7 +33,7 @@
 <div class="item_list">
 	<h1><?php echo $caption ?></h1>
 	<?php foreach($modelData as $model): ?>
-		<div>
+		<div class="item">
 			<h2><?php echo $model['model']['model'] ?></h2>
 			<img width="240" height="210" src="<?php echo $model['model_image']['path'] ?>" alt="<?php echo $model['model_image']['name'] ?>" />
 			<?php if ($operators['register']): ?>
