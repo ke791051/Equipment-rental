@@ -182,7 +182,8 @@ class InstancesImporter {
 		$instance[self::INSTANCE_CATEGORY] = $cells->current()->getValue();
 		$cells->next();
 		// 廠牌型別
-		$instance[self::INSTANCE_MODEL] = $cells->current()->getValue();
+		$instanceModel = $cells->current()->getValue();
+		$instance[self::INSTANCE_MODEL] = is_null($instanceModel) ? '' : $instanceModel;
 		$cells->next();
 		// 成本
 		$instance[self::INSTANCE_COST] = $cells->current()->getValue();

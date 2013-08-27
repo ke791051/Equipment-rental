@@ -31,7 +31,7 @@ class InstanceModel extends BaseDatabase{
     {
         $insertSql = <<<SQL
             INSERT INTO instances (identify, location, status, note, duedate, cost, value, recorddate, keeper, user, model_id)
-            VALUES (:identify, :location, :status, :note, :duedate, :cost, :value, :keeper, :recorddate, :user, :model_id);
+            VALUES (:identify, :location, :status, :note, :duedate, :cost, :value, :recorddate, :keeper, :user, :model_id);
 SQL;
         $db = $this->getDb();
         $insertStatement = $db->prepare($insertSql);
