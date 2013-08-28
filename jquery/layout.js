@@ -34,9 +34,7 @@ function loadLoginStatus() {
 	
 	var loginInfo = document.getElementById('logininfo');
 	if (loginStatus.isLogin) {
-		var loginDiv = document.getElementById('login');
-		loginDiv.outerText = '';
-		
+		$('#login_Add').hide();
 		loginInfo.innerHTML = '歡迎！' + loginStatus.userName;
 	} else {
 		loginInfo.innerHTML = '歡迎使用本系統！';

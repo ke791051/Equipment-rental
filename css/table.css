@@ -1,8 +1,6 @@
 @CHARSET "BIG5";
 table{margin:5px 0;}
-th{background:#6badf6; border:solid 1px #FFF;color:#FFF;text-shadow:0 0 5px rgb(0,0,0);line-height: 35px}
-td{border:solid 1px #EEE;padding: 1px 2px;font-size:10pt;line-height: 30px}
+th{background:#6badf6; border:solid 1px #FFF;font-size: 10pt;color:#FFF;text-shadow:0 0 5px rgb(0,0,0);line-height: 35px}
+td{border:solid 1px #EEE;padding: 1px 2px;font-size:10pt;line-height: 30px;white-space: nowrap;overflow: hidden;}
 tr.light{background:#FFF996 !important;}
-td > form {
-	display: inline-block;
-}
+td > form {display: inline-block;}
