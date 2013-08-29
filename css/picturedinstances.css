@@ -2,7 +2,7 @@
 #main{width:100%;height:610px;}
 .item_class{
 	width: 20%;
-	height: 100%;
+	height: 97%;
 	float:left;
 	background:rgba(255,255,255,0.7);
 	border-radius:10px 0 0 10px;
@@ -11,7 +11,7 @@
 	box-shadow:6px 6px 5px rgba(20%,20%,40%,0.5);
 	overflow-y: auto;
 }
-.item_list{width: 75%; height: 100%; float:left;background:rgba(255,255,255,0.7);border-radius:0 10px 10px 0;margin:10px 0;padding:10px;box-shadow:6px 6px 5px rgba(20%,20%,40%,0.5);}
+.item_list{width: 75%; height: 97%; float:left;background:rgba(255,255,255,0.7);border-radius:0 10px 10px 0;margin:10px 0;padding:10px;box-shadow:6px 6px 5px rgba(20%,20%,40%,0.5);}
 
 /*----------------------------------.item_class區塊----------------------------------*/
 

@@ -7,7 +7,7 @@ $(function(){
     });
 	$(document).on('click','#login_Add', LoginAdd);
 	$(document).on('click','#close', LoginRemove);
-})
+});
 function LoginAdd(){
 	$.ajax({
 			url:'templates/Login.php',
@@ -25,9 +25,9 @@ function LoginAdd(){
 function LoginRemove(){
 	$('#login_form').slideUp(300, function(){
 		$('#login_Add').slideDown(200);
-	})
+	});
 	$('#login_main').remove();
-}
+};
 
 function loadLoginStatus() {
 	var loginStatus = JSON.parse(this.responseText);
