@@ -57,5 +57,7 @@ body{width:100%; height:100%; padding:0 0 20px 0; background-color:#FEFFAF}
 
 /*----------------------------------驗證----------------------------------*/
 input[type="text"],input[type="password"],input[type="tel"]{border: solid 1px #007AFA;}
-.vali_info{color:red;font-size:10pt;}
+.vali_info{color:red !important;font-size:10pt;}
+#page_load #info{color:#005DBE;font-size:10pt;}
 input[type="tel"].validateWarning,input[type="text"].validateWarning{border-color:#F00;}
+

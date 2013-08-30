@@ -32,6 +32,7 @@ function tel_validate(){
 	if(data == "")
 	{
 		$(this).addClass('validateWarning');
+		$('td > label#info').addClass('vali_info');
 		$(this).parent().parent().find('td > label.vali_info').text(' * 欄位不得為空');
 	}
 	else
@@ -39,12 +40,14 @@ function tel_validate(){
 		if(!Phone_valitest(data))
 		{
 			$(this).addClass('validateWarning');
+			$('td > label#info').addClass('vali_info');
 			$(this).parent().parent().find('td > label.vali_info').text(' * 電話號碼不合法');
 		}	
 		else
 		{
 			$(this).removeClass('validateWarning');
-			$(this).parent().parent().find('td > label.vali_info').text("");
+			$('#info').removeClass('vali_info');
+			$('#info').text("(例:04-22195999或0928-xxxxxx)");
 		}
 	}
 }
