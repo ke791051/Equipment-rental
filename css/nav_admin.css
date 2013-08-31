@@ -2,8 +2,9 @@
 /* CSS Document */
 center li{ border-radius:5px;}
 li#device{text-decoration:none;font-size:15pt; font-weight:bolder; color:#FF0;height:30px; white-space:nowrap;cursor:pointer;}
+li#device:hover{font-size:17pt;text-shadow:0 0 5px rgb(0,0,0);}
 li:hover{background:rgba(255,255,255,0.4);}
 ul#device_list{ display:none;width:130px;height:800%;position:relative; float:none;top:15px;left:169px;z-index:999;background:#c2e8e0;padding:0 10px;box-shadow:6px 6px 5px rgba(20%,20%,40%,0.5);border:#FFF solid 2px;text-shadow:0 0 5px rgb(0,0,0);}
-#device_list li{text-align:left;width:140px;margin-left:-12px; padding-left:14px;}
-.selected{background:rgba(255,255,255,0.4);}
+#device_list li{text-align:left;width:140px;margin-left:-6px;}
+.selected{font-size:17pt;text-shadow:0 0 5px rgb(0,0,0);background:rgba(255,255,255,0.4);}
 
