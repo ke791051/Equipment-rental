@@ -12,10 +12,13 @@ if ($loginUserId) {
 }
 
 // 設定主版資料
-$title = '我申請的設備';
+$title = '查詢設備申請狀態';
 $navContentPath = 'contents/nav_guest.php';
 $contentPath = 'contents/guestlogin.php';
-$addScripts = array();
+$addScripts = array('<script src="jquery/validate.js" type="text/javascript"></script>',
+					'<link rel="stylesheet" href="css/guestlogin.css" type="text/css" charset="utf-8" />',
+					'<link rel="stylesheet" href="css/nav_guest.css" type="text/css" charset="utf-8" />',
+					'<script src="jquery/Page_load.js" type="text/javascript"></script>');
 
 // 設定頁面資料
 $caption = $title;

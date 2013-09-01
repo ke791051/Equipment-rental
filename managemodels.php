@@ -6,7 +6,9 @@ require_once 'config.php';
 $title = '管理設備型號';
 $navContentPath = 'contents/nav_admin.php';
 $contentPath = 'contents/models.php';
-$addScripts = array();
+$addScripts = array('<link rel="stylesheet" href="css/models.css" type="text/css" charset="utf-8" />',
+					'<script src="jquery/table.js" type="text/javascript"></script>',
+					'<link rel="stylesheet" href="css/table.css" type="text/css" charset="utf-8" />');
 
 // 設定頁面內容
 $caption = $title;

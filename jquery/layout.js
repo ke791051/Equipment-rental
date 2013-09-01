@@ -7,7 +7,7 @@ $(function(){
     });
 	$(document).on('click','#login_Add', LoginAdd);
 	$(document).on('click','#close', LoginRemove);
-})
+});
 function LoginAdd(){
 	$.ajax({
 			url:'templates/Login.php',
@@ -25,18 +25,16 @@ function LoginAdd(){
 function LoginRemove(){
 	$('#login_form').slideUp(300, function(){
 		$('#login_Add').slideDown(200);
-	})
+	});
 	$('#login_main').remove();
-}
+};
 
 function loadLoginStatus() {
 	var loginStatus = JSON.parse(this.responseText);
 	
 	var loginInfo = document.getElementById('logininfo');
 	if (loginStatus.isLogin) {
-		var loginDiv = document.getElementById('login');
-		loginDiv.outerText = '';
-		
+		$('#login_Add').hide();
 		loginInfo.innerHTML = '歡迎！' + loginStatus.userName;
 	} else {
 		loginInfo.innerHTML = '歡迎使用本系統！';

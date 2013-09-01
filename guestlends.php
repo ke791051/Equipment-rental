@@ -15,7 +15,10 @@ if ($loginUserId) {
 $title = '我的設備借用紀錄';
 $navContentPath = 'contents/nav_guest.php';
 $contentPath = 'contents/guestlogin.php';
-$addScripts = array();
+$addScripts = array('<script src="jquery/validate.js" type="text/javascript"></script>',
+					'<link rel="stylesheet" href="css/guestlogin.css" type="text/css" charset="utf-8" />',
+					'<link rel="stylesheet" href="css/nav_guest.css" type="text/css" charset="utf-8" />',
+					'<script src="jquery/Page_load.js" type="text/javascript"></script>');
 
 // 設定頁面資料
 $caption = $title;
