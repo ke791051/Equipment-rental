@@ -30,25 +30,26 @@
 
 <div class="item_list">
 	<?php if ($lends): ?>
-	<h1><?php echo $caption ?></h1>
-	<?php echo $pagination->createLinks() ?>
-	<table border="3" class="re_list">
+	
+	<table border="3" id="re_list">
+		<h1><?php echo $caption ?></h1>
+		<?php $pagination->createLinks() ?>
 		<thead>
 			<tr>
-				<th>班級</th>
-				<th>學號</th>
-				<th>姓名</th>
-				<th>電話</th>
-				<th>出借設備分類</th>
-				<th>出借設備型號</th>
-				<th>出借設備識別碼</th>
-				<th>出借起始日期</th>
-				<th>預計歸還日期</th>
-				<th>歸還日期</th>
-				<th>歸還設備審核者</th>
-				<th>備註</th>
+				<th width='60'>班級</th>
+				<th width='60'>學號</th>
+				<th width='60'>姓名</th>
+				<th width='70'>電話</th>
+				<th width='110'>設備分類</th>
+				<th width='110'>設備型號</th>
+				<th width='120'>設備識別碼</th>
+				<th width='75'>起始日期</th>
+				<th width='75'>歸還日期</th>
+				<th width='75'>歸還日期</th>
+				<th width='80'>歸還審核者</th>
+				<th width='50'>備註</th>
 				<?php if (in_array(True, $operators)): ?>
-					<th>操作</th>
+					<th width='50'>操作</th>
 				<?php endif ?>
 			</tr>
 		</thead>
@@ -76,7 +77,7 @@
 						<td>
 							<?php if ($operators['lendBack'] and !$lend['lend']['back_date'] and $lend['instance']['status'] != 1): ?>
 								<form action="<?php echo $postLendBackUrl ?>" method="post">
-									<input type="hidden" name="postfromurl" value="<?php echo $pagination->getCurrentLink() ?>" />
+									<input type="hidden" name="postfromurl" value="<?php echo $pagination->getCurrentLink()  ?>" />
 									<input type="hidden" name="id" value="<?php echo $lend['lend']['id'] ?>" />
 									<input type="submit" value="歸還" />
 								</form>
