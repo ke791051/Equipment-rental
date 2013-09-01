@@ -28,6 +28,8 @@ if (isset($_FILES['excelfile'])) {
 		$errors[] = '檔案大小超過限制或未上傳，請再試一次';
 	} 
 	if (!$errors) {
+		// Import data to database may take some time
+		set_time_limit(120);
 		$instancesImporter = new InstancesImporter();
 		$isReplace = filter_input(INPUT_POST, 'isreplace', FILTER_VALIDATE_BOOLEAN);
 		$action = $isReplace ? InstancesImporter::ON_DUPLICATE_REPLACE : InstancesImporter::ON_DUPLICATE_IGNORE;
