@@ -104,7 +104,7 @@ SQL;
 		$addStatement->bindValue(':id', $id);
 		$addStatement->bindValue(':imageId', $imageId);
 		$result = $this->executeInsertStatement($addStatement);
-		if ($result !== False and $result > 0) {
+		if ($result !== False) {
 			return True;
 		} else {
 			return False;
@@ -130,7 +130,7 @@ SQL;
 		$deleteStatement->bindValue(':id', $id);
 		$deleteStatement->bindValue(':imageId', $imageId);
 		$result = $this->executeDeleteStatement($deleteStatement);
-		if ($result !== False and $result > 0) {
+		if ($result !== False) {
 			return True;
 		} else {
 			return False;
