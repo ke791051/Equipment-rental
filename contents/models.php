@@ -15,10 +15,10 @@
 		<table border="3" id="re_list">
 			<thead>
 				<tr>
-					<th width='300'>設備型號分類名稱</th>
+					<th width='300'>設備型號分類</th>
 					<?php if (in_array(True, $operators)): ?>
 						<th width='300'>設備型號</th>
-			            <th width='405'>設備種類</th>
+			            <th width='405'>操作</th>
 					<?php endif ?>
 				</tr>
 			</thead>
@@ -29,7 +29,6 @@
 			?>
 				<?php foreach ($models as $model): ?>
 					<tr>
-						<td><?php echo $model['model'] ?></td>
 		                <td><?php 
 								foreach ($categories as $category):
 									if ($category['id'] == $model['category_id']):
@@ -37,7 +36,9 @@
 										break;
 									endif;
 								endforeach;
-							?></td>
+							?>
+						</td>
+						<td><?php echo $model['model'] ?></td>
 						<?php if (in_array(True, $operators)): ?>
 							<td>
 								<?php if ($operators['edit']): ?>
