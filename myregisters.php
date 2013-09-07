@@ -15,7 +15,8 @@ $navContentPath = $loginUserRank->isEqual(new UserRank(UserRank::ADMIN)) ? 'cont
 $contentPath = 'contents/registers.php';
 $addScripts = array('<link rel="stylesheet" href="css/registers.css" type="text/css" charset="utf-8" />',
 					'<script src="jquery/table.js" type="text/javascript"></script>',
-					'<link rel="stylesheet" href="css/table.css" type="text/css" charset="utf-8" />');
+					'<link rel="stylesheet" href="css/table.css" type="text/css" charset="utf-8" />',
+					'<link rel="stylesheet" href="css/Manage_Page_layout.css" type="text/css" charset="utf-8" />');
 					
 // 設定頁面資料
 $caption = $title;

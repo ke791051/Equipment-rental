@@ -15,13 +15,15 @@ $navContentPath = $loginUserRank->isEqual(new UserRank(UserRank::ADMIN)) ? 'cont
 $contentPath = 'contents/history.php';
 $addScripts = array('<link rel="stylesheet" href="css/history.css" type="text/css" charset="utf-8" />',
 					'<script src="jquery/table.js" type="text/javascript"></script>',
-					'<link rel="stylesheet" href="css/table.css" type="text/css" charset="utf-8" />');
+					'<link rel="stylesheet" href="css/table.css" type="text/css" charset="utf-8" />',
+					'<link rel="stylesheet" href="css/Manage_Page_layout.css" type="text/css" charset="utf-8" />');
 					
 // 設定頁面資料
 $lendModel = new LendModel();
 $instanceModel = new InstanceModel();
 $modelModel = new ModelModel();
 $categoryModel = new CategoryModel();
+$registerModel = new RegisterModel();
 $userModel = new UserModel();
 
 $caption = $title;
@@ -58,6 +60,10 @@ foreach ($lendsModelData as $lendModelData) {
 	$lend['category'] = $categoryModel->getById($lend['model']['category_id']);
 	
 	$lend['user'] = $userModel->getByAccountName($lend['lend']['user_id']);
+	
+	$registerDataArray = $registerModel->getByInstanceIdentify($lend['instance']['identify'], 1, 0);
+	$registerData = $registerDataArray[0];
+	$lend['verifyuser'] = $userModel->getByAccountName($registerData['verifyuser_id']);
 	
 	$lend['lendbackuser'] = $userModel->getByAccountName($lend['lend']['lendbackuser_id']);
 	

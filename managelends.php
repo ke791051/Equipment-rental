@@ -23,6 +23,7 @@ $lendModel = new LendModel();
 $instanceModel = new InstanceModel();
 $modelModel = new ModelModel();
 $categoryModel = new CategoryModel();
+$registerModel = new RegisterModel();
 $userModel = new UserModel();
 
 $caption = $title;
@@ -72,6 +73,10 @@ foreach ($lendsModelData as $lendModelData) {
 	$lend['category'] = $categoryModel->getById($lend['model']['category_id']);
 	
 	$lend['user'] = $userModel->getByAccountName($lend['lend']['user_id']);
+	
+	$registerDataArray = $registerModel->getByInstanceIdentify($lend['instance']['identify'], 1, 0);
+	$registerData = $registerDataArray[0];
+	$lend['verifyuser'] = $userModel->getByAccountName($registerData['verifyuser_id']);
 	
 	$lend['lendbackuser'] = $userModel->getByAccountName($lend['lend']['lendbackuser_id']);
 	

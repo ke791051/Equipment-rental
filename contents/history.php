@@ -7,6 +7,7 @@
  * 							   'category' => ...category Model Data...,
  * 							   'user' => ...user Model Data...,
  * 							   'lendbackuser' => ...user Model Data...,
+ * 							   'verifyuser' => array(...Model取出的資料的格式...),
  * 							   'warning' => boolean))
  *  - string $postLendBackUrl
  *  - string $getSearchUrl
@@ -43,6 +44,7 @@
 				<th width='100'>設備分類</th>
 				<th width='160'>設備型號</th>
 				<th width='160'>設備識別碼</th>
+				<th width='80'>審核者</th>
 				<th width='110'>起始日期</th>
 				<th width='110'>歸還日期</th>
 				<th width='110'>歸還日期</th>
@@ -68,6 +70,7 @@
 					<td><?php echo $lend['category']['name'] ?></td>
 					<td><?php echo $lend['model']['model'] ?></td>
 					<td><?php echo $lend['instance']['identify'] ?></td>
+					<td><?php echo $lend['verifyuser']['name'] ?></td>
 					<td><?php echo $lend['lend']['since_date'] ?></td>
 					<td><?php echo $lend['lend']['expected_back_date'] ?></td>
 					<td><?php echo $lend['lend']['back_date'] ?></td>
