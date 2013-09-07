@@ -58,7 +58,7 @@
 			<div id="footer">
 				<div id="description">
 					<div id="Copyright">
-						<a href="index.html" class="logo"></a>
+						<a href="http://im.nutc.edu.tw" class="logo"></a>
 						<span>&copy; Copyright &copy; 2013. <a href="index.html">Company name</a>All rights reserved</span>
 					</div>
 					<div id="summary">
@@ -70,7 +70,7 @@
 				<div class="navigation">
                 	<ul>
                     	<li>
-                        	<a href="index.html">系統簡介</a>
+                        	<a href="index.php">系統首頁</a>
                         </li>
                         <li>
                         	<a href="http://www.nutc.edu.tw">臺中科技大學</a>
