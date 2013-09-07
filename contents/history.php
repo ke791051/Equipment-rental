@@ -36,16 +36,16 @@
 		<?php $pagination->createLinks() ?>
 		<thead>
 			<tr>
-				<th width='60'>班級</th>
-				<th width='60'>學號</th>
-				<th width='60'>姓名</th>
-				<th width='70'>電話</th>
-				<th width='110'>設備分類</th>
-				<th width='110'>設備型號</th>
-				<th width='120'>設備識別碼</th>
-				<th width='75'>起始日期</th>
-				<th width='75'>歸還日期</th>
-				<th width='75'>歸還日期</th>
+				<th width='80'>班級</th>
+				<th width='80'>學號</th>
+				<th width='80'>姓名</th>
+				<th width='90'>電話</th>
+				<th width='100'>設備分類</th>
+				<th width='160'>設備型號</th>
+				<th width='160'>設備識別碼</th>
+				<th width='110'>起始日期</th>
+				<th width='110'>歸還日期</th>
+				<th width='110'>歸還日期</th>
 				<th width='80'>歸還審核者</th>
 				<th width='50'>備註</th>
 				<?php if (in_array(True, $operators)): ?>

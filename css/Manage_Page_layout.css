@@ -1,0 +1,5 @@
+@CHARSET "UTF-8";
+#main{width:100%;height:600px;}
+#search_div{width:340px; margin:10px 0 0 0;padding:5px;background:rgba(255,255,255,0.7);border-radius:10px 10px 0 0 ;text-align:center;}
+.item_list{height:530px;background:rgba(255,255,255,0.7);border-radius:0 10px 10px 10px;box-shadow:6px 6px 5px rgba(20%,20%,40%,0.5);padding:10px;margin:0 0 10px 0;overflow-y:hidden;overflow-x:scroll;}
+h1{width:100%;text-align:left;font-size:15pt;color:#FFF;line-height:47px;border-bottom:rgba(255,255,255,0.6) dashed 1px;text-shadow:0 0 5px rgb(0,0,0);position:relative;z-index:1;}

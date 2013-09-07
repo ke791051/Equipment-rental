@@ -27,21 +27,21 @@
 <div class="item_list">
 	<?php if ($instances): ?>
 	<h1><?php echo $caption ?></h1>
-	<table border="3" class="re_list">
+	<table border="3" id="re_list">
 		<?php echo $pagination->createLinks() ?>
 		<thead>
 			<tr>
-				<th width="130">設備識別碼</th>
+				<th width="160">設備識別碼</th>
 				<?php if (in_array(True, $operators)): ?>
-					<th width="100">設備存放地點</th>           
-		            <th width="70">狀態</th>
-		            <th width="70">備註</th>
-		            <th width="65">取得日期</th>
-		            <th width="65">報廢日期</th>
+					<th width="120">設備存放地點</th>           
+		            <th width="50">狀態</th>
+		            <th width="50">備註</th>
+		            <th width="110">取得日期</th>
+		            <th width="110">報廢日期</th>
 		            <th width="100">成本</th>
 		            <th width="100">現值</th>
-		            <th width="100">保管人</th>
-		            <th width="100">使用人</th>
+		            <th width="80">保管人</th>
+		            <th width="80">使用人</th>
 		            <th width="110">操作</th>
 				<?php endif ?>
 			</tr>

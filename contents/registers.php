@@ -42,22 +42,22 @@
 	<table border="3" id="re_list">
 		<thead>
 			<tr>
-				<th>學生班級</th>
-				<th>學生學號</th>
-				<th>學生姓名</th>
-				<th>學生電話</th>
-				<th>設備分類</th>
-				<th>型號</th>
-				<th>識別碼</th>
-				<th>地點</th>
-				<th>狀態</th>
-				<th>申請日期</th>
-				<th>審核者</th>
-				<th>審核日期</th>
-				<th>審核狀態</th>
-				<th>備註</th>
+				<th width='80'>學生班級</th>
+				<th width='80'>學生學號</th>
+				<th width='80'>學生姓名</th>
+				<th width='80'>學生電話</th>
+				<th width='100'>設備分類</th>
+				<th width='160'>型號</th>
+				<th width='160'>識別碼</th>
+				<th width='120'>地點</th>
+				<th width='50'>狀態</th>
+				<th width='110'>申請日期</th>
+				<th width='80'>審核者</th>
+				<th width='110'>審核日期</th>
+				<th width='80'>審核狀態</th>
+				<th width='50'>備註</th>
 				<?php if (in_array(True, $operators)): ?>
-					<th>操作</th>
+					<th width='60'>操作</th>
 				<?php endif ?>
 			</tr>
 		</thead>

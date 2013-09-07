@@ -39,12 +39,12 @@
 				<th width='85'>姓名</th>
 				<th width='50'>班級</th>
 				<th width='60'>學號</th>
-				<th width='145'>電子郵件</th>
-				<th width='65'>電話</th>
-				<th width='45'>權限</th>
-				<th width='45'>狀態</th>
+				<th width='160'>電子郵件</th>
+				<th width='80'>電話</th>
+				<th width='50'>權限</th>
+				<th width='50'>狀態</th>
 				<?php if (in_array(True, $operators, True)): ?>
-					<th width='110'>操作</th>
+					<th width='145'>操作</th>
 				<?php endif ?>
 			</tr>
 		</thead>
@@ -83,7 +83,7 @@
 								<input type="hidden" name="id" value="<?php echo $modelData['id']?> " />
 								<input type="submit" value="更新密碼" />
 							</form>
-						<?php endif ?>							
+						<?php endif ?>					
 					</td>
 					<?php endif ?>
 				</tr>
