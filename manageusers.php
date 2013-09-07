@@ -26,11 +26,12 @@ $caption = $title;
 $navigateUrl = $config['BASE_PATH'] . 'manageusers.php';
 $postEditUrl = $config['BASE_PATH'] . 'edituser.php';
 $postDeleteUrl = $config['BASE_PATH'] . 'deleteuser.php';
+$postEditPasswordUrl = $config['BASE_PATH'] . 'editpassword.php';
 $getSearchUrl = $config['BASE_PATH'] . 'manageusers.php';
 $pagination = new Pagination();
 $pagination->setNavigateUrl($navigateUrl);
 $pagination->setPageRangeNum(7);
-$operators = array('edit' => True, 'delete' => True);
+$operators = array('edit' => True, 'delete' => True, 'editpassword' => True);
 
 // 設定分頁資料
 $getData = filter_input_array(INPUT_GET, array('perpage' => FILTER_VALIDATE_INT, 'page' => FILTER_VALIDATE_INT));

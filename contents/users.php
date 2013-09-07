@@ -75,7 +75,15 @@
 								<input type="hidden" name="id" value="<?php echo $modelData['id']?> " />
 								<input type="submit" value="刪除" />
 							</form>
-						<?php endif ?>						
+						<?php endif ?>	
+						
+						<?php if ($operators['editpassword']): ?>
+							<form action="<?php echo $postEditPasswordUrl ?>" method="post">
+								<input type="hidden" name="postfromurl" value="<?php echo $pagination->getCurrentLink() ?>" />
+								<input type="hidden" name="id" value="<?php echo $modelData['id']?> " />
+								<input type="submit" value="更新密碼" />
+							</form>
+						<?php endif ?>							
 					</td>
 					<?php endif ?>
 				</tr>
