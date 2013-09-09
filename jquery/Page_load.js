@@ -1,7 +1,15 @@
 $(function(){
-	page_disable();
+	if($('.error').text().length)
+	{
+		page_able();
+		$('#page_load').hide();
+	}
+	else
+	{
+		page_disable();
+	}
 	$(document).on('click','#page_load > #close',function(){
-		history.back();
+		window.location.href='index.php';
 	});
 	$(document).keydown(function(e){
 		if(e.keyCode==27)

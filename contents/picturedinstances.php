@@ -32,6 +32,7 @@
 
 <div class="item_list">
 	<h1><?php echo $caption ?></h1>
+	
 	<?php foreach($modelData as $model): ?>
 		<div class="item">
 			<h2><?php echo $model['model']['model'] ?></h2>
@@ -57,7 +58,9 @@
 				</form>
 			<?php endif ?>
 		</div>
+		
 	<?php endforeach ?>
+	<div id='page_num'><?php echo $instancesPagination->createLinks() ?></div>
 	
-	<?php echo $instancesPagination->createLinks() ?>
+	
 </div>

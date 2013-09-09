@@ -38,7 +38,7 @@
 <div class="item_list">
 <?php if ($registers): ?>
 	<h1><?php echo $caption ?></h1>
-	<?php echo $pagination->createLinks() ?>
+	<div id='page_num'><?php echo $pagination->createLinks() ?></div>
 	<table border="3" id="re_list">
 		<thead>
 			<tr>

@@ -20,7 +20,7 @@
 	
 	<ul>
 		<?php foreach($infos as $info): ?>
-			<li><?php echo $info ?></li>
+			<li class='error'><?php echo $info ?></li>
 		<?php endforeach ?>
 	</ul>
 	<div id='page_load'>

@@ -5,8 +5,12 @@ $(function(){
 		request.onload = loadLoginStatus;
 		request.send();
     });
+	$('h2').each(function(){
+		textlength($(this));
+	});
 	$(document).on('click','#login_Add', LoginAdd);
 	$(document).on('click','#close', LoginRemove);
+	$(document).on('click','h2', textlength);
 });
 function LoginAdd(){
 	$.ajax({
@@ -43,7 +47,18 @@ function loadLoginStatus() {
 /*-----------------------------頁面遮罩------------------------------*/
 function page_disable(){
 	$('#mask').addClass('mask_unfold');
+	$('body').css('overflow','hidden');
 }
 function page_able(){
 	$('.mask_unfold').removeClass('mask_unfold');
+	$('body').css('overflow','auto');
+}
+/*-----------------------------資料長度------------------------------*/
+function textlength($this){
+	var max=60;
+	var val=$this.text();
+	if(val.length > max)
+	{
+		$this.text(val.substr(0,(max-1)) + '...');
+	}
 }

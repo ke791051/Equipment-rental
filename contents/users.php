@@ -44,7 +44,7 @@
 				<th width='50'>權限</th>
 				<th width='50'>狀態</th>
 				<?php if (in_array(True, $operators, True)): ?>
-					<th width='145'>操作</th>
+					<th width='155'>操作</th>
 				<?php endif ?>
 			</tr>
 		</thead>
