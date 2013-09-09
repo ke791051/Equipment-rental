@@ -3,7 +3,7 @@
 #main{width:100%;height:600px;}
 .item_list{height:530px;background:rgba(255,255,255,0.7);border-radius:10px;box-shadow:6px 6px 5px rgba(20%,20%,40%,0.5);padding:10px;margin:0 0 10px 0;}
 h1{width:100%;text-align:left;font-size:15pt;color:#FFF;line-height:47px;border-bottom:rgba(255,255,255,0.6) dashed 1px;text-shadow:0 0 5px rgb(0,0,0);position:relative;z-index:1;}
-#page_load{height:200px;width:460px;position:fixed;top:50%;left:50%;margin:-100px 0 0 -230px;z-index: 999;background:rgba(255,255,255,0.7);border-radius:10px;box-shadow:6px 6px 5px rgba(20%,20%,40%,0.5);}
+#page_load{height:200px;width:480px;position:fixed;top:50%;left:50%;margin:-100px 0 0 -240px;z-index: 999;background:rgba(255,255,255,0.7);border-radius:10px;box-shadow:6px 6px 5px rgba(20%,20%,40%,0.5);}
 form{margin:24px 0;}
 #page_load #close{position:absolute;left:430px;border:none; height:30px;width:30px; margin: 0;background:#FF7573; border-radius:0 10px 0 10px ;font-weight:bolder; font-size:18px;color:#FFF}
 /*--------------------------table-----------------------------*/
